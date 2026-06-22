@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FitCue | Product Walkthrough</title>
+  <style>
+    :root {
+      --bg: #f6f8f7;
+      --surface: #ffffff;
+      --ink: #17211d;
+      --muted: #5f6d67;
+      --line: #dfe6e3;
+      --green: #226c5c;
+      --blue: #2f5f9f;
+      --shadow: 0 18px 40px rgba(33, 43, 37, 0.10);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+
+    a { color: inherit; }
+
+    .topbar {
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.92);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+    }
+
+    .nav, .page {
+      width: min(1120px, calc(100vw - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .nav a {
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .hero {
+      padding: 72px 0 44px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
+      gap: 32px;
+      align-items: start;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--green);
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 44px;
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.58;
+      max-width: 720px;
+    }
+
+    .note {
+      margin-top: 18px;
+      border-left: 4px solid var(--green);
+      padding: 12px 14px;
+      background: #edf5f2;
+      color: #36534c;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .panel, .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      padding: 22px;
+    }
+
+    .panel h2, .section h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
+
+    .choices {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .choice {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border: 1px solid var(--line);
+      padding: 12px;
+      background: #fbfcfc;
+      font-size: 14px;
+    }
+
+    .choice strong { color: var(--ink); }
+    .choice span { color: var(--muted); text-align: right; }
+
+    .section {
+      padding: 28px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      padding: 18px;
+      min-height: 180px;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    .card p, .card li {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .card ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .results {
+      display: grid;
+      gap: 14px;
+    }
+
+    .result {
+      display: grid;
+      grid-template-columns: 132px 1fr;
+      gap: 14px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      padding: 12px;
+    }
+
+    .thumb {
+      min-height: 90px;
+      background: linear-gradient(135deg, #d7ede6, #d9e3f3);
+      display: grid;
+      place-items: center;
+      color: var(--green);
+      font-weight: 800;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      border: 1px solid #bdd2cc;
+      color: #36534c;
+      background: #f2f7f5;
+      padding: 5px 8px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .button.secondary {
+      background: transparent;
+      color: var(--ink);
+    }
+
+    @media (max-width: 860px) {
+      .hero, .grid { grid-template-columns: 1fr; }
+      h1 { font-size: 34px; }
+      .result { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav">
+      <div class="brand">FitCue</div>
+      <a href="../index.html#fitcue">Back to portfolio</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Product walkthrough</div>
+        <h1>FitCue matches workouts to today's real constraints.</h1>
+        <p class="lead">
+          FitCue is a constraint-based workout matching product. Instead of asking users to search through endless videos, it asks what is feasible today: time, space, equipment, noise, fitness level and physical restrictions.
+        </p>
+        <p class="note">
+          This English walkthrough presents the same matching logic with internationally familiar content examples. Localised versions can use different content providers and copy without changing the core decision model.
+        </p>
+      </div>
+
+      <aside class="panel">
+        <h2>Example user context</h2>
+        <div class="choices">
+          <div class="choice"><strong>Goal</strong><span>Core recovery</span></div>
+          <div class="choice"><strong>Time</strong><span>20 minutes</span></div>
+          <div class="choice"><strong>Space</strong><span>Living room corner</span></div>
+          <div class="choice"><strong>Equipment</strong><span>Yoga mat only</span></div>
+          <div class="choice"><strong>Restriction</strong><span>No jumping, low noise</span></div>
+          <div class="choice"><strong>Need</strong><span>Safe enough to start today</span></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section">
+      <div class="grid">
+        <article class="card">
+          <h3>Problem</h3>
+          <p>Fitness content is abundant, but users with changing constraints still struggle to choose a workout they can safely start today.</p>
+        </article>
+        <article class="card">
+          <h3>Product move</h3>
+          <p>Reframe discovery from keyword search to feasibility matching. Return a small set of options with clear reasons, not an infinite feed.</p>
+        </article>
+        <article class="card">
+          <h3>Content source strategy</h3>
+          <p>The matching layer is platform-agnostic. The English experience can use YouTube-style content examples, while localised versions can swap in market-specific providers.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="panel">
+        <h2>Recommended results</h2>
+        <div class="results">
+          <article class="result">
+            <div class="thumb">Video<br>Cover</div>
+            <div>
+              <h3>Low-impact postpartum core recovery</h3>
+              <p>Best fit because it avoids jumping, supports mat-based recovery and fits a short living-room session.</p>
+              <div class="tags">
+                <span class="tag">20 min</span>
+                <span class="tag">Mat only</span>
+                <span class="tag">No jumping</span>
+                <span class="tag">Low noise</span>
+                <span class="tag">Beginner-safe</span>
+              </div>
+            </div>
+          </article>
+          <article class="result">
+            <div class="thumb">Video<br>Cover</div>
+            <div>
+              <h3>Apartment-friendly full body mobility</h3>
+              <p>Good alternative when the user wants gentle movement without disturbing a sleeping child or neighbours.</p>
+              <div class="tags">
+                <span class="tag">15 min</span>
+                <span class="tag">Small space</span>
+                <span class="tag">No equipment</span>
+                <span class="tag">Quiet</span>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="actions">
+          <a class="button" href="../../output/pdf/fitcue_case_study.pdf">Read case study PDF</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

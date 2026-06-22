@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Storybook Generator | Product Walkthrough</title>
+  <style>
+    :root {
+      --bg: #f8f7f2;
+      --surface: #ffffff;
+      --ink: #211d17;
+      --muted: #6e6656;
+      --line: #e8e0cf;
+      --gold: #94772f;
+      --blue: #2f5f9f;
+      --shadow: 0 18px 40px rgba(70, 53, 22, 0.10);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+
+    .topbar {
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.92);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+    }
+
+    .nav, .page {
+      width: min(1120px, calc(100vw - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .hero {
+      padding: 72px 0 44px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 0.95fr);
+      gap: 32px;
+      align-items: start;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 44px;
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.58;
+      max-width: 720px;
+    }
+
+    .note {
+      margin-top: 18px;
+      border-left: 4px solid var(--gold);
+      padding: 12px 14px;
+      background: #f2ecdc;
+      color: #65532d;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .panel, .card, .step {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      padding: 22px;
+    }
+
+    .panel h2, .section h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
+
+    .prompt {
+      border: 1px solid var(--line);
+      background: #fffaf0;
+      padding: 14px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .sample-story {
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      padding: 14px;
+      color: var(--ink);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .sample-story strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--gold);
+    }
+
+    .section {
+      padding: 28px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      padding: 18px;
+      min-height: 180px;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .step {
+      box-shadow: none;
+      padding: 16px;
+      min-height: 150px;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--gold);
+    }
+
+    .step span {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .button.secondary {
+      background: transparent;
+      color: var(--ink);
+    }
+
+    @media (max-width: 900px) {
+      .hero, .grid, .pipeline { grid-template-columns: 1fr; }
+      h1 { font-size: 34px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav">
+      <div class="brand">AI Storybook Generator</div>
+      <a href="../index.html#ai-storybook">Back to portfolio</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Product walkthrough</div>
+        <h1>A multimodal pipeline for child-safe interactive storybooks.</h1>
+        <p class="lead">
+          AI Storybook Generator turns parent intent, age range, values and visual direction into a repeatable story-image-publishing workflow. The product challenge is not a single prompt. It is a controlled pipeline.
+        </p>
+        <p class="note">
+          This English surface uses the same generation logic while keeping the Chinese reading experience intact for its original audience.
+        </p>
+      </div>
+
+      <aside class="panel">
+        <h2>Example parent intent</h2>
+        <div class="prompt">
+          Create a short picture book for a 1- to 3-year-old child about recognising happy and sad faces. The story should be warm, simple, safe, visually clear and suitable for reading with a parent.
+        </div>
+        <div class="sample-story">
+          <strong>Example story output</strong>
+          Today, Gaga makes a happy face. Her cheeks go round. Her eyes shine bright.<br>
+          Then Gaga makes a sad face. Her mouth turns down. She wants a cuddle.<br>
+          Mum says, "Both faces are okay. Happy face, sad face, I am here with you."
+        </div>
+      </aside>
+    </section>
+
+    <section class="section">
+      <div class="grid">
+        <article class="card">
+          <h3>Problem</h3>
+          <p>Parents want stories that are age-appropriate and aligned with the values they want to teach, but generic content generation can be unsafe, inconsistent or too abstract.</p>
+        </article>
+        <article class="card">
+          <h3>Product move</h3>
+          <p>Design a workflow that turns intent into structure, child-safe copy, page-level image prompts, generated assets and multiple HTML reading modes.</p>
+        </article>
+        <article class="card">
+          <h3>Validation status</h3>
+          <p>The project has produced 15 interactive picture books, a generator interface and commercialisation analysis. Next proof: parent testing and willingness to pay.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="panel">
+        <h2>Generation pipeline</h2>
+        <div class="pipeline">
+          <div class="step"><strong>1. Intent</strong><span>Parent goal, age range, theme, value and story boundary.</span></div>
+          <div class="step"><strong>2. Story</strong><span>Simple plot, characters, emotional arc and child-safe language.</span></div>
+          <div class="step"><strong>3. Visuals</strong><span>Page-level image prompts and consistent illustration direction.</span></div>
+          <div class="step"><strong>4. Publish</strong><span>Interactive HTML storybook with standard, landscape and immersive modes.</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

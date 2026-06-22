@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Parallel Life</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0d0d0f; --surface: #161619; --card: #1c1c21;
+    --text: #d4d0c8; --text-dim: #7a7670; --accent: #c9a96e;
+    --green: #5a8f6a; --yellow: #b8944c; --red: #8f4c4c; --line: #2a2824;
+  }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: Georgia,"Times New Roman",serif;
+    min-height: 100vh; line-height: 1.8; -webkit-font-smoothing: antialiased;
+  }
+  #app { max-width: 680px; margin: 0 auto; padding: 40px 24px 100px; min-height: 100vh; }
+
+  /* splash */
+  .splash { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:70vh; text-align:center; animation: fadeIn 0.8s ease; }
+  .splash .star { font-size:11px; letter-spacing:5px; color:var(--text-dim); margin-bottom:20px; }
+  .splash h1 { font-size:24px; font-weight:400; letter-spacing:3px; margin-bottom:8px; }
+  .splash .sub { font-size:14px; color:var(--text-dim); margin-bottom:44px; }
+  .splash .tap { font-size:13px; color:var(--accent); background:none; border:1px solid var(--line); padding:12px 36px; cursor:pointer; font-family:inherit; letter-spacing:2px; border-radius:2px; animation: pulse 2s infinite; }
+  .splash .tap:hover { border-color:var(--accent); }
+
+  /* city strip */
+  .city-strip { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:60px 0 20px; animation: fadeIn 0.4s ease; }
+  .city-strip button { background:var(--surface); border:1px solid var(--line); color:var(--text); padding:8px 20px; cursor:pointer; font-family:inherit; font-size:13px; letter-spacing:1px; border-radius:2px; }
+  .city-strip button:hover,.city-strip button.on { border-color:var(--accent); color:var(--accent); }
+
+  /* character card */
+  .char-card { background:var(--card); border:1px solid var(--line); padding:22px 24px; margin:32px 0; border-radius:2px; animation: fadeIn 0.5s ease; }
+  .char-card .who { font-size:13px; color:var(--accent); letter-spacing:2px; margin-bottom:10px; }
+  .char-card .sit { font-size:15px; line-height:2; color:var(--text); }
+
+  /* scene */
+  .scene { animation: fadeIn 0.5s ease; margin:28px 0; }
+  .scene .tag { font-size:11px; color:var(--text-dim); letter-spacing:2px; margin-bottom:12px; }
+  .scene .line { font-size:15px; line-height:2; color:var(--text); margin-bottom:4px; }
+
+  /* choice */
+  .choice-point { margin:36px 0 24px; }
+  .choice-point .prompt { font-size:12px; color:var(--text-dim); letter-spacing:3px; margin-bottom:20px; }
+  .choices { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .choices.three { grid-template-columns:1fr 1fr 1fr; }
+  .choice-card { background:var(--card); border:1px solid var(--line); padding:22px 18px; cursor:pointer; border-radius:2px; transition:all 0.25s; }
+  .choice-card:hover { border-color:var(--accent); background:#1f1e25; }
+  .choice-card .dir { font-size:13px; letter-spacing:2px; color:var(--accent); margin-bottom:10px; }
+  .choice-card .desc { font-size:13px; color:var(--text-dim); line-height:1.9; margin-bottom:14px; }
+  .choice-card .risks { border-top:1px solid var(--line); padding-top:12px; }
+  .choice-card .risks .r { font-size:11px; margin-bottom:5px; display:flex; gap:6px; align-items:baseline; }
+  .choice-card .risks .r .dot { font-size:9px; }
+  .choice-card .risks .r .d { color:var(--text-dim); }
+  .choice-card .risks .r .pct { color:var(--text-dim); font-size:10px; margin-left:auto; }
+  .r.g .dot { color:var(--green); } .r.y .dot { color:var(--yellow); } .r.r2 .dot { color:var(--red); }
+  .choice-card .forks { font-size:10px; color:var(--text-dim); margin-top:10px; padding-top:8px; border-top:1px solid var(--line); }
+
+  /* year marker */
+  .ym { font-size:12px; letter-spacing:2px; color:var(--accent); margin:36px 0 10px; padding-left:10px; border-left:2px solid var(--accent); }
+
+  /* tag */
+  .assume-tag { display:inline-block; background:var(--surface); border:1px solid var(--line); padding:7px 12px; font-size:11px; color:var(--text-dim); margin:10px 0 16px; cursor:pointer; border-radius:2px; }
+  .assume-tag:hover { border-color:var(--accent); color:var(--accent); }
+
+  /* comparison */
+  .comp { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:36px 0; animation: fadeIn 0.5s ease; }
+  .comp .side { background:var(--card); border:1px solid var(--line); padding:22px 18px; border-radius:2px; }
+  .comp .side .lab { font-size:11px; letter-spacing:2px; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid var(--line); }
+  .comp .side .lab.g { color:var(--green); } .comp .side .lab.r3 { color:var(--red); }
+  .comp .side .it { font-size:13px; color:var(--text-dim); line-height:2; }
+
+  /* buttons */
+  .acts { display:flex; gap:16px; margin:32px 0; justify-content:center; flex-wrap:wrap; }
+  .acts button { background:none; border:1px solid var(--line); color:var(--text-dim); padding:10px 28px; font-size:12px; cursor:pointer; font-family:inherit; letter-spacing:2px; border-radius:2px; }
+  .acts button:hover { border-color:var(--accent); color:var(--accent); }
+  .acts button.pri { border-color:var(--accent); color:var(--accent); }
+
+  /* tiny */
+  .tiny { font-size:11px; color:var(--text-dim); text-align:center; margin:20px 0; }
+
+  @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes pulse { 0%,100% { opacity:0.5; } 50% { opacity:1; } }
+  @media (max-width:600px) {
+    #app { padding:32px 14px 80px; }
+    .choices,.comp { grid-template-columns:1fr; }
+    .choices.three { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body><div id="app"></div>
+
+<script>
+const $ = s => document.querySelector(s), $$ = s => document.querySelectorAll(s);
+let st = { city: '', story: null };
+
+function render(h) {
+  const a = $('#app');
+  a.style.opacity = '0';
+  setTimeout(() => { a.innerHTML = h; a.style.opacity = '1'; bind(); }, 180);
+}
+function bind() {}
+
+// ── splash ──
+function showSplash() {
+  render(`
+    <div class="splash">
+      <div class="star">P A R A L L E L &nbsp; L I F E</div>
+      <h1>What if you chose the other road?</h1>
+      <div class="sub">A narrative simulation about choices, costs, and the self that keeps asking.</div>
+      <button class="tap" onclick="showCities()">BEGIN</button>
+    </div>
+  `);
+}
+
+// ── city picker ──
+function showCities() {
+  let det = '';
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (tz.includes('London')) det = 'London';
+    else if (tz.includes('New_York')||tz.includes('America/')) det = 'New York';
+  } catch(e) {}
+
+  const cs = ['London','New York','Sheffield'];
+  render(`
+    <div style="text-align:center;animation:fadeIn 0.6s ease;">
+      <div style="font-size:14px;color:var(--text);margin:50px 0 8px;">Choose a city</div>
+      <div style="font-size:12px;color:var(--text-dim);margin-bottom:28px;">The story begins there.</div>
+      <div class="city-strip">
+        ${cs.map(c => `<button class="city ${c===det?'on':''}" data-c="${c}" onclick="pickCity('${c}',this)">${c===det?'📍 ':''}${c}</button>`).join('')}
+      </div>
+      ${det ? `<div class="tiny">You seem close to ${det}. You can still choose another city.</div>` : ''}
+    </div>
+  `);
+}
+
+// ── pick city → immediately start story ──
+function pickCity(c, el) {
+  st.city = c;
+  $$('.city').forEach(b => b.classList.remove('on'));
+  if (el) el.classList.add('on');
+  setTimeout(() => startStory(c), 300);
+}
+
+// ── character library ──
+const characters = {
+  'London': {
+    name: 'Demi', age: 31,
+    intro: 'Three years ago she moved from Hong Kong to London. She designs for a small agency, and her work visa has one year left. London gives her museums, parks, and the quiet freedom of being unknown. Home gives her parents, language, and a guilt she cannot put down.',
+    scene: 'Peckham · 7:00pm · June 2026',
+    lastLine: 'She has just hung up with her mother. "Your dad\'s knee is not great. Nothing serious." Outside, the Peckham sky is turning gold. The Hong Kong sky was gold too. A different kind of gold.',
+    choices: [
+      { dir:'← Stay London', desc:'Find another sponsor. Keep moving toward settlement. Keep the parks, the museums, the freedom of being only herself.', risks:[
+        {lv:'g',t:'Lands',d:'She finds a sponsor, renews the visa, and reaches settlement. Her parents can visit without asking if she is coming home for good.',p:'~35%'},
+        {lv:'y',t:'Endures',d:'The new job is fine but rent takes half her pay. She goes home once a year. Her parents look older through a screen.',p:'~45%'},
+        {lv:'r2',t:'Runs out',d:'The visa expires before a sponsor appears. Three London years become two suitcases and a hard return.',p:'~20%'}],
+        forks:'What if · settlement changes her passport plan · her father needs surgery · the agency loses its sponsor license' },
+      { dir:'Hong Kong →', desc:'Go home before the visa decides for her. Family is near again. The visa anxiety stops. But London becomes a life she has to narrate in past tense.', risks:[
+        {lv:'g',t:'Reconnects',d:'She finds a design role. Weekends with family return. Her mother sleeps better.',p:'~45%'},
+        {lv:'y',t:'Misses',d:'The work culture is tighter. She misses the version of herself who could disappear in a park.',p:'~35%'},
+        {lv:'r2',t:'Regrets',d:'Two years later she wants out again, but the path back is narrower and more expensive.',p:'~20%'}],
+        forks:'What if · her London partner stays · she takes a remote role · her parents need daily care' }
+    ],
+    fragments: [
+      [{ym:'Three months',t:'A small startup agrees to sponsor her. The lift in the office is unreliable. On her first Friday, she sits alone at Tate Modern and lets herself breathe.'},
+       {ym:'One year',t:'The company raises a seed round. Her salary rises, but her father\'s surgery is scheduled for next spring. Her mother says, "Do your work. We are fine." Demi knows the sentence is too generous.'},
+       {ym:'Three years',t:'She receives settlement. She walks along the river for an hour before calling home. Her mother cries first. Demi follows.'}],
+      [{ym:'Three months',t:'She is back in Hong Kong, sleeping in the room where she was sixteen. Her father\'s knee is worse than he admitted. She goes with him to physio every Saturday.'},
+       {ym:'One year',t:'She misses London less as a place than as a permission. In Hong Kong she is daughter, sister, ex-girlfriend. In London she was simply Demi.'},
+       {ym:'Three years',t:'Her father walks better. Her mother sleeps. Sometimes Demi likes a Peckham friend\'s post and feels a small door close and open at the same time.'}]
+    ],
+    gainLabel:'Gained', costLabel:'Cost',
+    gainStay:'▸ Settlement, a passport path, and freer movement<br>▸ The parks, the NHS, and the relief of being unknown<br>▸ Proof that she can live inside uncertainty',
+    gainGo:'▸ Her father\'s physio, with her in the room<br>▸ Her mother sleeping again<br>▸ No more waking at 3am to visa calculations',
+    costStay:'▸ She is not there when family things happen<br>▸ One visit home a year, sometimes less<br>▸ A guilt that cannot be translated cleanly',
+    costGo:'▸ The Peckham sky<br>▸ The self nobody knew how to name<br>▸ London becomes a paragraph she has to explain'
+  },
+  'New York': {
+    name: 'Alex', age: 29,
+    intro: 'Five years in New York. OPT has nine months left. H1B has failed three times. She keeps a pothos in Brooklyn because a pet is too hard to move, but a plant can survive a suitcase if it must.',
+    scene: 'Brooklyn · 9:00pm · June 2026',
+    lastLine: 'USCIS still says nothing. Someone is grilling on the roof across the street. The smell makes her remember summer nights in Beijing. She has not gone back for a summer in three years.',
+    choices: [
+      { dir:'← Bet one more year', desc:'Try the fourth lottery. If it fails, attempt O-1 or Day 1 CPT. New York is difficult, but leaving feels like letting the city answer for her.', risks:[
+        {lv:'g',t:'Selected',d:'H1B comes through. Three more years. A green-card queue begins. Her thirties gain a shape.',p:'~15%'},
+        {lv:'y',t:'Detour',d:'No H1B, but O-1 works. Legal fees hit $8K. She stays, but every renewal feels like borrowed time.',p:'~35%'},
+        {lv:'r2',t:'Deadline',d:'OPT ends. She has 90 days to leave. Five New York years pack into two suitcases and one plant.',p:'~50%'}],
+        forks:'What if · O-1 succeeds but green card stalls · Canada becomes the backup · she marries for love and the paperwork follows' },
+      { dir:'Return →', desc:'Go back before the visa forces it. Use the overseas experience while it is still legible. New York becomes experience, not residence.', risks:[
+        {lv:'g',t:'Transfers',d:'An AI globalisation company values her US experience. Pay holds. Her family stops speaking in careful pauses.',p:'~30%'},
+        {lv:'y',t:'Readjusts',d:'Meetings, pace, and hierarchy feel different. Six months in, she starts browsing remote roles.',p:'~45%'},
+        {lv:'r2',t:'Closes',d:'Two years later she cannot imagine leaving family again, but also cannot find a path back to the US.',p:'~25%'}],
+        forks:'What if · Beijing or Shenzhen · management arrives earlier than expected · she keeps one foot in US clients' }
+    ],
+    fragments: [
+      [{ym:'Three months',t:'The lottery fails. She hires an O-1 lawyer and puts the fee on a credit card. Her roommate moves west after winning H1B. The pothos stays on the windowsill.'},
+       {ym:'One year',t:'O-1 is approved. She tells her mother, "I can stay." The sentence is true, but only for now.'},
+       {ym:'Three years',t:'Two renewals later, she earns more and sleeps less. New York still smells like hot pavement and roof grills in summer. She still loves it.'}],
+      [{ym:'Three months',t:'She lands in Shenzhen. The company makes AI tools for overseas markets. People call her "the one from New York." She is not sure if she likes the label.'},
+       {ym:'One year',t:'She learns the rules here. They are different, not lesser. Someone asks if she wants to manage a small team. In New York, nobody would have asked this soon.'},
+       {ym:'Three years',t:'She is a director. Some nights she opens a Brooklyn friend\'s feed and sees a house in California. She does one calculation, then closes the app.'}]
+    ],
+    gainLabel:'Gained', costLabel:'Cost',
+    gainStay:'▸ The right to keep living in New York, even if renewed yearly<br>▸ A sharper professional edge under pressure<br>▸ The summer smell from rooftops across the street',
+    gainGo:'▸ A job without annual visa arithmetic<br>▸ Her mother no longer pausing before asking questions<br>▸ Management experience three years earlier than in the US',
+    costStay:'▸ The $8K legal fee, and the next one<br>▸ Telling family "I can stay" while knowing the expiry date<br>▸ Many friends leave. She becomes one of those who remain',
+    costGo:'▸ New York summers<br>▸ "I live in New York" becoming "I used to live there"<br>▸ Never knowing whether she could have built a life there'
+  },
+  'Sheffield': {
+    name: 'Emily', age: 32,
+    intro: 'Londoner. Born in Holloway, UCL, history teacher at a Hackney secondary. Ten years in the classroom. She loves the job. But lately, every time she opens Rightmove, she is not searching London. She is searching Sheffield.',
+    scene: 'Walthamstow · 7:30pm · June 2026',
+    lastLine: 'She has just finished marking 30 GCSE mock papers. Cold tea. Her sister Clare texts a photo: "Victorian terrace. £230K. Garden." Her mum lives in Enfield. Every Sunday, roast together. If Emily moves, her mum will not say do not go. She will say you will be fine. And then she will be alone.',
+    choices: [
+      { dir:'← Stay London', desc:'Keep renting. Keep the Sunday roast. Mum needs her, even if neither of them says it out loud.', risks:[
+        {lv:'g',t:'Break through',d:'Made Head of Department. £52K. Bought a small flat in Zone 4. Still does Sunday roast.',p:'~20%'},
+        {lv:'y',t:'Treading water',d:'Salary creeps up, rent creeps up faster. At 35 she is still renting.',p:'~55%'},
+        {lv:'r2',t:'Burnout',d:'Teacher attrition is high. She becomes a statistic and wonders if she should have left years ago.',p:'~25%'}],
+        forks:'What if · she leaves teaching · her partner will not commit · mum gets older' },
+      { dir:'Sheffield →', desc:'Buy the Victorian terrace. Get a dog. Weekends in the Peak District. But the Sunday roast is the cost.', risks:[
+        {lv:'g',t:'Settled',d:'She loves Sheffield. House appreciates. Mum visits and says the air is nice.',p:'~45%'},
+        {lv:'y',t:'Torn',d:'She loves Sheffield but mum gets ill more often. Train tickets cost too much. She belongs fully to neither city.',p:'~40%'},
+        {lv:'r2',t:'Regret',d:'The school is hard too. Same wage, new loneliness. Mum says "I am fine" on the phone, and Emily knows it is not true.',p:'~15%'}],
+        forks:'What if · mum needs care · old friends fade · she meets someone in Sheffield' }
+    ],
+    fragments: [
+      [{ym:'Three months',t:'She is still in Walthamstow. Rent went up again. On Sunday she drives to Enfield. Mum made too much roast, as always. Emily covers her with a blanket when she falls asleep.'},
+       {ym:'One year',t:'She applies for Head of Department and does not get it. She starts tutoring on the side. It helps. She tells herself: next year.'},
+       {ym:'Three years',t:'She gets the promotion and offers on a one-bed in Leyton. Not a Victorian terrace with a garden, but hers. Mum\'s knee surgery goes fine. Emily is there.'}],
+      [{ym:'Three months',t:'The house is beautiful. Three bedrooms, a fireplace, a garden she cannot quite believe is hers. She adopts a greyhound called Stan.'},
+       {ym:'One year',t:'She makes a friend at school. Every other weekend she drives back to London. The M1 is fine. It is the leaving that hurts.'},
+       {ym:'Three years',t:'Mum falls. Not catastrophic, but enough. Emily stays in her childhood bedroom for two weeks and starts looking at North London teaching jobs. Just looking.'}]
+    ],
+    gainLabel:'Gained', costLabel:'Cost',
+    gainStay:'▸ Sunday roast, every single one<br>▸ Mum\'s knee surgery, with Emily in the waiting room<br>▸ A one-bed in Leyton. Not a Victorian terrace, but hers',
+    gainGo:'▸ A three-bed Victorian terrace, a fireplace, a garden<br>▸ Stan the greyhound and Peak District mornings<br>▸ Silence. No sirens. Just wind',
+    costStay:'▸ She never knows the Peak District at 7am on a Saturday<br>▸ At 35 she is still stretching London numbers<br>▸ Someone else buys the terrace',
+    costGo:'▸ Sunday roast without her<br>▸ Crying in the car on the M1 for ten minutes<br>▸ Mum saying "I am fine" and Emily knowing she is not'
+  }
+};
+
+function startStory(city) {
+  const ch = characters[city];
+  st.story = ch;
+  const isEn = ch.gainLabel === 'Gained';
+
+  render(`
+    <div class="char-card" style="animation:fadeIn 0.5s ease;">
+      <div class="who">${ch.name} · ${ch.age} · ${city}</div>
+      <div class="sit">${ch.intro}</div>
+    </div>
+    <div class="scene">
+      <div class="tag">${ch.scene}</div>
+      <div class="line">${ch.lastLine}</div>
+    </div>
+    <div class="choice-point">
+      <div class="prompt">${ch.name} has two directions.</div>
+      <div class="choices">
+        ${ch.choices.map((c,i) => `
+          <div class="choice-card" onclick="runStory(${i})">
+            <div class="dir">${c.dir}</div>
+            <div class="desc">${c.desc}</div>
+            <div class="risks">
+              ${c.risks.map(r => `
+                <div class="r ${r.lv}"><span class="dot">●</span><span>${r.t}</span><span class="pct">${r.pct}</span></div>
+                <div style="font-size:10px;color:var(--text-dim);padding-left:12px;margin-bottom:8px;">${r.d}</div>
+              `).join('')}
+            </div>
+            <div class="forks">${c.forks}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `);
+}
+
+// ── story runner ──
+function runStory(n) {
+  const ch = st.story;
+  const c = ch.choices[n];
+  const fr = ch.fragments[n];
+  const otherLabel = n===0 ? ch.choices[1].dir : ch.choices[0].dir;
+  const isEn = ch.gainLabel === 'Gained';
+
+  let html = `<div style="animation:fadeIn 0.5s ease;">`;
+  html += `<div class="char-card"><div class="who">${ch.name} · ${ch.age} · ${c.dir}</div></div>`;
+
+  fr.forEach(f => {
+    html += `<div class="ym">${f.ym}</div>`;
+    html += `<div style="font-size:15px;line-height:2.2;color:var(--text);">${f.t}</div>`;
+  });
+
+  html += `</div>`;
+
+  html += `<div class="comp">
+    <div class="side">
+      <div class="lab g">${ch.gainLabel||'Gained'}</div>
+      <div class="it">${n===0 ? ch.gainStay : ch.gainGo}</div>
+    </div>
+    <div class="side">
+      <div class="lab r3">${ch.costLabel||'Cost'}</div>
+      <div class="it">${n===0 ? ch.costStay : ch.costGo}</div>
+    </div>
+  </div>`;
+
+  html += `<div class="acts">
+    <button onclick="startStory(st.city)">See: ${otherLabel}</button>
+    <button onclick="showCities()">Another story</button>
+  </div>`;
+
+  render(html);
+}
+
+showSplash();
+</script>
+</body>
+</html>

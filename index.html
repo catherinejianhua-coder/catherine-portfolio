@@ -1,0 +1,1175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jianhua Chen (Catherine) | Senior Product Manager Portfolio</title>
+  <meta name="description" content="Portfolio of Jianhua Chen (Catherine), Senior Product Manager focused on commerce platforms, growth, B2B SaaS, data products and applied AI.">
+  <style>
+    :root {
+      --bg: #f7f8f5;
+      --surface: #ffffff;
+      --ink: #17211d;
+      --muted: #60706a;
+      --soft: #edf2ef;
+      --line: #dde5df;
+      --green: #226c5c;
+      --blue: #315f9c;
+      --coral: #a75d4f;
+      --gold: #8b7134;
+      --dark: #111715;
+      --radius: 8px;
+      --shadow: 0 18px 38px rgba(38, 48, 43, 0.08);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.55;
+    }
+
+    a {
+      color: inherit;
+      text-underline-offset: 0.2em;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(221, 229, 223, 0.86);
+      background: rgba(247, 248, 245, 0.92);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav {
+      width: min(1140px, calc(100% - 32px));
+      min-height: 66px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: grid;
+      gap: 2px;
+      min-width: 220px;
+    }
+
+    .brand strong {
+      font-size: 0.98rem;
+      letter-spacing: 0;
+    }
+
+    .brand span {
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    .nav-links a {
+      position: relative;
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      transition: color 0.16s ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 2px;
+      height: 2px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.18s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--green);
+    }
+
+    .nav-links a.active::after,
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+    }
+
+    .section,
+    .hero,
+    .contact {
+      width: min(1140px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero-band {
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(120deg, rgba(34, 108, 92, 0.08), rgba(49, 95, 156, 0.07) 46%, rgba(167, 93, 79, 0.06)),
+        var(--bg);
+    }
+
+    .hero {
+      min-height: min(720px, calc(100vh - 66px));
+      padding: 74px 0 52px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: 44px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      color: var(--green);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 16px 0 18px;
+      max-width: 880px;
+      font-size: clamp(2.5rem, 5vw, 5.3rem);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      color: #394842;
+      font-size: clamp(1.05rem, 1.55vw, 1.32rem);
+    }
+
+    .hero-actions,
+    .case-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .button,
+    .case-links a {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 15px;
+      border: 1px solid var(--ink);
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .button.secondary,
+    .case-links a {
+      background: transparent;
+      color: var(--ink);
+    }
+
+    .button:hover,
+    .case-links a:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    .proof-panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .proof-panel h2 {
+      margin: 0;
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
+      font-size: 1rem;
+    }
+
+    .metrics {
+      display: grid;
+    }
+
+    .metric {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 16px;
+      align-items: baseline;
+      padding: 17px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .metric:last-child {
+      border-bottom: 0;
+    }
+
+    .metric strong {
+      color: var(--green);
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .section {
+      padding: 66px 0;
+    }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: minmax(0, 0.78fr) minmax(280px, 0.82fr);
+      gap: 32px;
+      align-items: end;
+      margin-bottom: 28px;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: clamp(1.65rem, 3vw, 2.7rem);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .section-header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .capabilities {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .capability,
+    .study-card {
+      min-height: 118px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .capability h3,
+    .study-card h3 {
+      margin: 0 0 8px;
+      font-size: 0.98rem;
+      line-height: 1.25;
+    }
+
+    .capability p,
+    .study-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .case-band {
+      border-top: 1px solid var(--line);
+      background: #fbfcfa;
+    }
+
+    .case {
+      padding: 46px 0;
+      border-top: 1px solid var(--line);
+      scroll-margin-top: 96px;
+    }
+
+    .case:first-of-type {
+      border-top: 0;
+      padding-top: 16px;
+    }
+
+    .case-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.98fr) minmax(360px, 1.02fr);
+      gap: 34px;
+      align-items: start;
+    }
+
+    .case-kicker {
+      margin-bottom: 10px;
+      color: var(--accent, var(--green));
+      font-size: 0.78rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .case-title {
+      margin: 0;
+      font-size: clamp(1.75rem, 3vw, 3rem);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .case-title strong {
+      color: var(--accent, var(--green));
+    }
+
+    .case-summary {
+      margin: 16px 0 0;
+      max-width: 680px;
+      color: #3d4b45;
+      font-size: 1.03rem;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 0;
+      margin: 18px 0 0;
+      list-style: none;
+    }
+
+    .tag-list li {
+      border: 1px solid rgba(47, 111, 94, 0.2);
+      border-radius: var(--radius);
+      padding: 6px 9px;
+      background: rgba(47, 111, 94, 0.06);
+      color: #334a43;
+      font-size: 0.78rem;
+      font-weight: 750;
+    }
+
+    .evidence-panel {
+      margin-top: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .evidence-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: #f8faf8;
+    }
+
+    .evidence-head strong {
+      font-size: 0.9rem;
+    }
+
+    .evidence-head span {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .evidence-body {
+      padding: 16px;
+    }
+
+    .screenshot-frame {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .screenshot-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .screenshot-pair .screenshot-frame {
+      max-height: 430px;
+    }
+
+    .screenshot-pair img {
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .system-flow {
+      display: grid;
+      gap: 10px;
+    }
+
+    .flow-row {
+      display: grid;
+      grid-template-columns: 98px 1fr;
+      gap: 14px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfcfb;
+    }
+
+    .flow-row strong {
+      color: var(--accent, var(--green));
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .flow-row span {
+      color: #3f4a43;
+      font-size: 0.92rem;
+    }
+
+    .fitcue-preview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      color: #edf9f1;
+    }
+
+    .fitcue-screen {
+      min-height: 260px;
+      padding: 16px;
+      border: 1px solid #26322c;
+      border-radius: var(--radius);
+      background: #0f1311;
+    }
+
+    .fitcue-brand {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      font-size: 0.78rem;
+      color: rgba(237, 249, 241, 0.64);
+    }
+
+    .fitcue-brand strong {
+      color: #f5fff8;
+      font-size: 0.96rem;
+    }
+
+    .constraint-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .constraint-list span {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 9px 10px;
+      border: 1px solid #2c3832;
+      border-radius: var(--radius);
+      background: #181d1b;
+      color: rgba(237, 249, 241, 0.76);
+      font-size: 0.8rem;
+    }
+
+    .constraint-list b {
+      color: #46df82;
+    }
+
+    .video-result {
+      display: grid;
+      grid-template-columns: 94px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 10px;
+      border: 1px solid #2c3832;
+      border-radius: var(--radius);
+      background: #181d1b;
+      margin-bottom: 10px;
+    }
+
+    .video-cover {
+      position: relative;
+      min-height: 58px;
+      border-radius: 6px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0)),
+        linear-gradient(135deg, #254837, #121815);
+      overflow: hidden;
+    }
+
+    .video-cover::after {
+      content: "play";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.52);
+      color: #ffffff;
+      font-size: 0.62rem;
+      transform: translate(-50%, -50%);
+    }
+
+    .video-result strong {
+      display: block;
+      color: #ffffff;
+      font-size: 0.82rem;
+      line-height: 1.28;
+    }
+
+    .video-result span {
+      display: block;
+      margin-top: 5px;
+      color: rgba(237, 249, 241, 0.58);
+      font-size: 0.72rem;
+    }
+
+    .comm-flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .comm-step,
+    .story-sample,
+    .concept-panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfcfb;
+    }
+
+    .comm-step {
+      min-height: 166px;
+      padding: 14px;
+    }
+
+    .comm-step strong,
+    .story-copy strong,
+    .concept-row strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent, var(--green));
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .comm-step p,
+    .story-copy p,
+    .concept-row span {
+      margin: 0;
+      color: #45524c;
+      font-size: 0.88rem;
+    }
+
+    .story-sample {
+      display: grid;
+      grid-template-columns: minmax(240px, 1.05fr) minmax(220px, 0.95fr);
+      gap: 16px;
+      padding: 14px;
+      align-items: center;
+      background: #fffdf8;
+    }
+
+    .story-art {
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: #eff5ef;
+    }
+
+    .story-art img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .story-copy {
+      display: grid;
+      gap: 10px;
+    }
+
+    .story-copy h3 {
+      margin: 0;
+      color: #6f5b2d;
+      font-size: 1.2rem;
+    }
+
+    .concept-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 14px;
+      background: #fbfcfb;
+    }
+
+    .concept-row {
+      min-height: 130px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+    }
+
+    .study-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .study-card.outcome {
+      grid-column: 1 / -1;
+      min-height: 118px;
+      border-color: rgba(34, 108, 92, 0.26);
+      background: rgba(34, 108, 92, 0.055);
+    }
+
+    .baidu {
+      --accent: var(--blue);
+    }
+
+    .fitcue {
+      --accent: var(--green);
+    }
+
+    .cherish {
+      --accent: var(--coral);
+    }
+
+    .storybook {
+      --accent: var(--gold);
+    }
+
+    .parallel {
+      --accent: var(--blue);
+    }
+
+    .contact-band {
+      border-top: 1px solid var(--line);
+      background:
+        linear-gradient(120deg, rgba(139, 113, 52, 0.1), rgba(34, 108, 92, 0.08)),
+        var(--bg);
+      scroll-margin-top: 96px;
+    }
+
+    .contact {
+      padding: 58px 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .contact h2 {
+      margin: 0 0 8px;
+      font-size: clamp(1.55rem, 2.6vw, 2.45rem);
+      line-height: 1.08;
+    }
+
+    .contact p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 760px;
+    }
+
+    @media (max-width: 920px) {
+      .hero,
+      .section-header,
+      .case-grid,
+      .contact {
+        grid-template-columns: 1fr;
+      }
+
+      .capabilities,
+      .comm-flow {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .fitcue-preview,
+      .story-sample,
+      .concept-panel,
+      .screenshot-pair {
+        grid-template-columns: 1fr;
+      }
+
+      .contact {
+        align-items: start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: center;
+        padding: 12px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        gap: 12px;
+        flex-wrap: wrap;
+        white-space: normal;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 52px;
+      }
+
+      .capabilities,
+      .comm-flow,
+      .study-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .study-card.outcome {
+        grid-column: auto;
+      }
+
+      .metric,
+      .flow-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .hero-actions,
+      .case-links {
+        flex-direction: column;
+      }
+
+      .button,
+      .case-links a {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav" aria-label="Portfolio navigation">
+      <div class="brand">
+        <strong>Jianhua Chen (Catherine)</strong>
+        <span>Senior Product Manager | Commerce Platforms & Applied AI</span>
+      </div>
+      <div class="nav-links">
+        <a href="#baidu-commerce">Baidu</a>
+        <a href="#fitcue">FitCue</a>
+        <a href="#cherish">Cherish</a>
+        <a href="#ai-storybook">AI Storybook</a>
+        <a href="#parallel-life">Parallel Life</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero-band">
+      <div class="hero">
+        <div>
+          <div class="eyebrow">Product platforms, growth systems and applied AI</div>
+          <h1>Turning uncertainty into shipped product decisions.</h1>
+          <p class="hero-copy">
+            I am a Senior Product Manager with 7+ years across Baidu, commerce platforms, B2B SaaS, marketplace growth, data products and applied AI. This portfolio focuses on the product judgement behind shipped systems, not just prototype surfaces.
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="#case-studies">View case studies</a>
+            <a class="button secondary" href="../output/pdf/Jianhua_Chen_CV_UK_ATS_V4_2.pdf">View CV</a>
+            <a class="button secondary" href="https://www.linkedin.com/in/jianhua-catherine-chen-8a3847302/">LinkedIn</a>
+          </div>
+        </div>
+
+        <aside class="proof-panel" aria-label="Portfolio proof points">
+          <h2>Portfolio signal</h2>
+          <div class="metrics">
+            <div class="metric">
+              <strong>7+</strong>
+              <span>years in product management across AI, e-commerce, marketplace and consumer platforms.</span>
+            </div>
+            <div class="metric">
+              <strong>RMB 237M</strong>
+              <span>incremental GMV uplift from shipped commerce product work, alongside CVR and efficiency improvements.</span>
+            </div>
+            <div class="metric">
+              <strong>RMB 20M+</strong>
+              <span>daily GMV enabled through live-commerce SaaS and platform workflow capabilities.</span>
+            </div>
+            <div class="metric">
+              <strong>1+4</strong>
+              <span>one scaled platform case plus four focused explorations covering action, expression, content creation and choice.</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="portfolio-logic">
+      <div class="section-header">
+        <h2 id="portfolio-logic">A case portfolio built around product judgement.</h2>
+        <p>
+          The first case anchors scaled PM ownership. The product explorations show how I frame problems, narrow scope and turn AI ideas into testable experiences.
+        </p>
+      </div>
+      <div class="capabilities">
+        <article class="capability">
+          <h3>Scaled product impact</h3>
+          <p>Commerce platform ownership across growth, analytics, workflows, governance and applied AI.</p>
+        </article>
+        <article class="capability">
+          <h3>Applied AI judgement</h3>
+          <p>AI is used only when it improves accuracy, efficiency, content quality or confidence.</p>
+        </article>
+        <article class="capability">
+          <h3>Discovery discipline</h3>
+          <p>Projects are scoped around segment clarity, MVP cost and commercial reality.</p>
+        </article>
+        <article class="capability">
+          <h3>Responsible workflows</h3>
+          <p>Quality thresholds, user control and review points are treated as product constraints.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="case-band" id="case-studies">
+      <div class="section">
+        <div class="section-header">
+          <h2>Selected product evidence</h2>
+          <p>
+            Each product has a direct English experience and one deeper case link. The page stays visual first, with short PM signals beside each screenshot.
+          </p>
+        </div>
+
+        <article class="case baidu" id="baidu-commerce">
+          <div class="case-grid">
+            <div>
+              <div class="case-kicker">Scaled case / Commerce platform, growth and applied AI</div>
+              <h2 class="case-title"><strong>Baidu Commerce Platform</strong>: building product systems for growth and operational scale</h2>
+              <p class="case-summary">
+                Senior PM work across conversion growth, Data Compass analytics, live-commerce SaaS, marketing tools, merchant and creator capabilities, governance workflows and selective AI/ML applications.
+              </p>
+              <ul class="tag-list" aria-label="Baidu commerce platform skills">
+                <li>Commerce platform</li>
+                <li>GMV / CVR</li>
+                <li>Data products</li>
+                <li>Merchant / creator tools</li>
+                <li>Applied AI</li>
+              </ul>
+              <div class="case-links">
+                <a href="../output/pdf/Jianhua_Chen_CV_UK_ATS_V4_2.pdf">View CV</a>
+                <a href="mailto:catherine.jianhua@gmail.com">Request details</a>
+              </div>
+              <div class="evidence-panel" aria-label="Baidu commerce platform evidence">
+                <div class="evidence-head"><strong>Product system</strong><span>Scale anchor</span></div>
+                <div class="evidence-body">
+                  <div class="system-flow">
+                    <div class="flow-row"><strong>Scope</strong><span>Growth funnel, analytics, platform workflows, marketing capability, merchant/creator tools and governance.</span></div>
+                    <div class="flow-row"><strong>Levers</strong><span>Data products, SaaS modules, campaign tools, operational rules, ML classification and GenAI content support.</span></div>
+                    <div class="flow-row"><strong>Impact</strong><span>Conversion, GMV, daily platform throughput, content efficiency and scalable operations.</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="study-grid">
+              <section class="study-card">
+                <h3>Problem</h3>
+                <p>Commerce scale needed better conversion, analytics, governance and merchant/creator workflows.</p>
+              </section>
+              <section class="study-card">
+                <h3>Product Move</h3>
+                <p>Built platform modules combining data products, SaaS workflows, marketing tools and selective AI/ML.</p>
+              </section>
+              <section class="study-card">
+                <h3>Evidence</h3>
+                <p>+12.5% CVR, +6.8% GMV, RMB 237M uplift and RMB 20M+ daily GMV enabled.</p>
+              </section>
+              <section class="study-card">
+                <h3>Next Proof</h3>
+                <p>Scale anchor: proves Senior PM ownership beyond a single AI feature.</p>
+              </section>
+            </div>
+          </div>
+        </article>
+
+        <article class="case fitcue" id="fitcue">
+          <div class="case-grid">
+            <div>
+              <div class="case-kicker">Product exploration / Decision friction</div>
+              <h2 class="case-title"><strong>FitCue</strong>: reducing constraint friction in fitness</h2>
+              <p class="case-summary">
+                A lightweight video-matching product that helps users find 1-3 feasible workouts based on today's time, space, equipment and physical constraints.
+              </p>
+              <ul class="tag-list" aria-label="FitCue skills">
+                <li>JTBD</li>
+                <li>AI matching</li>
+                <li>MVP scoping</li>
+                <li>Commercial judgement</li>
+              </ul>
+              <div class="case-links">
+                <a href="products/fitcue/index.html">Open English product</a>
+                <a href="../output/pdf/fitcue_case_study.pdf">Read case study PDF</a>
+              </div>
+              <div class="evidence-panel" aria-label="FitCue evidence preview">
+                <div class="evidence-head"><strong>Product page</strong><span>Constraint-first matching</span></div>
+                <div class="evidence-body">
+                  <div class="screenshot-frame">
+                    <img src="assets/screenshots/fitcue_en.png" alt="FitCue English product page showing workout constraints and video recommendation cards.">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="study-grid">
+              <section class="study-card">
+                <h3>Problem</h3>
+                <p>Users fail to start because they cannot tell which workout is realistic today.</p>
+              </section>
+              <section class="study-card">
+                <h3>Product Move</h3>
+                <p>Narrowed broad recommendations into constraint-first feasibility matching.</p>
+              </section>
+              <section class="study-card">
+                <h3>Evidence</h3>
+                <p>Best-fit segments: travellers, new mothers, small-space users and restarters.</p>
+              </section>
+              <section class="study-card">
+                <h3>Next Proof</h3>
+                <p>Run concierge MVP before investing in automation depth.</p>
+              </section>
+            </div>
+          </div>
+        </article>
+
+        <article class="case cherish" id="cherish">
+          <div class="case-grid">
+            <div>
+              <div class="case-kicker">Product exploration / Workflow quality</div>
+              <h2 class="case-title"><strong>Cherish</strong>: translating emotional friction into sendable words</h2>
+              <p class="case-summary">
+                An AI relationship communication coach that helps users turn conflict, cold silence and emotional overload into messages they can actually send.
+              </p>
+              <ul class="tag-list" aria-label="Cherish skills">
+                <li>Consumer AI</li>
+                <li>Pivot strategy</li>
+                <li>Pricing window</li>
+                <li>Unit economics</li>
+              </ul>
+              <div class="case-links">
+                <a href="products/cherish/index.html">Open English product</a>
+                <a href="walkthroughs/cherish.html">Read walkthrough</a>
+              </div>
+              <div class="evidence-panel" aria-label="Cherish communication workflow evidence">
+                <div class="evidence-head"><strong>Product workflow</strong><span>Chat coach surface</span></div>
+                <div class="evidence-body">
+                  <div class="screenshot-pair">
+                    <div class="screenshot-frame">
+                      <img src="assets/screenshots/cherish_landing_en.png" alt="Cherish English landing screen.">
+                    </div>
+                    <div class="screenshot-frame">
+                      <img src="assets/screenshots/cherish_demo_en.png" alt="Cherish English product screen with message options.">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="study-grid">
+              <section class="study-card">
+                <h3>Problem</h3>
+                <p>Users want repair but get stuck at the first message.</p>
+              </section>
+              <section class="study-card">
+                <h3>Product Move</h3>
+                <p>Pivoted from record-keeping to editable, context-aware message options.</p>
+              </section>
+              <section class="study-card">
+                <h3>Evidence</h3>
+                <p>The core job is communication translation, not relationship diagnosis.</p>
+              </section>
+              <section class="study-card">
+                <h3>Next Proof</h3>
+                <p>Test copy/edit/send behaviour and 3-7 day willingness to pay.</p>
+              </section>
+            </div>
+          </div>
+        </article>
+
+        <article class="case storybook" id="ai-storybook">
+          <div class="case-grid">
+            <div>
+              <div class="case-kicker">Product exploration / Multimodal content product</div>
+              <h2 class="case-title"><strong>AI Storybook Generator</strong>: turning values into child-safe stories</h2>
+              <p class="case-summary">
+                An AI picture book generation pipeline that turns parent-led values, story prompts and visual style direction into interactive children's books with multiple reading modes.
+              </p>
+              <ul class="tag-list" aria-label="AI Storybook skills">
+                <li>Multimodal AI</li>
+                <li>Content safety</li>
+                <li>Generation pipeline</li>
+                <li>Commercialisation</li>
+              </ul>
+              <div class="case-links">
+                <a href="products/ai-storybook/index.html">Open English product</a>
+                <a href="walkthroughs/ai-storybook.html">Read walkthrough</a>
+              </div>
+              <div class="evidence-panel" aria-label="AI Storybook sample page">
+                <div class="evidence-head"><strong>Product workspace</strong><span>Story creation studio</span></div>
+                <div class="evidence-body">
+                  <div class="screenshot-frame">
+                    <img src="assets/screenshots/ai_storybook_en.png" alt="AI Storybook English generator workspace.">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="study-grid">
+              <section class="study-card">
+                <h3>Problem</h3>
+                <p>Parents need personalised stories that are safe, age-appropriate and value-aligned.</p>
+              </section>
+              <section class="study-card">
+                <h3>Product Move</h3>
+                <p>Framed generation as a controlled story-image-publishing pipeline.</p>
+              </section>
+              <section class="study-card">
+                <h3>Evidence</h3>
+                <p>15 interactive picture books plus generator and commercialisation analysis.</p>
+              </section>
+              <section class="study-card">
+                <h3>Next Proof</h3>
+                <p>Test parent sharing and willingness to pay for personalised safe content.</p>
+              </section>
+            </div>
+          </div>
+        </article>
+
+        <article class="case parallel" id="parallel-life">
+          <div class="case-grid">
+            <div>
+              <div class="case-kicker">Product exploration / Trust-heavy positioning</div>
+              <h2 class="case-title"><strong>Parallel Life</strong>: making life choices emotionally visible</h2>
+              <p class="case-summary">
+                An AI narrative simulation game that helps users explore the possible costs and emotional texture of different life choices through parallel futures.
+              </p>
+              <ul class="tag-list" aria-label="Parallel Life skills">
+                <li>AI narrative</li>
+                <li>Serious games</li>
+                <li>Positioning</li>
+                <li>Growth hooks</li>
+              </ul>
+              <div class="case-links">
+                <a href="products/parallel-life/index.html">Open English product</a>
+                <a href="walkthroughs/parallel-life.html">Read walkthrough</a>
+              </div>
+              <div class="evidence-panel" aria-label="Parallel Life concept evidence">
+                <div class="evidence-head"><strong>Product screenshot</strong><span>English narrative simulation</span></div>
+                <div class="evidence-body">
+                  <div class="screenshot-frame">
+                    <img src="assets/screenshots/parallel_life_en.png" alt="Parallel Life English narrative simulation screen.">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="study-grid">
+              <section class="study-card">
+                <h3>Problem</h3>
+                <p>Life choices are hard because emotional costs are abstract until lived.</p>
+              </section>
+              <section class="study-card">
+                <h3>Product Move</h3>
+                <p>Repositioned from decision tool to serious narrative simulation.</p>
+              </section>
+              <section class="study-card">
+                <h3>Evidence</h3>
+                <p>Landing, playable demo, GDD and unit economics exist.</p>
+              </section>
+              <section class="study-card">
+                <h3>Next Proof</h3>
+                <p>Keep lower priority until English positioning and sharing loop are sharper.</p>
+              </section>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="contact-band" id="contact">
+    <div class="contact">
+      <div>
+        <h2>Looking for Senior Product Manager, Applied AI PM and Product Lead roles in the UK.</h2>
+        <p>
+          Especially roles involving AI productisation, B2B SaaS, marketplace systems, e-commerce, discovery, growth and complex product strategy.
+        </p>
+      </div>
+      <a class="button" href="mailto:catherine.jianhua@gmail.com">Email Catherine</a>
+    </div>
+  </footer>
+
+  <script>
+    const navLinks = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
+    const sections = navLinks
+      .map(link => document.querySelector(link.getAttribute("href")))
+      .filter(Boolean);
+
+    function setActiveNav(id) {
+      navLinks.forEach(link => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
+      });
+    }
+
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        setActiveNav(link.getAttribute("href").slice(1));
+      });
+    });
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(entries => {
+        const visible = entries
+          .filter(entry => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActiveNav(visible.target.id);
+      }, {
+        rootMargin: "-32% 0px -54% 0px",
+        threshold: [0.16, 0.34, 0.52]
+      });
+
+      sections.forEach(section => observer.observe(section));
+    } else if (sections[0]) {
+      setActiveNav(sections[0].id);
+    }
+  </script>
+</body>
+</html>

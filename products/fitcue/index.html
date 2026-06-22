@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>FitCue - Tell us your constraints, get a workout you can actually do</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f0f0f;--surface:#1a1a1a;--border:#2a2a2a;
+  --text:#f0f0f0;--text2:#999;--accent:#4ADE80;--accent2:#22C55E;
+  --warn:#FBBF24;--danger:#EF4444;--radius:12px;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-tap-highlight-color:transparent}
+.container{max-width:480px;margin:0 auto;padding:16px}
+.header{text-align:center;padding:24px 0 16px}
+.header h1{font-size:22px;font-weight:700;letter-spacing:-0.3px}
+.header p{font-size:14px;color:var(--text2);margin-top:4px}
+.corner-tools{position:fixed;top:12px;right:12px;z-index:20}
+.corner-btn{border:1px solid var(--border);background:rgba(26,26,26,0.94);color:var(--text);border-radius:999px;padding:9px 12px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,0.28)}
+.corner-btn .count-badge{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;margin-left:4px;border-radius:999px;background:var(--accent);color:#000;font-size:11px}
+.drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:29;display:none}
+.drawer-backdrop.active{display:block}
+.drawer{position:fixed;top:0;right:0;width:min(390px,92vw);height:100vh;background:var(--bg);border-left:1px solid var(--border);z-index:30;transform:translateX(100%);transition:transform .2s ease;box-shadow:-16px 0 40px rgba(0,0,0,0.35);padding:18px;overflow:auto}
+.drawer.active{transform:translateX(0)}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.drawer-title{font-size:18px;font-weight:800}
+.drawer-close{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:999px;width:34px;height:34px;font-size:18px;cursor:pointer}
+.source-switch{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px;margin:14px 0 10px}
+.source-btn{border:0;background:transparent;color:var(--text2);border-radius:10px;padding:10px 8px;font-size:14px;font-weight:700;cursor:pointer}
+.source-btn.active{background:var(--accent);color:#000}
+.progress{display:flex;gap:4px;margin-bottom:24px}
+.progress-dot{flex:1;height:3px;background:var(--border);border-radius:2px;transition:background .3s}
+.progress-dot.active{background:var(--accent)}
+.progress-dot.done{background:var(--accent2)}
+.step{display:none}
+.step.active{display:block}
+.step-title{font-size:15px;font-weight:600;margin-bottom:12px;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative;padding:10px 16px;border:1.5px solid var(--border);border-radius:24px;font-size:14px;cursor:pointer;user-select:none;transition:all .15s;background:var(--surface);color:var(--text)}
+.chip:active{transform:scale(0.96)}
+.chip.selected{border-color:var(--accent);background:rgba(74,222,128,0.1);color:var(--accent)}
+.chip.goal{padding:14px 18px;border-radius:16px;font-size:15px;text-align:left;width:100%;display:flex;align-items:center;gap:10px}
+.chip.goal .goal-icon{font-size:22px;flex-shrink:0}
+.chip.goal .goal-text{flex:1}
+.chip.goal .goal-sub{font-size:11px;color:var(--text2);display:block;margin-top:2px}
+.chip.goal.selected .goal-sub{color:var(--accent)}
+.actions{display:flex;gap:12px;margin-top:24px}
+.btn{padding:14px 24px;border-radius:var(--radius);font-size:15px;font-weight:600;cursor:pointer;border:none;transition:all .15s;text-align:center;flex:1}
+.btn:active{transform:scale(0.97)}
+.btn-primary{background:var(--accent);color:#000}
+.btn-secondary{background:var(--surface);color:var(--text);border:1.5px solid var(--border)}
+.btn-ghost{background:transparent;color:var(--text2);border:none;flex:0}
+.results-header{text-align:center;padding:24px 0 16px}
+.results-header .count{font-size:13px;color:var(--text2)}
+.result-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;transition:border-color .2s}
+.result-card:hover{border-color:var(--accent)}
+.result-rank{font-size:12px;font-weight:700;color:var(--accent);margin-bottom:8px}
+.result-title{font-size:16px;font-weight:600;line-height:1.4;margin-bottom:8px}
+.result-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.meta-tag{font-size:11px;padding:4px 10px;border-radius:12px;background:rgba(255,255,255,0.06);color:var(--text2)}
+.meta-tag.match{background:rgba(74,222,128,0.12);color:var(--accent)}
+.meta-tag.safety{background:rgba(96,165,250,0.1);color:#93C5FD}
+.result-author{font-size:13px;color:var(--text2);margin-bottom:12px}
+.result-actions{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+.result-link{display:block;width:100%;padding:12px;text-align:center;background:var(--accent);color:#000;border-radius:var(--radius);font-weight:600;font-size:14px;text-decoration:none;transition:opacity .15s}
+.result-link:active{opacity:0.8}
+.mini-btn{border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);border-radius:var(--radius);padding:11px 12px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.mini-btn.saved{border-color:var(--accent);color:var(--accent);background:rgba(74,222,128,0.1)}
+.mini-btn.danger{border-color:rgba(239,68,68,0.45);color:#FCA5A5}
+.video-tools{margin:14px 0 2px;text-align:left}
+.video-search{width:100%;border:1.5px solid var(--border);background:var(--surface);color:var(--text);border-radius:var(--radius);padding:12px 14px;font-size:14px;outline:none}
+.video-search:focus{border-color:var(--accent)}
+.tool-panel{border:1px solid var(--border);background:rgba(255,255,255,0.03);border-radius:var(--radius);padding:12px;margin-top:10px}
+.tool-title{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px}
+.tool-sub{font-size:12px;color:var(--text2);font-weight:500}
+.mini-card{border-top:1px solid var(--border);padding:10px 0;display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:start}
+.mini-card:first-of-type{border-top:none;padding-top:0}
+.mini-thumb{width:96px;height:54px;border-radius:8px;object-fit:cover;background:var(--border);display:block}
+.mini-thumb.placeholder{display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:20px}
+.mini-title{font-size:13px;font-weight:700;line-height:1.4;margin-bottom:6px}
+.mini-meta{font-size:11px;color:var(--text2);line-height:1.4;margin-bottom:8px}
+.mini-actions{display:grid;grid-template-columns:1fr auto;gap:8px}
+.empty{text-align:center;padding:48px 16px}
+.empty-icon{font-size:48px;margin-bottom:16px}
+.empty h3{font-size:18px;margin-bottom:8px}
+.empty p{font-size:14px;color:var(--text2);line-height:1.6}
+.reset-btn{display:block;margin:24px auto;padding:12px 24px;background:var(--surface);border:1.5px solid var(--border);border-radius:24px;color:var(--text);font-size:14px;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="corner-tools">
+  <button class="corner-btn" type="button" onclick="openLibrary()">Saved <span class="count-badge" id="saved-count-badge">0</span></button>
+</div>
+<div class="drawer-backdrop" id="drawer-backdrop" onclick="closeLibrary()"></div>
+<aside class="drawer" id="library-drawer" aria-label="Saved workouts and video search">
+  <div class="drawer-head">
+    <div class="drawer-title">Saved and search</div>
+    <button class="drawer-close" type="button" onclick="closeLibrary()">×</button>
+  </div>
+  <div id="library-content"></div>
+</aside>
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+  <h1>🏋️ FitCue</h1>
+  <p>Tell us your constraints. Get a workout you can actually do.</p>
+  <div style="font-size:11px;color:var(--text2);margin-top:8px;line-height:1.5;max-width:360px;margin-left:auto;margin-right:auto">
+    ⚠️ FitCue matches workouts from observable video traits such as movement type, equipment, jumping, space, and noise. It is not medical advice and cannot guarantee safety or suitability. If you have an injury or specific health condition, exercise with professional guidance.
+  </div>
+</div>
+
+<!-- Progress -->
+<div class="progress" id="progress">
+  <div class="progress-dot active" data-step="0"></div>
+  <div class="progress-dot" data-step="1"></div>
+  <div class="progress-dot" data-step="2"></div>
+  <div class="progress-dot" data-step="3"></div>
+</div>
+
+<!-- Step 0: Goal -->
+<div class="step active" id="step0">
+  <div class="step-title">1. What is your goal?</div>
+  <div class="chips" id="chips-goal">
+    <div class="chip goal" data-key="goal" data-val="Fat loss"><span class="goal-icon">🔥</span><span class="goal-text">Fat loss<span class="goal-sub">Full-body burn, HIIT, and cardio-first sessions</span></span></div>
+    <div class="chip goal" data-key="goal" data-val="Build strength"><span class="goal-icon">💪</span><span class="goal-text">Build strength<span class="goal-sub">Strength work, muscle tone, and shape</span></span></div>
+    <div class="chip goal" data-key="goal" data-val="Core / abs"><span class="goal-icon">🎯</span><span class="goal-text">Core / abs<span class="goal-sub">Core training, ab definition, and waist focus</span></span></div>
+    <div class="chip goal" data-key="goal" data-val="Posture correction"><span class="goal-icon">🧘</span><span class="goal-text">Posture correction<span class="goal-sub">Rounded shoulders, anterior pelvic tilt, spine health</span></span></div>
+    
+    <div class="chip goal" data-key="goal" data-val="Stress relief"><span class="goal-icon">🌿</span><span class="goal-text">Stress relief<span class="goal-sub">Yoga, stretching, and relaxed movement</span></span></div>
+    <div class="chip goal" data-key="goal" data-val="Stay active"><span class="goal-icon">🔄</span><span class="goal-text">Stay active / just move<span class="goal-sub">No fixed goal. You just want to move a little.</span></span></div>
+  </div>
+  <div style="text-align:center;margin-top:24px">
+    <button class="btn btn-ghost" onclick="nextStep(1)">Skip, I am not sure yet</button>
+    <button class="btn btn-ghost" onclick="reset()" style="display:block;margin:4px auto 0">🔄 Start over</button>
+  </div>
+</div>
+
+<!-- Step 1: Type + target + time -->
+<div class="step" id="step1">
+  <div class="step-title">2. What type of workout do you want?</div>
+  <div class="chips" id="chips-type">
+    <div class="chip" data-key="type" data-val="Strength">💪 Strength</div>
+    <div class="chip" data-key="type" data-val="HIIT">🔥 HIIT</div>
+    <div class="chip" data-key="type" data-val="Cardio">🏃 Cardio</div>
+    <div class="chip" data-key="type" data-val="Mobility">🧘 Mobility</div>
+    <div class="chip" data-key="type" data-val="Mixed">🔄 Mixed / flexible</div>
+  </div>
+
+  <div class="step-title" style="margin-top:20px">3. Which body area?</div>
+  <div class="chips" id="chips-target">
+    <div class="chip" data-key="target" data-val="Full body">🧍 Full body</div>
+    <div class="chip" data-key="target" data-val="Upper body">💪 Upper body (chest / shoulders / arms)</div>
+    <div class="chip" data-key="target" data-val="Chest">📐 Chest</div>
+    <div class="chip" data-key="target" data-val="Back">🔙 Back</div>
+    <div class="chip" data-key="target" data-val="Legs / glutes">🦵 Legs / glutes</div>
+    <div class="chip" data-key="target" data-val="Shoulders">🔺 Shoulders</div>
+    <div class="chip" data-key="target" data-val="Arms">💪 Arms</div>
+    <div class="chip" data-key="target" data-val="Core">🎯 Waist / core / abs</div>
+  </div>
+
+  <div class="step-title" style="margin-top:20px">4. How much time do you have?</div>
+  <div class="chips" id="chips-time">
+    <div class="chip" data-key="duration" data-val="0,10">Under 10 min</div>
+    <div class="chip" data-key="duration" data-val="10,20">10-20 min</div>
+    <div class="chip" data-key="duration" data-val="20,30">20-30 min</div>
+    <div class="chip" data-key="duration" data-val="30,60">30+ min</div>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-secondary" onclick="prevStep(0)">← Back</button>
+    <button class="btn btn-primary" onclick="nextStep(2)">Next →</button>
+  </div>
+  <button class="btn btn-ghost" onclick="reset()" style="display:block;margin:8px auto">🔄 Start over</button>
+</div>
+
+<!-- Step 2: Space + equipment + level -->
+<div class="step" id="step2">
+  <div class="step-title">5. How much space do you have?</div>
+  <div class="chips" id="chips-space">
+    <div class="chip" data-key="space" data-val="<2">🫂 Tiny (&lt;2 sq m, beside a bed or hallway)</div>
+    <div class="chip" data-key="space" data-val="2-5">🏠 Moderate (2-5 sq m, living-room corner)</div>
+    <div class="chip" data-key="space" data-val="5+">🏟️ Spacious (5+ sq m, gym or open area)</div>
+  </div>
+
+  <div class="step-title" style="margin-top:20px">6. What equipment do you have?</div>
+  <div class="chips" id="chips-equip">
+    <div class="chip" data-key="equipment" data-val="Bodyweight">🫴 Bodyweight (no equipment)</div>
+    <div class="chip" data-key="equipment" data-val="Yoga mat">🟦 Yoga mat</div>
+    <div class="chip" data-key="equipment" data-val="Dumbbells">🏋️ Dumbbells</div>
+    <div class="chip" data-key="equipment" data-val="Resistance band">🩹 Resistance band</div>
+    <div class="chip" data-key="equipment" data-val="Kettlebell">🔔 Kettlebell</div>
+    <div class="chip" data-key="equipment" data-val="Gym equipment">🏋️‍♂️ Barbell / gym equipment</div>
+  </div>
+
+  <div class="step-title" style="margin-top:20px">7. What is your level?</div>
+  <div class="chips" id="chips-level">
+    <div class="chip" data-key="difficulty" data-val="Beginner">🌱 Beginner (just starting)</div>
+    <div class="chip" data-key="difficulty" data-val="Intermediate">💪 Intermediate (some foundation)</div>
+    <div class="chip" data-key="difficulty" data-val="Advanced">🔥 Advanced (higher intensity)</div>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-secondary" onclick="prevStep(1)">← Back</button>
+    <button class="btn btn-primary" onclick="nextStep(3)">Next →</button>
+  </div>
+  <button class="btn btn-ghost" onclick="reset()" style="display:block;margin:8px auto">🔄 Start over</button>
+</div>
+
+<!-- Step 3: Constraints + results -->
+<div class="step" id="step3">
+  <div class="step-title">8. Any constraints? (optional)</div>
+  <div class="chips" id="chips-safety">
+    <div class="chip" data-key="safety" data-val="No jumping">🦘 Avoid jumping</div>
+    <div class="chip" data-key="safety" data-val="Low noise">🤫 Keep it quiet</div>
+    <div class="chip" data-key="safety" data-val="Knee / back friendly">🦴 Knee / back friendly</div>
+    <div class="chip" data-key="safety" data-val="Beginner-friendly">🌱 Beginner-friendly</div>
+  </div>
+
+  
+
+  <div class="actions">
+    <button class="btn btn-secondary" onclick="prevStep(2)">← Back</button>
+    <button class="btn btn-primary" id="btn-find" onclick="findVideos()">🔍 Find workouts</button>
+  </div>
+  <button class="btn btn-ghost" onclick="reset()" style="display:block;margin:8px auto">🔄 Start over</button>
+</div>
+<!-- Results -->
+<div class="step" id="results"></div>
+
+</div>
+
+<script>
+// State
+const state = {source:'youtube',goal:null,type:[],target:[],duration:null,space:null,equipment:[],difficulty:null,safety:[],_goalHint:null,_autoTarget:null};
+const steps = ['step0','step1','step2','step3'];
+
+const sourceLabels = {
+  youtube: 'YouTube picks'
+};
+const savedStorageKey = 'fitcue_saved_videos_v1';
+let savedVideos = loadSavedVideos();
+let libraryOpen = false;
+
+const labelMaps = {goal:{},type:{},target:{},equipment:{},difficulty:{},safety:{}};
+
+function label(kind, value){
+  return (labelMaps[kind] && labelMaps[kind][value]) || value || '';
+}
+
+function spaceLabel(value){
+  if(value === '<2') return 'Tiny space';
+  if(value === '2-5') return 'Moderate space';
+  if(value === '5+') return 'Spacious area';
+  return value || '';
+}
+
+function noiseLabel(value){
+  if(value === 'Silent') return 'Silent';
+  if(value === 'Low') return 'Low noise';
+  if(value === 'Medium') return 'Moderate noise';
+  if(value === 'High') return 'High noise';
+  return value || '';
+}
+
+function escapeHtml(value){
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
+}
+
+function escapeAttr(value){
+  return escapeHtml(value).replace(/`/g, '&#96;');
+}
+
+function loadSavedVideos(){
+  try {
+    const raw = localStorage.getItem(savedStorageKey);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function persistSavedVideos(){
+  try { localStorage.setItem(savedStorageKey, JSON.stringify(savedVideos)); } catch {}
+}
+
+function videoKey(video){
+  return `${video.platform}:${video.videoId || video.url}`;
+}
+
+function allVideos(){
+  return [...(videoSets.youtube || [])];
+}
+
+function findVideoByKey(key){
+  return allVideos().find(v => videoKey(v) === key) || savedVideos.find(v => videoKey(v) === key);
+}
+
+function isSaved(key){
+  return savedVideos.some(v => videoKey(v) === key);
+}
+
+function saveVideo(key){
+  const video = findVideoByKey(key);
+  if(!video || isSaved(key)) return;
+  savedVideos.unshift({
+    platform: video.platform,
+    author: video.author,
+    title: video.title,
+    url: video.url,
+    duration: video.duration,
+    type: video.type,
+    target: video.target,
+    equipment: video.equipment,
+    difficulty: video.difficulty,
+    videoId: video.videoId,
+    thumbnail: video.thumbnail,
+    savedAt: new Date().toISOString()
+  });
+  persistSavedVideos();
+  refreshLibrary();
+}
+
+function removeSavedVideo(key){
+  savedVideos = savedVideos.filter(v => videoKey(v) !== key);
+  persistSavedVideos();
+  refreshLibrary();
+}
+
+function toggleSave(key){
+  if(isSaved(key)) removeSavedVideo(key);
+  else saveVideo(key);
+}
+
+function updateSaveButtons(){
+  document.querySelectorAll('[data-save-key]').forEach(btn => {
+    const key = btn.dataset.saveKey;
+    const saved = isSaved(key);
+    btn.classList.toggle('saved', saved);
+    btn.textContent = saved ? 'Saved' : 'Save';
+  });
+}
+
+function updateSavedBadge(){
+  const badge = document.getElementById('saved-count-badge');
+  if(badge) badge.textContent = savedVideos.length;
+}
+
+function setSource(source){
+  if(state.source === source) return;
+  state.source = source;
+  updateSourceUI();
+  if(document.getElementById('results').classList.contains('active') && videoDataReady){
+    findVideos();
+  }
+}
+
+function updateSourceUI(){
+  document.querySelectorAll('.source-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.source === state.source);
+  });
+}
+
+function renderSourceSwitch(){
+  return `
+    <div class="source-switch" aria-label="Video source" style="grid-template-columns:1fr">
+      <button class="source-btn active" type="button" onclick="setSource('youtube')">YouTube curated videos</button>
+    </div>`;
+}
+
+function renderLibraryContent(){
+  return `
+    <div class="video-tools" id="video-tools">
+      <input class="video-search" id="video-search-input" type="search" placeholder="Search title / creator / link / video ID" oninput="renderVideoSearch()" autocomplete="off">
+      <div class="tool-panel" id="video-search-results" style="display:none"></div>
+      <div class="tool-panel">
+        <div class="tool-title">
+          <span>Saved workouts</span>
+          <span class="tool-sub">${savedVideos.length} saved</span>
+        </div>
+        <div id="saved-video-list">${renderSavedVideos()}</div>
+      </div>
+    </div>`;
+}
+
+function openLibrary(){
+  libraryOpen = true;
+  refreshLibrary();
+  document.getElementById('library-drawer').classList.add('active');
+  document.getElementById('drawer-backdrop').classList.add('active');
+}
+
+function closeLibrary(){
+  libraryOpen = false;
+  document.getElementById('library-drawer').classList.remove('active');
+  document.getElementById('drawer-backdrop').classList.remove('active');
+}
+
+function refreshLibrary(){
+  updateSavedBadge();
+  updateSaveButtons();
+  const content = document.getElementById('library-content');
+  if(!content) return;
+  const input = document.getElementById('video-search-input');
+  const query = input ? input.value : '';
+  content.innerHTML = renderLibraryContent();
+  const nextInput = document.getElementById('video-search-input');
+  if(nextInput){
+    nextInput.value = query;
+    renderVideoSearch();
+  }
+  updateSaveButtons();
+}
+
+function renderSavedVideos(){
+  if(savedVideos.length === 0){
+    return `<div class="tool-sub">Nothing saved yet. When a workout looks useful, tap "Save" and it will appear here.</div>`;
+  }
+  return savedVideos.map(video => renderMiniVideo(video, 'saved')).join('');
+}
+
+function renderMiniVideo(video, mode){
+  const key = videoKey(video);
+  const saved = isSaved(key);
+  const action = mode === 'saved'
+    ? `<button class="mini-btn danger" type="button" onclick="removeSavedVideo('${escapeAttr(key)}')">Remove</button>`
+    : `<button class="mini-btn ${saved ? 'saved' : ''}" type="button" data-save-key="${escapeAttr(key)}" onclick="toggleSave('${escapeAttr(key)}')">${saved ? 'Saved' : 'Save'}</button>`;
+  const thumb = video.thumbnail
+    ? `<img class="mini-thumb" src="${escapeAttr(video.thumbnail)}" alt="" loading="lazy">`
+    : `<div class="mini-thumb placeholder">▶</div>`;
+  return `
+    <div class="mini-card">
+      ${thumb}
+      <div>
+        <div class="mini-title">${escapeHtml(video.title)}</div>
+        <div class="mini-meta">${escapeHtml(video.author)} · ${escapeHtml(video.platform)} · ${video.duration} min · ${escapeHtml(label('type', video.type))} · ${escapeHtml(label('target', video.target))}</div>
+        <div class="mini-actions">
+          <a href="${escapeAttr(video.url)}" target="_blank" rel="noopener" class="result-link" style="font-size:12px;padding:9px">Open link</a>
+          ${action}
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderVideoSearch(){
+  const input = document.getElementById('video-search-input');
+  const box = document.getElementById('video-search-results');
+  if(!input || !box) return;
+  const query = input.value.trim().toLowerCase();
+  if(query.length === 0){
+    box.style.display = 'none';
+    box.innerHTML = '';
+    return;
+  }
+  const seen = new Set();
+  const results = [...allVideos(), ...savedVideos]
+    .filter(video => {
+      const key = videoKey(video);
+      if(seen.has(key)) return false;
+      seen.add(key);
+      const haystack = [
+        video.title, video.author, video.platform, video.url, video.videoId,
+        video.type, video.target, video.equipment, video.difficulty,
+        label('type', video.type), label('target', video.target),
+        label('equipment', video.equipment), label('difficulty', video.difficulty),
+        ...(video.tags || []).map(t => label('safety', t))
+      ].join(' ').toLowerCase();
+      return haystack.includes(query);
+    })
+    .slice(0, 12);
+
+  box.style.display = 'block';
+  box.innerHTML = `
+    <div class="tool-title">
+      <span>Find a workout link</span>
+      <span class="tool-sub">${results.length ? `Showing ${results.length}` : 'No match'}</span>
+    </div>
+    ${results.length ? results.map(video => renderMiniVideo(video, 'search')).join('') : '<div class="tool-sub">Try another keyword, such as "Chloe Ting", "core", "yoga", or "dumbbells".</div>'}`;
+  updateSaveButtons();
+}
+
+// Chip toggle
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', function(){
+    const key = this.dataset.key;
+    const val = this.dataset.val;
+
+    if(key === 'goal' || key === 'duration' || key === 'space' || key === 'difficulty'){
+      // Single select
+      document.querySelectorAll(`.chip[data-key="${key}"]`).forEach(c => c.classList.remove('selected'));
+      if(state[key] === val){ state[key] = null; return; }
+      this.classList.add('selected');
+      state[key] = val;
+      // When goal is selected, auto-suggest type & target
+      if(key === 'goal'){
+        autoSuggest(val);
+        applyGoalDefaults(val);
+        setTimeout(() => nextStep(1), 250);
+        
+      }
+    } else if(key === 'equipment'){
+      if(val === 'Bodyweight'){
+        document.querySelectorAll('.chip[data-key="equipment"]').forEach(c => c.classList.remove('selected'));
+        document.querySelectorAll(`.chip[data-key="equipment"][data-val="Bodyweight"]`).forEach(c => c.classList.add('selected'));
+        state.equipment = ['Bodyweight'];
+      } else {
+        document.querySelectorAll(`.chip[data-key="equipment"][data-val="Bodyweight"]`).forEach(c => c.classList.remove('selected'));
+        state.equipment = state.equipment.filter(e => e !== 'Bodyweight');
+        this.classList.toggle('selected');
+        if(this.classList.contains('selected')) state.equipment.push(val);
+        else state.equipment = state.equipment.filter(e => e !== val);
+        if(state.equipment.length === 0){
+          document.querySelectorAll(`.chip[data-key="equipment"][data-val="Bodyweight"]`).forEach(c => c.classList.add('selected'));
+          state.equipment = ['Bodyweight'];
+        }
+      }
+    } else if(key === 'postpartumStage'){
+      document.querySelectorAll('.chip[data-key="postpartumStage"]').forEach(c => c.classList.remove('selected'));
+      if(state.postpartumStage === val){ state.postpartumStage = null; return; }
+      this.classList.add('selected');
+      state.postpartumStage = val;
+    } else {
+      // Multi select
+      if(key === 'target') state._autoTarget = null;
+      this.classList.toggle('selected');
+      const arr = state[key];
+      if(this.classList.contains('selected')) arr.push(val);
+      else state[key] = arr.filter(v => v !== val);
+    }
+
+  });
+});
+
+// Auto-suggest type & target based on goal
+function autoSuggest(goal){
+  const suggestions = {
+    'Fat loss':          {type: ['HIIT','Cardio','Mixed'], target: ['Full body']},
+    'Build strength':    {type: ['Strength'], target: []},
+    'Core / abs':        {type: ['Strength','HIIT'], target: ['Core']},
+    'Posture correction':{type: ['Strength','Mobility'], target: ['Back','Shoulders','Full body']},
+
+    'Stress relief':     {type: ['Mobility'], target: ['Full body']},
+    'Stay active':       {type: [], target: []},
+  };
+  // Just suggestions — user still picks manually, but we pre-fill if they skip
+  // Store for later use in scoring
+  state._goalHint = suggestions[goal] || null;
+}
+
+function applyGoalDefaults(goal){
+  if(state._autoTarget && state.target.includes(state._autoTarget)){
+    document.querySelectorAll(`.chip[data-key="target"][data-val="${state._autoTarget}"]`).forEach(c => c.classList.remove('selected'));
+    state.target = state.target.filter(t => t !== state._autoTarget);
+  }
+  state._autoTarget = null;
+
+  if(goal === 'Core / abs' && state.target.length === 0){
+    state.target = ['Core'];
+    state._autoTarget = 'Core';
+    document.querySelectorAll('.chip[data-key="target"][data-val="Core"]').forEach(c => c.classList.add('selected'));
+  }
+}
+
+// Step navigation
+function showStep(n){
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById(steps[n]).classList.add('active');
+  document.querySelectorAll('.progress-dot').forEach((d,i) => {
+    d.classList.remove('active','done');
+    if(i < n) d.classList.add('done');
+    if(i === n) d.classList.add('active');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function nextStep(n){ showStep(n); }
+function prevStep(n){ showStep(n); }
+
+// Matching engine
+function score(video){
+  let s = 0;
+  let reasons = [];
+  let maxScore = 0;
+
+  // Goal bonus (up to 2)
+  maxScore += 2;
+  if(state._goalHint && state.type.length === 0 && state.target.length === 0){
+    const hint = state._goalHint;
+    if(hint.type.length && hint.type.includes(video.type)){ s += 2; reasons.push('Type supports goal'); }
+    else if(hint.type.length === 0){ s += 1; }
+  }
+
+  // Type match (max 3)
+  maxScore += 3;
+  if(state.type.length === 0 || state.type.includes(video.type)){
+    s += 3; reasons.push('Type match');
+  } else if(state._goalHint && state._goalHint.type.includes(video.type)){
+    s += 1.5;
+  }
+
+  // Target match (max 5 — increased weight because goal often maps to target)
+  maxScore += 5;
+  if(state.target.length === 0){ s += 2.5; }
+  else if(state.target.includes(video.target)){ s += 5; reasons.push('Body area match'); }
+  else if(video.target === 'Full body' && state.target.length > 0){ s += 3; reasons.push('Full-body coverage'); }
+  else if(video.target === 'Upper body' && state.target.some(t => ['Chest','Back','Shoulders','Arms'].includes(t))){ s += 4; reasons.push('Upper-body coverage'); }
+  else if(state._goalHint && state._goalHint.target.includes(video.target)){ s += 3; }
+
+  // Duration match (max 3)
+  maxScore += 3;
+  if(!state.duration){ s += 2; }
+  else if(durationMatches(video)){ s += 3; reasons.push('Duration match'); }
+  else { s -= 4; }
+
+  // Space match (max 2)
+  maxScore += 2;
+  if(!state.space){ s += 1; }
+  else {
+    const order = ['<2','2-5','5+'];
+    const vidIdx = order.indexOf(video.space);
+    const needIdx = order.indexOf(state.space);
+    if(vidIdx <= needIdx){ s += 2; reasons.push('Space fit'); }
+    else { s -= 1; }
+  }
+
+  // Equipment match (max 3)
+  maxScore += 3;
+  if(state.equipment.length === 0 || state.equipment.includes('Bodyweight')){
+    if(video.equipment === 'Bodyweight' || video.equipment === 'Yoga mat'){ s += 3; reasons.push('No equipment needed'); }
+    else { s += 1; }
+  } else {
+    if(state.equipment.includes('Gym equipment')){ s += 3; reasons.push('Equipment available'); }
+    else if(state.equipment.includes(video.equipment) || video.equipment === 'Bodyweight'){ s += 3; reasons.push('Equipment match'); }
+    else { s += 0.5; }
+  }
+
+  // Difficulty match (max 2)
+  maxScore += 2;
+  if(!state.difficulty){ s += 1; }
+  else if(video.difficulty === state.difficulty){ s += 2; reasons.push('Level match'); }
+  else {
+    const diffOrder = ['Beginner','Intermediate','Advanced'];
+    const d = diffOrder.indexOf(video.difficulty) - diffOrder.indexOf(state.difficulty);
+    if(Math.abs(d) <= 1){ s += 1; }
+  }
+
+  // Safety tags (max 4 — increased because this is core differentiator)
+  maxScore += 4;
+  const safetySet = new Set(video.tags);
+  let safetyHits = 0;
+  if(state.safety.length > 0){
+    for(const tag of state.safety){
+      if(safetySet.has(tag)){ safetyHits++; }
+    }
+    if(safetyHits > 0){ s += Math.min(safetyHits * 1.5, 4); reasons.push(`${safetyHits} constraint matches`); }
+  } else {
+    s += 0.5;
+  }
+
+
+  // Quality bonus
+  s += video.quality * 0.25;
+
+  return {score:s, max:maxScore, reasons};
+}
+
+function durationMatches(video){
+  if(!state.duration) return true;
+  const [lo,hi] = state.duration.split(',').map(Number);
+  if(lo === 30) return video.duration >= 30;
+  if(lo === 0) return video.duration <= hi;
+  return video.duration >= lo && video.duration <= hi;
+}
+
+function durationLabel(){
+  if(!state.duration) return '';
+  const [lo,hi] = state.duration.split(',');
+  if(lo === '30') return '30+ min';
+  if(lo === '0') return 'Under 10 min';
+  return `${lo}-${hi} min`;
+}
+
+function hasUserConditions(){
+  return Boolean(
+    state.goal ||
+    state.type.length ||
+    state.target.length ||
+    state.duration ||
+    state.space ||
+    state.equipment.length ||
+    state.difficulty ||
+    state.safety.length
+  );
+}
+
+const authorRecognition = {
+  'MIZI': 9,
+  'EleniFit': 8,
+  'Move with Nicole': 9,
+  'Yoga with Adriene': 10,
+  'Pamela Reif': 10,
+  'Chloe Ting': 9,
+  'MadFit': 9,
+  'Fitness Blender': 9,
+  'Grow with Jo': 8,
+  'Caroline Girvan': 9,
+  'Heather Robertson': 8,
+  'Growingannanas': 8,
+  'Blogilates': 8,
+  'HASfit': 8,
+  'Sydney Cummings': 8,
+  'Athlean-X': 8,
+  'Chris Heria': 8
+};
+
+const videoHeat = {
+  'v7SN-d4qXx0': 10,
+  'BiWDsfZ3zbo': 9.5,
+  'NyP_waVgL1w': 9.4,
+  '2mkR5LPhOC4': 9.1,
+  '1f8yoFFdkcY': 9.4,
+  '2pLT-olgUJs': 9.3,
+  'LvV7K_i7aDQ': 9.2,
+  '8A6Uai5sQVw': 9.2,
+  'Nc_NZ3PXhE8': 9,
+  '_bq49gbCyPw': 8.9,
+  '6g9myTPcb7Y': 8.9,
+  'XoqDtdggZ3I': 8.8,
+  'v7AYKMP6rOE': 8.8,
+  'Mx9RrNZv2TI': 8.6,
+  'waPCCrftvQA': 8.5,
+  '92fq0hCa2PY': 8.4
+};
+
+function defaultScore(video){
+  const author = authorRecognition[video.author] || 5;
+  const heat = videoHeat[video.videoId] || video.quality * 1.4;
+  const quality = video.quality * 1.2;
+  return {score: author * 1.6 + heat * 1.8 + quality, max: 40, reasons: ['Recognized creator / strong video signal']};
+}
+
+function rankDefaultVideos(videos){
+  const sorted = videos
+    .map(v => ({video:v, ...defaultScore(v)}))
+    .sort((a,b) => b.score - a.score);
+  const preferred = [];
+  const deferred = [];
+  const authorCount = {};
+  const typeCount = {};
+
+  sorted.forEach(row => {
+    const author = row.video.author;
+    const type = row.video.type;
+    const authorUsed = authorCount[author] || 0;
+    const typeUsed = typeCount[type] || 0;
+
+    if(authorUsed < 1 && typeUsed < 3){
+      preferred.push(row);
+      authorCount[author] = authorUsed + 1;
+      typeCount[type] = typeUsed + 1;
+    } else {
+      deferred.push(row);
+    }
+  });
+
+  return preferred.concat(deferred);
+}
+
+// Find and display
+const videoSets = {youtube: []};
+let videoDataReady = false;
+
+Promise.all([
+  loadVideoSet('youtube', 'videos.json')
+]).finally(() => { videoDataReady = true; });
+
+function loadVideoSet(key, url){
+  return fetch(url)
+    .then(r => r.json())
+    .then(d => { videoSets[key] = d; })
+    .catch(() => { videoSets[key] = []; });
+}
+
+function findVideos(){
+  if(!videoDataReady){ setTimeout(findVideos,200); return; }
+
+  const currentVideos = videoSets[state.source] || [];
+  const hasConditions = hasUserConditions();
+  const resultVideos = state.duration ? currentVideos.filter(durationMatches) : currentVideos;
+  const scored = hasConditions
+    ? resultVideos.map(v => ({video:v, ...score(v)})).sort((a,b) => b.score - a.score)
+    : rankDefaultVideos(resultVideos);
+  const top = scored.slice(0,4);
+  const rest = scored.slice(4,10);
+
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  const rdiv = document.getElementById('results');
+  rdiv.classList.add('active');
+  document.querySelectorAll('.progress-dot').forEach(d => { d.classList.add('done'); d.classList.remove('active'); });
+
+  const conditions = [];
+  if(state.goal) conditions.push('Goal: ' + label('goal', state.goal));
+  if(state.type.length) conditions.push(state.type.map(v => label('type', v)).join(' / '));
+  if(state.target.length) conditions.push(state.target.map(v => label('target', v)).join(' / '));
+  if(state.duration) conditions.push(durationLabel());
+  if(state.space) conditions.push(spaceLabel(state.space));
+  if(state.equipment.length && !(state.equipment.length===1 && state.equipment[0]==='Bodyweight')) conditions.push(state.equipment.map(v => label('equipment', v)).join(' + '));
+  if(state.safety.length) conditions.push(state.safety.map(v => label('safety', v)).join(' · '));
+  
+
+  let html = `
+  <div class="results-header">
+    <div style="font-size:24px;margin-bottom:8px">✅</div>
+    <h2 style="font-size:20px">Ready. Start with these workouts.</h2>
+    ${conditions.length ? `<p class="count" style="margin-top:8px">Your conditions: ${conditions.join(' | ')}</p>` : ''}
+    ${renderSourceSwitch()}
+    <p class="count">${!hasConditions ? `Ranked from ${currentVideos.length} ${sourceLabels[state.source]} by creator recognition, video signal, and workout coverage.` : state.duration ? `Filtered ${resultVideos.length} of ${currentVideos.length} ${sourceLabels[state.source]} by duration, then ranked by your constraints.` : `Matched from ${currentVideos.length} ${sourceLabels[state.source]} using the constraints you provided.`}</p>
+  </div>`;
+
+  top.forEach((r,i) => {
+    const v = r.video;
+    const pct = Math.round(r.score / r.max * 100);
+    html += `
+    <div class="result-card">
+      <div class="result-rank">#${i+1} · ${hasConditions ? `Match ${pct}%` : `Default pick ${pct}%`} · ${v.author}</div>
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        ${v.thumbnail ? `<img src="${v.thumbnail}" alt="" style="width:120px;height:68px;border-radius:8px;object-fit:cover;flex-shrink:0;background:var(--border)" loading="lazy">` : ''}
+        <div style="flex:1;min-width:0">
+          <div class="result-title">${v.title}</div>
+      <div class="result-meta">
+        <span class="meta-tag match">⏱ ${v.duration} min</span>
+        <span class="meta-tag match">${label('type', v.type)}</span>
+        <span class="meta-tag match">${label('target', v.target)}</span>
+        <span class="meta-tag">📐 ${spaceLabel(v.space)}</span>
+        <span class="meta-tag">🏋️ ${label('equipment', v.equipment)}</span>
+        <span class="meta-tag">📊 ${label('difficulty', v.difficulty)}</span>
+        <span class="meta-tag">🔇 ${noiseLabel(v.noise)}</span>
+        ${v.tags.map(t => '<span class="meta-tag">📋 ' + label('safety', t) + '</span>').join('')}
+      </div>
+      </div>
+      </div>
+      <div class="result-author" style="margin-top:8px">🎬 ${v.author} · ${v.platform} · Quality ${'⭐'.repeat(v.quality)}</div>
+      <div class="result-actions">
+        <a href="${v.url}" target="_blank" rel="noopener" class="result-link">▶ Open on ${v.platform}</a>
+        <button class="mini-btn ${isSaved(videoKey(v)) ? 'saved' : ''}" type="button" data-save-key="${escapeAttr(videoKey(v))}" onclick="toggleSave('${escapeAttr(videoKey(v))}')">${isSaved(videoKey(v)) ? 'Saved' : 'Save'}</button>
+      </div>
+    </div>`;
+  });
+
+  if(rest.length > 0){
+    html += `<div style="margin-top:8px">`;
+    rest.forEach((r,i) => {
+      const v = r.video;
+      html += `
+      <div class="result-card" style="opacity:0.7">
+        <div class="result-rank">Backup #${i+4} · ${v.author}</div>
+        <div class="result-title" style="font-size:14px">${v.title}</div>
+        <div class="result-meta">
+          <span class="meta-tag">⏱ ${v.duration} min</span><span class="meta-tag">${label('type', v.type)}</span><span class="meta-tag">${label('target', v.target)}</span>
+        </div>
+        <div class="result-actions">
+          <a href="${v.url}" target="_blank" rel="noopener" class="result-link" style="font-size:12px;padding:8px">▶ Open on ${v.platform}</a>
+          <button class="mini-btn ${isSaved(videoKey(v)) ? 'saved' : ''}" type="button" data-save-key="${escapeAttr(videoKey(v))}" onclick="toggleSave('${escapeAttr(videoKey(v))}')">${isSaved(videoKey(v)) ? 'Saved' : 'Save'}</button>
+        </div>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  if(top.length === 0){
+    html = `<div class="empty">
+      <div class="empty-icon">🔍</div>
+      <h3>No strong match yet</h3>
+      <p>Try loosening a few constraints.<br>For example, leave workout type or body area open.</p>
+      ${renderSourceSwitch()}
+    </div>`;
+  }
+
+  html += `<button class="reset-btn" onclick="reset()">🔄 Search again</button>
+  <div style="text-align:center;padding:24px;color:var(--text2);font-size:11px">
+    FitCue links out to third-party videos and does not embed video content.<br>
+    ⚠️ Matching is based on observable video traits. It is not medical advice.
+  </div>`;
+
+  rdiv.innerHTML = html;
+  refreshLibrary();
+  updateSaveButtons();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function reset(){
+  const source = state.source || 'youtube';
+  Object.keys(state).forEach(k => { state[k] = Array.isArray(state[k]) ? [] : null; });
+  state.source = source;
+  updateSourceUI();
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('results').innerHTML = '';
+  refreshLibrary();
+  showStep(0);
+}
+
+refreshLibrary();
+</script>
+</body>
+</html>
