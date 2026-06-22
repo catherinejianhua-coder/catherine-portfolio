@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gaga the Little Duckling — AI Storybook sample</title>
+<style>
+  :root{
+    --bg:#fbf6ee; --ink:#3a322a; --muted:#8a7e6f; --line:#e7ddcd;
+    --accent:#b97f3a; --card:#fffdf8;
+    font-family:"Iowan Old Style",Georgia,"Times New Roman",serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+  .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:12px 20px;border-bottom:1px solid var(--line);background:var(--card);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;}
+  .bar .title{font-size:14px;font-weight:700;letter-spacing:0}
+  .bar a{color:var(--muted);text-decoration:none;font-size:13px}
+  .bar a:hover{color:var(--accent)}
+
+  .stage{flex:1;display:flex;align-items:center;justify-content:center;padding:28px 18px}
+  .book{width:min(900px,100%)}
+
+  .page-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;
+    border:1px solid var(--line);border-radius:8px;background:#eef3ef}
+  .caption{margin:20px auto 0;max-width:680px;text-align:center;
+    font-size:clamp(1.05rem,1.1rem + 0.3vw,1.3rem);line-height:1.85;color:#463c30}
+
+  /* cover */
+  .cover{text-align:center;padding:14px 0}
+  .cover .kicker{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.72rem;font-weight:800;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  .cover h1{font-size:clamp(2rem,1.6rem + 3vw,3.4rem);line-height:1.08;margin-bottom:10px}
+  .cover .sub{color:var(--muted);font-size:1.05rem;margin-bottom:22px}
+
+  .controls{display:flex;align-items:center;justify-content:center;gap:18px;
+    padding:14px 18px 30px;font-family:ui-sans-serif,system-ui,sans-serif}
+  .nav-btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;
+    border:1px solid var(--ink);border-radius:8px;background:var(--ink);color:#fff;
+    font-size:.92rem;font-weight:700;cursor:pointer}
+  .nav-btn.secondary{background:transparent;color:var(--ink)}
+  .nav-btn:disabled{opacity:.35;cursor:default}
+  .nav-btn:not(:disabled):hover{border-color:var(--accent);color:var(--accent);background:transparent}
+  .nav-btn.secondary:not(:disabled):hover{background:transparent}
+  .dots{display:flex;gap:8px}
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--line);border:0;padding:0;cursor:pointer}
+  .dot.on{background:var(--accent)}
+  .counter{font-size:.82rem;color:var(--muted);min-width:46px;text-align:center}
+
+  @media(max-width:560px){
+    .controls{gap:12px;flex-wrap:wrap}
+    .nav-btn{padding:0 14px}
+  }
+</style>
+</head>
+<body>
+  <header class="bar">
+    <span class="title">📖 AI Storybook — sample book</span>
+    <a href="../../index.html#ai-storybook">← Back to portfolio</a>
+  </header>
+
+  <main class="stage">
+    <div class="book" id="book"></div>
+  </main>
+
+  <nav class="controls">
+    <button class="nav-btn secondary" id="prev">‹ Back</button>
+    <div class="dots" id="dots"></div>
+    <span class="counter" id="counter"></span>
+    <button class="nav-btn" id="next">Next ›</button>
+  </nav>
+
+<script>
+  const PAGES = [
+    { cover:true },
+    { img:"../../assets/storybook/gaga_01.jpg",
+      text:"One bright morning, Gaga the little duckling waddled to the top of a grassy hill. There, nodding in the breeze, stood a tiny flower with a friendly smile." },
+    { img:"../../assets/storybook/gaga_02.jpg",
+      text:"“Hello!” peeped Gaga. The flower beamed back, round and red as the morning sun. Gaga laughed so hard her little wings wobbled." },
+    { img:"../../assets/storybook/gaga_03.jpg",
+      text:"Feeling brave, Gaga set off to explore — past the bushes, along the winding path, all the way down to the shining pond. Flippety-flap went her happy feet." },
+    { img:"../../assets/storybook/gaga_04.jpg",
+      text:"But the meadow was big, and Gaga had wandered far. The hills looked the same in every direction. She felt very small, and one little tear welled up." },
+    { img:"../../assets/storybook/gaga_05.jpg",
+      text:"By the quiet pond she rested. On the breeze came the sweet scent of her flower friend — and Gaga knew the way home. She wiped her tear and waddled back to sleep. Goodnight, Gaga." }
+  ];
+
+  const book = document.getElementById('book');
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+  const dots = document.getElementById('dots');
+  const counter = document.getElementById('counter');
+  let i = 0;
+
+  PAGES.forEach((_, idx) => {
+    const d = document.createElement('button');
+    d.className = 'dot';
+    d.setAttribute('aria-label', 'Go to page ' + idx);
+    d.addEventListener('click', () => go(idx));
+    dots.appendChild(d);
+  });
+
+  function render(){
+    const p = PAGES[i];
+    if (p.cover){
+      book.innerHTML =
+        '<div class="cover">' +
+          '<div class="kicker">AI Storybook · sample book</div>' +
+          '<h1>Gaga the Little Duckling</h1>' +
+          '<div class="sub">A gentle bedtime story in five pages, generated end-to-end: story, art and layout.</div>' +
+          '<img class="page-img" src="../../assets/storybook/gaga_02.jpg" alt="Gaga the duckling smiling beside a red flower">' +
+        '</div>';
+    } else {
+      book.innerHTML =
+        '<img class="page-img" src="' + p.img + '" alt="Storybook illustration">' +
+        '<p class="caption">' + p.text + '</p>';
+    }
+    prev.disabled = i === 0;
+    next.disabled = i === PAGES.length - 1;
+    next.textContent = i === 0 ? 'Start reading ›' : 'Next ›';
+    counter.textContent = i === 0 ? 'Cover' : i + ' / ' + (PAGES.length - 1);
+    [...dots.children].forEach((d, idx) => d.classList.toggle('on', idx === i));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function go(n){ i = Math.max(0, Math.min(PAGES.length - 1, n)); render(); }
+  prev.addEventListener('click', () => go(i - 1));
+  next.addEventListener('click', () => go(i + 1));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') go(i + 1);
+    if (e.key === 'ArrowLeft') go(i - 1);
+  });
+  render();
+</script>
+</body>
+</html>

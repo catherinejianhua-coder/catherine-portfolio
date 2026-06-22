@@ -134,12 +134,30 @@
     }
 
     .hero {
-      min-height: min(720px, calc(100vh - 66px));
-      padding: 74px 0 52px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
-      gap: 44px;
-      align-items: center;
+      padding: 66px 0 46px;
+      display: block;
+      max-width: 820px;
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-top: 30px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .hero-stats .s b {
+      display: block;
+      color: var(--green);
+      font-size: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .hero-stats .s span {
+      color: var(--muted);
+      font-size: 0.86rem;
     }
 
     .eyebrow {
@@ -151,17 +169,26 @@
     }
 
     h1 {
-      margin: 16px 0 18px;
-      max-width: 880px;
-      font-size: clamp(2.5rem, 5vw, 5.3rem);
-      line-height: 0.98;
+      margin: 14px 0 18px;
+      max-width: 820px;
+      font-size: 3.4rem;
+      line-height: 1.04;
       letter-spacing: 0;
     }
 
+    h1 .alt {
+      color: var(--muted);
+      font-weight: 400;
+    }
+
     .hero-copy {
-      max-width: 760px;
+      max-width: 680px;
       color: #394842;
-      font-size: clamp(1.05rem, 1.55vw, 1.32rem);
+      font-size: 1.18rem;
+    }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 2.4rem; }
     }
 
     .hero-actions,
@@ -796,67 +823,21 @@
   <main>
     <section class="hero-band">
       <div class="hero">
-        <div>
-          <div class="eyebrow">Product platforms, growth systems and applied AI</div>
-          <h1>Turning uncertainty into shipped product decisions.</h1>
-          <p class="hero-copy">
-            I am a Senior Product Manager with 7+ years across Baidu, commerce platforms, B2B SaaS, marketplace growth, data products and applied AI. This portfolio focuses on the product judgement behind shipped systems, not just prototype surfaces.
-          </p>
-          <div class="hero-actions">
-            <a class="button" href="#case-studies">View case studies</a>
-            <a class="button secondary" href="docs/Jianhua_Chen_CV_UK_ATS_V4_2.pdf">View CV</a>
-            <a class="button secondary" href="https://www.linkedin.com/in/jianhua-catherine-chen-8a3847302/">LinkedIn</a>
-          </div>
-        </div>
-
-        <aside class="proof-panel" aria-label="Portfolio proof points">
-          <h2>Portfolio signal</h2>
-          <div class="metrics">
-            <div class="metric">
-              <strong>7+</strong>
-              <span>years in product management across AI, e-commerce, marketplace and consumer platforms.</span>
-            </div>
-            <div class="metric">
-              <strong>+12.5%</strong>
-              <span>conversion-rate uplift on Baidu's B2C purchase funnel, with +6.8% GMV, from shipped commerce product work.</span>
-            </div>
-            <div class="metric">
-              <strong>RMB 20M+</strong>
-              <span>daily GMV enabled through live-commerce SaaS and platform workflow capabilities.</span>
-            </div>
-            <div class="metric">
-              <strong>1+4</strong>
-              <span>one scaled platform case plus four focused explorations covering action, expression, content creation and choice.</span>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="portfolio-logic">
-      <div class="section-header">
-        <h2 id="portfolio-logic">A case portfolio built around product judgement.</h2>
-        <p>
-          The first case anchors scaled PM ownership. The product explorations show how I frame problems, narrow scope and turn AI ideas into testable experiences.
+        <div class="eyebrow">Senior Product Manager · Commerce platforms &amp; applied AI</div>
+        <h1>Jianhua Chen <span class="alt">(Catherine)</span></h1>
+        <p class="hero-copy">
+          I turn uncertainty into shipped product decisions. 7+ years across Baidu, commerce platforms, B2B SaaS, marketplace growth, data products and applied AI — this portfolio shows the product judgement behind shipped systems, not just prototype surfaces.
         </p>
-      </div>
-      <div class="capabilities">
-        <article class="capability">
-          <h3>Scaled product impact</h3>
-          <p>Commerce platform ownership across growth, analytics, workflows, governance and applied AI.</p>
-        </article>
-        <article class="capability">
-          <h3>Applied AI judgement</h3>
-          <p>AI is used only when it improves accuracy, efficiency, content quality or confidence.</p>
-        </article>
-        <article class="capability">
-          <h3>Discovery discipline</h3>
-          <p>Projects are scoped around segment clarity, MVP cost and commercial reality.</p>
-        </article>
-        <article class="capability">
-          <h3>Responsible workflows</h3>
-          <p>Quality thresholds, user control and review points are treated as product constraints.</p>
-        </article>
+        <div class="hero-actions">
+          <a class="button" href="#case-studies">View case studies</a>
+          <a class="button secondary" href="docs/Jianhua_Chen_CV_UK_ATS_V4_2.pdf">View CV</a>
+          <a class="button secondary" href="https://www.linkedin.com/in/jianhua-catherine-chen-8a3847302/">LinkedIn</a>
+        </div>
+        <div class="hero-stats">
+          <div class="s"><b>7+ yrs</b><span>product management at scale</span></div>
+          <div class="s"><b>+12.5%</b><span>CVR · +6.8% GMV at Baidu</span></div>
+          <div class="s"><b>RMB 20M+</b><span>daily GMV via live-commerce SaaS</span></div>
+        </div>
       </div>
     </section>
 
@@ -936,7 +917,7 @@
                 <li>Commercial judgement</li>
               </ul>
               <div class="case-links">
-                <a href="products/fitcue/index.html">Open English product</a>
+                <a href="products/fitcue/index.html">Try the live product →</a>
                 <a href="docs/fitcue_case_study.pdf">Read case study PDF</a>
               </div>
               <div class="evidence-panel" aria-label="FitCue evidence preview">
@@ -985,7 +966,7 @@
                 <li>Unit economics</li>
               </ul>
               <div class="case-links">
-                <a href="products/cherish/index.html">Open English product</a>
+                <a href="products/cherish/index.html">Open the prototype →</a>
                 <a href="walkthroughs/cherish.html">Read walkthrough</a>
               </div>
               <div class="evidence-panel" aria-label="Cherish communication workflow evidence">
@@ -1039,7 +1020,7 @@
                 <li>Commercialisation</li>
               </ul>
               <div class="case-links">
-                <a href="products/ai-storybook/index.html">Open English product</a>
+                <a href="products/ai-storybook/reader-en.html">Read the sample book →</a>
                 <a href="walkthroughs/ai-storybook.html">Read walkthrough</a>
               </div>
               <div class="evidence-panel" aria-label="AI Storybook sample page">
@@ -1088,7 +1069,7 @@
                 <li>Growth hooks</li>
               </ul>
               <div class="case-links">
-                <a href="products/parallel-life/index.html">Open English product</a>
+                <a href="products/parallel-life/index.html">Play the simulation →</a>
                 <a href="walkthroughs/parallel-life.html">Read walkthrough</a>
               </div>
               <div class="evidence-panel" aria-label="Parallel Life concept evidence">

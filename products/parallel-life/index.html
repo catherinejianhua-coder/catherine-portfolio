@@ -121,10 +121,9 @@ function showCities() {
   try {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
     if (tz.includes('London')) det = 'London';
-    else if (tz.includes('New_York')||tz.includes('America/')) det = 'New York';
   } catch(e) {}
 
-  const cs = ['London','New York','Sheffield'];
+  const cs = ['London','Manchester','Sheffield'];
   render(`
     <div style="text-align:center;animation:fadeIn 0.6s ease;">
       <div style="font-size:14px;color:var(--text);margin:50px 0 8px;">Choose a city</div>
@@ -148,66 +147,66 @@ function pickCity(c, el) {
 // ── character library ──
 const characters = {
   'London': {
-    name: 'Demi', age: 31,
-    intro: 'Three years ago she moved from Hong Kong to London. She designs for a small agency, and her work visa has one year left. London gives her museums, parks, and the quiet freedom of being unknown. Home gives her parents, language, and a guilt she cannot put down.',
-    scene: 'Peckham · 7:00pm · June 2026',
-    lastLine: 'She has just hung up with her mother. "Your dad\'s knee is not great. Nothing serious." Outside, the Peckham sky is turning gold. The Hong Kong sky was gold too. A different kind of gold.',
+    name: 'Sophie', age: 33,
+    intro: 'She grew up in Bristol and came to London at 22 for the work. Eleven years in fintech later, she is good at her job and still cannot afford to buy. Her partner has started saying the word "family" out loud. London gives her the career, the salary, the friends. It quietly refuses to give her a home she can keep.',
+    scene: 'Hackney · 8:00pm · June 2026',
+    lastLine: 'The rent renewal landed today: up again. Her partner sends a Rightmove link — a two-bed in Bristol with a garden, less than their London deposit. "Just looking," he writes. Her director just hinted at a promotion. Both things are true at the same time.',
     choices: [
-      { dir:'← Stay London', desc:'Find another sponsor. Keep moving toward settlement. Keep the parks, the museums, the freedom of being only herself.', risks:[
-        {lv:'g',t:'Lands',d:'She finds a sponsor, renews the visa, and reaches settlement. Her parents can visit without asking if she is coming home for good.',p:'~35%'},
-        {lv:'y',t:'Endures',d:'The new job is fine but rent takes half her pay. She goes home once a year. Her parents look older through a screen.',p:'~45%'},
-        {lv:'r2',t:'Runs out',d:'The visa expires before a sponsor appears. Three London years become two suitcases and a hard return.',p:'~20%'}],
-        forks:'What if · settlement changes her passport plan · her father needs surgery · the agency loses its sponsor license' },
-      { dir:'Hong Kong →', desc:'Go home before the visa decides for her. Family is near again. The visa anxiety stops. But London becomes a life she has to narrate in past tense.', risks:[
-        {lv:'g',t:'Reconnects',d:'She finds a design role. Weekends with family return. Her mother sleeps better.',p:'~45%'},
-        {lv:'y',t:'Misses',d:'The work culture is tighter. She misses the version of herself who could disappear in a park.',p:'~35%'},
-        {lv:'r2',t:'Regrets',d:'Two years later she wants out again, but the path back is narrower and more expensive.',p:'~20%'}],
-        forks:'What if · her London partner stays · she takes a remote role · her parents need daily care' }
+      { dir:'← Stay London', desc:'Take the promotion. Keep the ladder, the friends, the city that made her. Keep renting, and keep the home she wants just out of reach.', risks:[
+        {lv:'g',t:'Climbs',d:'She gets the promotion and a rise that finally outruns rent. They buy a small flat in Zone 3. The garden waits, but the career is hers.',p:'~30%'},
+        {lv:'y',t:'Treads water',d:'The promotion is real but so is the rent. At 36 they are still renting, still saving, still "next year".',p:'~50%'},
+        {lv:'r2',t:'Burns out',d:'The job demands more than it gives back. The relationship strains under the postponements.',p:'~20%'}],
+        forks:'What if · her partner moves without her · interest rates shift · the company finally IPOs' },
+      { dir:'Bristol →', desc:'Leave before the city decides for her. A house with a garden, family nearby, room to start the family they keep deferring. But London becomes a thing she used to have.', risks:[
+        {lv:'g',t:'Roots',d:'She finds a remote-friendly role, they buy the house, a child arrives. Bristol turns out to be enough.',p:'~45%'},
+        {lv:'y',t:'Misses',d:'The work is quieter, the pay lower. She misses the version of herself who ran rooms in London.',p:'~35%'},
+        {lv:'r2',t:'Regrets',d:'Two years on she wants back in, but London roles have moved on and the door is heavier.',p:'~20%'}],
+        forks:'What if · remote work dries up · her parents need her near · she freelances London clients' }
     ],
     fragments: [
-      [{ym:'Three months',t:'A small startup agrees to sponsor her. The lift in the office is unreliable. On her first Friday, she sits alone at Tate Modern and lets herself breathe.'},
-       {ym:'One year',t:'The company raises a seed round. Her salary rises, but her father\'s surgery is scheduled for next spring. Her mother says, "Do your work. We are fine." Demi knows the sentence is too generous.'},
-       {ym:'Three years',t:'She receives settlement. She walks along the river for an hour before calling home. Her mother cries first. Demi follows.'}],
-      [{ym:'Three months',t:'She is back in Hong Kong, sleeping in the room where she was sixteen. Her father\'s knee is worse than he admitted. She goes with him to physio every Saturday.'},
-       {ym:'One year',t:'She misses London less as a place than as a permission. In Hong Kong she is daughter, sister, ex-girlfriend. In London she was simply Demi.'},
-       {ym:'Three years',t:'Her father walks better. Her mother sleeps. Sometimes Demi likes a Peckham friend\'s post and feels a small door close and open at the same time.'}]
+      [{ym:'Three months',t:'She takes the promotion. The first month is a blur of late trains and small wins. On a Friday she buys a flat-viewing ticket she cannot quite afford and stands in an empty Zone 3 living room, doing sums.'},
+       {ym:'One year',t:'They complete on a one-bed. It is small and it is theirs. Her partner stops sending Rightmove links from Bristol. Mostly.'},
+       {ym:'Three years',t:'She is a senior lead now. There is no garden, but there is a balcony, and on Sunday mornings London is almost quiet. She does not regret it. Most days.'}],
+      [{ym:'Three months',t:'They complete on the Bristol house. There is a garden she keeps photographing like she cannot believe it. She starts a remote role two rungs below where she was.'},
+       {ym:'One year',t:'She is pregnant. The commute is a laptop and a kitchen table. Some afternoons she misses the buzz so much it surprises her.'},
+       {ym:'Three years',t:'A toddler in the garden. A career that grew sideways, not up. She opens an old colleague\'s post about an IPO, does one calculation, then closes the app.'}]
     ],
     gainLabel:'Gained', costLabel:'Cost',
-    gainStay:'▸ Settlement, a passport path, and freer movement<br>▸ The parks, the NHS, and the relief of being unknown<br>▸ Proof that she can live inside uncertainty',
-    gainGo:'▸ Her father\'s physio, with her in the room<br>▸ Her mother sleeping again<br>▸ No more waking at 3am to visa calculations',
-    costStay:'▸ She is not there when family things happen<br>▸ One visit home a year, sometimes less<br>▸ A guilt that cannot be translated cleanly',
-    costGo:'▸ The Peckham sky<br>▸ The self nobody knew how to name<br>▸ London becomes a paragraph she has to explain'
+    gainStay:'▸ The promotion and the career she built<br>▸ The friends, the city, the version of her that runs rooms<br>▸ A flat in London, finally, even if small',
+    gainGo:'▸ A house with a garden, room to breathe<br>▸ Family near, and the child they kept deferring<br>▸ No more 3am rent arithmetic',
+    costStay:'▸ Years of renting and "next year"<br>▸ The family plan always one promotion away<br>▸ A home that stays just out of reach',
+    costGo:'▸ The London career, paused at its peak<br>▸ The buzz of running the room<br>▸ "I work in London" becoming "I used to"'
   },
-  'New York': {
-    name: 'Alex', age: 29,
-    intro: 'Five years in New York. OPT has nine months left. H1B has failed three times. She keeps a pothos in Brooklyn because a pet is too hard to move, but a plant can survive a suitcase if it must.',
-    scene: 'Brooklyn · 9:00pm · June 2026',
-    lastLine: 'USCIS still says nothing. Someone is grilling on the roof across the street. The smell makes her remember summer nights in Beijing. She has not gone back for a summer in three years.',
+  'Manchester': {
+    name: 'Tom', age: 36,
+    intro: 'Born in Stockport, he never left the North and never wanted to. He leads a product team in Manchester, ten minutes from his mum and the five-a-side he has played since school. Then the London office offers him a director role: more money, more scope, a relocation package. Everything he has spent ten years saying he did not need.',
+    scene: 'Chorlton · 7:00pm · June 2026',
+    lastLine: 'The offer email is still open on his phone. His daughter is doing homework at the kitchen table; his wife teaches at the school down the road. His mum is round for tea, as she is most Tuesdays. London is two hours and another life away. The salary would change things. So would the leaving.',
     choices: [
-      { dir:'← Bet one more year', desc:'Try the fourth lottery. If it fails, attempt O-1 or Day 1 CPT. New York is difficult, but leaving feels like letting the city answer for her.', risks:[
-        {lv:'g',t:'Selected',d:'H1B comes through. Three more years. A green-card queue begins. Her thirties gain a shape.',p:'~15%'},
-        {lv:'y',t:'Detour',d:'No H1B, but O-1 works. Legal fees hit $8K. She stays, but every renewal feels like borrowed time.',p:'~35%'},
-        {lv:'r2',t:'Deadline',d:'OPT ends. She has 90 days to leave. Five New York years pack into two suitcases and one plant.',p:'~50%'}],
-        forks:'What if · O-1 succeeds but green card stalls · Canada becomes the backup · she marries for love and the paperwork follows' },
-      { dir:'Return →', desc:'Go back before the visa forces it. Use the overseas experience while it is still legible. New York becomes experience, not residence.', risks:[
-        {lv:'g',t:'Transfers',d:'An AI globalisation company values her US experience. Pay holds. Her family stops speaking in careful pauses.',p:'~30%'},
-        {lv:'y',t:'Readjusts',d:'Meetings, pace, and hierarchy feel different. Six months in, she starts browsing remote roles.',p:'~45%'},
-        {lv:'r2',t:'Closes',d:'Two years later she cannot imagine leaving family again, but also cannot find a path back to the US.',p:'~25%'}],
-        forks:'What if · Beijing or Shenzhen · management arrives earlier than expected · she keeps one foot in US clients' }
+      { dir:'← Stay Manchester', desc:'Turn it down. Keep the team he built, the ten-minute commute, Tuesday teas with mum, his daughter\'s street. Bet that scope will come north eventually.', risks:[
+        {lv:'g',t:'Builds',d:'He grows the Manchester team into something the company cannot ignore. Director scope arrives — without the move.',p:'~35%'},
+        {lv:'y',t:'Plateaus',d:'The work stays good but the big roles keep going to London. At 40 he wonders what the ceiling really is.',p:'~45%'},
+        {lv:'r2',t:'Stalls',d:'A reorg moves his function south. He kept the life and lost some of the work.',p:'~20%'}],
+        forks:'What if · the company opens a northern hub · his mum\'s health changes · a rival offers London money for remote' },
+      { dir:'London →', desc:'Take the director role. The scope he has earned, the salary that changes the mortgage, the rooms where decisions actually get made. Move the family, or split the week.', risks:[
+        {lv:'g',t:'Arrives',d:'The role is everything he hoped. The family settles in the commuter belt. His daughter, surprisingly, thrives.',p:'~30%'},
+        {lv:'y',t:'Commutes',d:'He keeps Manchester and does London three days a week. The trains eat the pay rise and the Tuesday teas.',p:'~45%'},
+        {lv:'r2',t:'Costs',d:'The family never quite settles. Two years in he is choosing between the job and the marriage.',p:'~25%'}],
+        forks:'What if · his wife cannot transfer her school · the company lets him hybrid · his daughter hates the move' }
     ],
     fragments: [
-      [{ym:'Three months',t:'The lottery fails. She hires an O-1 lawyer and puts the fee on a credit card. Her roommate moves west after winning H1B. The pothos stays on the windowsill.'},
-       {ym:'One year',t:'O-1 is approved. She tells her mother, "I can stay." The sentence is true, but only for now.'},
-       {ym:'Three years',t:'Two renewals later, she earns more and sleeps less. New York still smells like hot pavement and roof grills in summer. She still loves it.'}],
-      [{ym:'Three months',t:'She lands in Shenzhen. The company makes AI tools for overseas markets. People call her "the one from New York." She is not sure if she likes the label.'},
-       {ym:'One year',t:'She learns the rules here. They are different, not lesser. Someone asks if she wants to manage a small team. In New York, nobody would have asked this soon.'},
-       {ym:'Three years',t:'She is a director. Some nights she opens a Brooklyn friend\'s feed and sees a house in California. She does one calculation, then closes the app.'}]
+      [{ym:'Three months',t:'He turns it down on a Sunday night and feels lighter than he expected. On Monday he pitches a bigger remit for the Manchester team instead. His boss says, "Let me see what I can do."'},
+       {ym:'One year',t:'The team ships the thing everyone said needed London. His daughter makes the school netball team. His mum\'s Tuesday teas continue, uninterrupted.'},
+       {ym:'Three years',t:'They give him director scope, run from Manchester, with two reports in London. He kept the five-a-side. Some nights he wonders about the other road, then his daughter asks for help with maths.'}],
+      [{ym:'Three months',t:'They rent near Macclesfield and he does London three days a week. The role is bigger than anything up north. The trains are longer than anything he imagined.'},
+       {ym:'One year',t:'His wife found a school but misses her old one. His daughter is quieter. The salary is real; so is the kitchen table that feels half-empty on London nights.'},
+       {ym:'Three years',t:'He is a respected director. They moved fully south in the end. His mum visits one weekend a month and says the trains are easy, which they both know is a kindness.'}]
     ],
     gainLabel:'Gained', costLabel:'Cost',
-    gainStay:'▸ The right to keep living in New York, even if renewed yearly<br>▸ A sharper professional edge under pressure<br>▸ The summer smell from rooftops across the street',
-    gainGo:'▸ A job without annual visa arithmetic<br>▸ Her mother no longer pausing before asking questions<br>▸ Management experience three years earlier than in the US',
-    costStay:'▸ The $8K legal fee, and the next one<br>▸ Telling family "I can stay" while knowing the expiry date<br>▸ Many friends leave. She becomes one of those who remain',
-    costGo:'▸ New York summers<br>▸ "I live in New York" becoming "I used to live there"<br>▸ Never knowing whether she could have built a life there'
+    gainStay:'▸ The team he built and the life around it<br>▸ Tuesday teas, five-a-side, his daughter\'s street<br>▸ Proof that scope can come north',
+    gainGo:'▸ Director scope and the rooms where it is decided<br>▸ A salary that changes the mortgage<br>▸ The ceiling, finally lifted',
+    costStay:'▸ The big roles that keep going south<br>▸ Wondering what the ceiling really was<br>▸ Watching London money pass by',
+    costGo:'▸ Ten-minute commutes and Tuesday teas<br>▸ His daughter\'s settled, easy world<br>▸ The North that made him, seen now from a train'
   },
   'Sheffield': {
     name: 'Emily', age: 32,
