@@ -3,134 +3,168 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gaga the Little Duckling — AI Storybook sample</title>
+<title>AI Storybook — sample books</title>
 <style>
   :root{
     --bg:#fbf6ee; --ink:#3a322a; --muted:#8a7e6f; --line:#e7ddcd;
     --accent:#b97f3a; --card:#fffdf8;
-    font-family:"Iowan Old Style",Georgia,"Times New Roman",serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--bg);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+
   .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;
     padding:12px 20px;border-bottom:1px solid var(--line);background:var(--card);
-    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;}
-  .bar .title{font-size:14px;font-weight:700;letter-spacing:0}
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;position:sticky;top:0;z-index:10}
+  .bar .title{font-size:14px;font-weight:700}
   .bar a{color:var(--muted);text-decoration:none;font-size:13px}
   .bar a:hover{color:var(--accent)}
 
-  .stage{flex:1;display:flex;align-items:center;justify-content:center;padding:28px 18px}
-  .book{width:min(900px,100%)}
+  .tabs{display:flex;gap:0;justify-content:center;padding:20px 18px 0;
+    font-family:ui-sans-serif,system-ui,sans-serif;position:sticky;top:48px;z-index:9;background:var(--bg)}
+  .tab{border:1px solid var(--line);background:var(--card);color:var(--muted);
+    padding:10px 22px;font-size:14px;font-weight:600;cursor:pointer;
+    transition:all .18s}
+  .tab:first-child{border-radius:8px 0 0 8px}
+  .tab:last-child{border-radius:0 8px 8px 0}
+  .tab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 
-  .page-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;
-    border:1px solid var(--line);border-radius:8px;background:#eef3ef}
-  .caption{margin:20px auto 0;max-width:680px;text-align:center;
-    font-size:clamp(1.05rem,1.1rem + 0.3vw,1.3rem);line-height:1.85;color:#463c30}
+  /* Waterfall */
+  .waterfall{width:min(760px,100%);margin:0 auto;padding:28px 18px 48px;display:none}
+  .waterfall.active{display:block}
 
-  /* cover */
-  .cover{text-align:center;padding:14px 0}
-  .cover .kicker{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.72rem;font-weight:800;
+  /* Cover */
+  .cover-block{text-align:center;padding:24px 0 36px}
+  .cover-block .kicker{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.72rem;font-weight:800;
     letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
-  .cover h1{font-size:clamp(2rem,1.6rem + 3vw,3.4rem);line-height:1.08;margin-bottom:10px}
-  .cover .sub{color:var(--muted);font-size:1.05rem;margin-bottom:22px}
+  .cover-block h1{font:500 clamp(2rem,1.6rem + 3vw,3.4rem)/1.08 "Iowan Old Style",Georgia,"Times New Roman",serif;margin-bottom:10px}
+  .cover-block .sub{font-size:1.05rem;color:var(--muted);margin-bottom:24px}
+  .cover-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;
+    border:1px solid var(--line);border-radius:8px;background:#eef3ef}
 
-  .controls{display:flex;align-items:center;justify-content:center;gap:18px;
-    padding:14px 18px 30px;font-family:ui-sans-serif,system-ui,sans-serif}
-  .nav-btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;
-    border:1px solid var(--ink);border-radius:8px;background:var(--ink);color:#fff;
-    font-size:.92rem;font-weight:700;cursor:pointer}
-  .nav-btn.secondary{background:transparent;color:var(--ink)}
-  .nav-btn:disabled{opacity:.35;cursor:default}
-  .nav-btn:not(:disabled):hover{border-color:var(--accent);color:var(--accent);background:transparent}
-  .nav-btn.secondary:not(:disabled):hover{background:transparent}
-  .dots{display:flex;gap:8px}
-  .dot{width:9px;height:9px;border-radius:50%;background:var(--line);border:0;padding:0;cursor:pointer}
-  .dot.on{background:var(--accent)}
-  .counter{font-size:.82rem;color:var(--muted);min-width:46px;text-align:center}
+  /* Page block */
+  .page-block{padding:28px 0}
+  .page-block + .page-block{border-top:1px dashed var(--line)}
+  .page-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;
+    border:1px solid var(--line);border-radius:8px;background:#eef3ef;margin-bottom:16px}
+  .page-num{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.68rem;font-weight:700;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+  .caption{font-size:clamp(1.02rem,1.05rem + 0.2vw,1.22rem);line-height:1.85;color:#463c30;max-width:640px;margin:0 auto;text-align:center}
+  .caption-cn{margin-top:8px;font-size:0.95rem;color:var(--muted);line-height:1.75;max-width:640px;margin-left:auto;margin-right:auto;text-align:center}
 
   @media(max-width:560px){
-    .controls{gap:12px;flex-wrap:wrap}
-    .nav-btn{padding:0 14px}
+    .tabs{flex-direction:column;padding:12px 12px 0}
+    .tab{border-radius:8px;text-align:center}
+    .tab:first-child,.tab:last-child{border-radius:8px}
   }
 </style>
 </head>
 <body>
   <header class="bar">
-    <span class="title">📖 AI Storybook — sample book</span>
+    <span class="title">📖 AI Storybook — sample books</span>
     <a href="../../index.html#ai-storybook">← Back to portfolio</a>
   </header>
 
-  <main class="stage">
-    <div class="book" id="book"></div>
+  <div class="tabs">
+    <button class="tab on" id="tab-ladybug" onclick="switchStory('ladybug')">🐞 Dot's Happy Day</button>
+    <button class="tab" id="tab-gaga" onclick="switchStory('gaga')">🦆 Gaga the Little Duckling</button>
+  </div>
+
+  <main>
+    <!-- Ladybug story -->
+    <div class="waterfall active" id="wf-ladybug"></div>
+
+    <!-- Gaga story -->
+    <div class="waterfall" id="wf-gaga"></div>
   </main>
 
-  <nav class="controls">
-    <button class="nav-btn secondary" id="prev">‹ Back</button>
-    <div class="dots" id="dots"></div>
-    <span class="counter" id="counter"></span>
-    <button class="nav-btn" id="next">Next ›</button>
-  </nav>
-
 <script>
-  const PAGES = [
-    { cover:true },
-    { img:"../../assets/storybook/gaga_01.jpg",
-      text:"One bright morning, Gaga the little duckling waddled to the top of a grassy hill. There, nodding in the breeze, stood a tiny flower with a friendly smile." },
-    { img:"../../assets/storybook/gaga_02.jpg",
-      text:"“Hello!” peeped Gaga. The flower beamed back, round and red as the morning sun. Gaga laughed so hard her little wings wobbled." },
-    { img:"../../assets/storybook/gaga_03.jpg",
-      text:"Feeling brave, Gaga set off to explore — past the bushes, along the winding path, all the way down to the shining pond. Flippety-flap went her happy feet." },
-    { img:"../../assets/storybook/gaga_04.jpg",
-      text:"But the meadow was big, and Gaga had wandered far. The hills looked the same in every direction. She felt very small, and one little tear welled up." },
-    { img:"../../assets/storybook/gaga_05.jpg",
-      text:"By the quiet pond she rested. On the breeze came the sweet scent of her flower friend — and Gaga knew the way home. She wiped her tear and waddled back to sleep. Goodnight, Gaga." }
-  ];
-
-  const book = document.getElementById('book');
-  const prev = document.getElementById('prev');
-  const next = document.getElementById('next');
-  const dots = document.getElementById('dots');
-  const counter = document.getElementById('counter');
-  let i = 0;
-
-  PAGES.forEach((_, idx) => {
-    const d = document.createElement('button');
-    d.className = 'dot';
-    d.setAttribute('aria-label', 'Go to page ' + idx);
-    d.addEventListener('click', () => go(idx));
-    dots.appendChild(d);
-  });
-
-  function render(){
-    const p = PAGES[i];
-    if (p.cover){
-      book.innerHTML =
-        '<div class="cover">' +
-          '<div class="kicker">AI Storybook · sample book</div>' +
-          '<h1>Gaga the Little Duckling</h1>' +
-          '<div class="sub">A gentle bedtime story in five pages, generated end-to-end: story, art and layout.</div>' +
-          '<img class="page-img" src="../../assets/storybook/gaga_02.jpg" alt="Gaga the duckling smiling beside a red flower">' +
-        '</div>';
-    } else {
-      book.innerHTML =
-        '<img class="page-img" src="' + p.img + '" alt="Storybook illustration">' +
-        '<p class="caption">' + p.text + '</p>';
+  const STORIES = {
+    ladybug: {
+      kicker: 'AI Storybook · 7-page picture book',
+      title: "Dot's Happy Day",
+      subtitle: 'A little ladybug discovers the small wonders of the garden',
+      coverImg: '../../assets/storybook/ladybug_cover.jpg',
+      pages: [
+        { img:'../../assets/storybook/ladybug_01.jpg',
+          en:"One bright morning, the sun peeked over the garden wall. Dot the little ladybug stretched her round red body and crawled out from under a dewy leaf. \"Where shall I go today?\" she wondered, giving her seven black spots a happy little wiggle." },
+        { img:'../../assets/storybook/ladybug_02.jpg',
+          en:"Dot flew up to a golden sunflower. On one of its petals sat a tiny, sparkling dewdrop. She touched it gently with her antenna — and the drop caught the sunlight, flashing like a tiny jewel. Dot's wings tingled with excitement." },
+        { img:'../../assets/storybook/ladybug_03.jpg',
+          en:"Fluttering across the meadow, Dot spotted a line of little ants marching in single file, each carrying a crumb of biscuit. \"Where are you all going?\" she asked. \"We're having a picnic!\" chirped the ants. \"Come along!\" Dot beamed and followed." },
+        { img:'../../assets/storybook/ladybug_04.jpg',
+          en:"The ants led Dot to a patch of soft clover. Everyone sat in a circle and shared what they had brought — biscuit crumbs, tiny flower petals, and a sweet drop of nectar. The clover hummed with happy chatter, and the whole garden smelled like sunshine and friendship." },
+        { img:'../../assets/storybook/ladybug_05.jpg',
+          en:"After the picnic, the ants and Dot played hide-and-seek. Dot tucked herself inside a purple morning glory, holding her breath — then let out a giggle that made the whole flower tremble. The ants laughed and came running." },
+        { img:'../../assets/storybook/ladybug_06.jpg',
+          en:"Just then, a warm breeze lifted a pink petal into the air. It floated down and landed right on Dot's head, like a tiny hat. Delighted, Dot spun and twirled across the grass, her wings shimmering in the golden light. Butterflies danced beside her." },
+        { img:'../../assets/storybook/ladybug_07.jpg',
+          en:"As the sun slipped behind the hills, Dot flew home to her leaf-bed. She nestled into the soft green and looked up at the first star. \"What a happy day,\" she whispered. \"Tomorrow I'll discover something new again.\" And with a sleepy smile, she closed her eyes." }
+      ]
+    },
+    gaga: {
+      kicker: 'AI Storybook · 9-page picture book',
+      title: "Gaga's Little Face",
+      subtitle: 'Learning happy and sad expressions with a little duckling',
+      coverImg: '../../assets/storybook/gaga_face_cover.jpg',
+      pages: [
+        { img:'../../assets/storybook/gaga_face_01.jpg',
+          en:"Gaga is a round, fluffy, yellow baby duckling who loves to waddle around and see the world." },
+        { img:'../../assets/storybook/gaga_face_02.jpg',
+          en:"One day, Gaga spots a bright red flower in bloom. Its little face lights up — eyes crinkling into happy crescent moons. \"Wow!\" Gaga smiles, feeling so joyful." },
+        { img:'../../assets/storybook/gaga_face_03.jpg',
+          en:"Gaga wiggles its bottom and flaps its tiny wings, bursting with excitement. \"Quack quack quack! So pretty!\" it cheers, dancing in circles on the soft green grass." },
+        { img:'../../assets/storybook/gaga_face_04.jpg',
+          en:"Suddenly, Gaga looks around — Mama is nowhere to be seen. Its little beak goes flat, its round eyes glisten with tears, and one tiny teardrop rolls down its fuzzy cheek." },
+        { img:'../../assets/storybook/gaga_face_05.jpg',
+          en:"Gaga lets out a soft, sad cry. Head drooping low, it thinks to itself, \"Mama, where are you?\" The meadow feels big and quiet and lonely." },
+        { img:'../../assets/storybook/gaga_face_06.jpg',
+          en:"Just then — a rustle in the tall grass! Mama pokes her head out, smiling warmly. \"Gaga, here I am!\" she calls softly." },
+        { img:'../../assets/storybook/gaga_face_07.jpg',
+          en:"In a flash, Gaga dashes across the grass and leaps into Mama's warm, feathery hug. Its little face is beaming again — the biggest, brightest smile of all!" },
+        { img:'../../assets/storybook/gaga_face_08.jpg',
+          en:"Now Gaga understands: a happy face is like the warm sunshine, and a sad face is like a gentle rain. But no matter what — Mama loves Gaga, always and forever." },
+        { img:'../../assets/storybook/gaga_face_09.jpg',
+          en:"Hey little one, let's practice making faces with Gaga! Happy? — Give a big smile! Sad? — Make a pouty mouth! You did it — you're amazing!" }
+      ]
     }
-    prev.disabled = i === 0;
-    next.disabled = i === PAGES.length - 1;
-    next.textContent = i === 0 ? 'Start reading ›' : 'Next ›';
-    counter.textContent = i === 0 ? 'Cover' : i + ' / ' + (PAGES.length - 1);
-    [...dots.children].forEach((d, idx) => d.classList.toggle('on', idx === i));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  function buildWaterfall(key) {
+    const S = STORIES[key];
+    let html = '';
+
+    // Cover
+    html += '<div class="cover-block">';
+    html += '<div class="kicker">' + S.kicker + '</div>';
+    html += '<h1>' + S.title + '</h1>';
+    html += '<div class="sub">' + S.subtitle + '</div>';
+    if(S.titleCn) html += '<div class="caption-cn" style="margin-bottom:20px">《' + S.titleCn + '》— ' + S.subtitleCn + '</div>';
+    html += '<img class="cover-img" src="' + S.coverImg + '" alt="' + S.title + ' cover" loading="eager">';
+    html += '</div>';
+
+    // Pages
+    S.pages.forEach((p, idx) => {
+      html += '<div class="page-block">';
+      html += '<div class="page-num">Page ' + (idx + 1) + ' of ' + S.pages.length + '</div>';
+      html += '<img class="page-img" src="' + p.img + '" alt="Story illustration page ' + (idx + 1) + '" loading="lazy">';
+      html += '<p class="caption">' + p.en + '</p>';
+      if(p.cn) html += '<p class="caption-cn">' + p.cn + '</p>';
+      html += '</div>';
+    });
+
+    return html;
   }
-  function go(n){ i = Math.max(0, Math.min(PAGES.length - 1, n)); render(); }
-  prev.addEventListener('click', () => go(i - 1));
-  next.addEventListener('click', () => go(i + 1));
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight') go(i + 1);
-    if (e.key === 'ArrowLeft') go(i - 1);
-  });
-  render();
+
+  // Pre-build both waterfalls
+  document.getElementById('wf-ladybug').innerHTML = buildWaterfall('ladybug');
+  document.getElementById('wf-gaga').innerHTML = buildWaterfall('gaga');
+
+  function switchStory(key) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.id === 'tab-' + key));
+    document.querySelectorAll('.waterfall').forEach(w => w.classList.remove('active'));
+    document.getElementById('wf-' + key).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
 </script>
 </body>
 </html>
