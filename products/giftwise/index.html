@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>GiftWise · AI gift picker (UK)</title>
+<style>
+:root {
+  --bg: #f5f5f5; --card: #fff; --text: #1a1a2e; --sub: #6b7280;
+  --accent: #f97316; --accent2: #fb923c; --green: #10b981; --red: #ef4444;
+  --border: #e5e7eb; --radius: 14px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #1a1a2e; display: flex; justify-content: center; align-items: center;
+  min-height: 100vh;
+}
+.phone {
+  width: 100%; max-width: 420px; height: 100vh; max-height: 820px;
+  background: var(--bg); display: flex; flex-direction: column; overflow: hidden;
+}
+
+.nav {
+  background: #fff; padding: 14px 16px; display: flex; align-items: center; gap: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.nav .logo { font-size: 18px; font-weight: 800; flex: 1; }
+.nav .logo em { color: var(--accent); font-style: normal; }
+.nav-btn {
+  border: 1px solid var(--border); background: #fff; color: var(--text);
+  border-radius: 999px; padding: 8px 14px; font-size: 13px; font-weight: 700;
+  cursor: pointer; font-family: inherit; transition: all .15s;
+  display: flex; align-items: center; gap: 4px;
+}
+.nav-btn:active { transform: scale(.96); }
+.nav-btn .count {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 18px; height: 18px; border-radius: 999px;
+  background: var(--accent); color: #fff; font-size: 11px; font-weight: 800;
+}
+
+.view { flex: 1; display: none; flex-direction: column; overflow-y: auto; }
+.view.active { display: flex; }
+.view::-webkit-scrollbar { width: 0; }
+
+/* ── Stepper ── */
+.stepper { padding: 20px 16px; }
+.step-dots { display: flex; gap: 6px; justify-content: center; margin-bottom: 24px; }
+.step-dot { width: 8px; height: 8px; border-radius: 50%; background: #d1d5db; transition: all .3s; }
+.step-dot.done { background: var(--accent2); }
+.step-dot.active { background: var(--accent); width: 24px; border-radius: 4px; }
+.step-title { font-size: 20px; font-weight: 700; text-align: center; margin-bottom: 4px; }
+.step-sub { font-size: 13px; color: var(--sub); text-align: center; margin-bottom: 20px; }
+
+.opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.opt-grid.col3 { grid-template-columns: 1fr 1fr 1fr; }
+.opt-card {
+  background: #fff; border-radius: var(--radius); padding: 18px 14px;
+  text-align: center; cursor: pointer; transition: all .18s;
+  border: 2px solid transparent; box-shadow: 0 1px 3px rgba(0,0,0,.04);
+}
+.opt-card:active { transform: scale(.96); }
+.opt-card.selected { border-color: var(--accent); background: #fff7ed; }
+.opt-card .oi { font-size: 32px; margin-bottom: 6px; }
+.opt-card .ol { font-size: 14px; font-weight: 600; }
+.opt-card .od { font-size: 11px; color: var(--sub); margin-top: 2px; }
+
+.budget-list { display: flex; flex-direction: column; gap: 8px; }
+.budget-row {
+  background: #fff; border-radius: var(--radius); padding: 16px;
+  cursor: pointer; transition: all .18s; border: 2px solid transparent;
+  display: flex; align-items: center; gap: 12px;
+}
+.budget-row:active { transform: scale(.98); }
+.budget-row.selected { border-color: var(--accent); background: #fff7ed; }
+.budget-row .bi { font-size: 24px; }
+.budget-row .bl { font-size: 15px; font-weight: 600; flex: 1; }
+.budget-row .bd { font-size: 11px; color: var(--sub); }
+
+.back-link { text-align: center; margin-top: 12px; font-size: 13px; color: var(--sub); cursor: pointer; }
+
+/* ── Results ── */
+.results { padding: 20px 16px; }
+.result-header { text-align: center; padding: 8px 0 20px; }
+.result-header .rh-icon { font-size: 44px; margin-bottom: 6px; }
+.result-header h2 { font-size: 20px; font-weight: 700; margin-bottom: 2px; }
+.result-header p { font-size: 13px; color: var(--sub); }
+
+.gift-card {
+  background: #fff; border-radius: var(--radius); padding: 18px;
+  margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.04);
+  border-left: 4px solid var(--accent); animation: fadeUp .3s ease;
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } }
+.gc-rank {
+  font-size: 11px; font-weight: 800; color: var(--accent); margin-bottom: 6px;
+}
+.gc-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+.gc-title { font-size: 16px; font-weight: 700; flex: 1; display: flex; align-items: center; gap: 8px; }
+.gc-title .gc-icon { font-size: 22px; }
+.gc-price {
+  font-size: 13px; font-weight: 800; color: var(--accent); white-space: nowrap;
+  background: #fff7ed; padding: 4px 12px; border-radius: 10px;
+}
+.gc-why { font-size: 13px; line-height: 1.6; color: #555; margin-bottom: 10px; }
+.gc-brands-label { font-size: 11px; color: var(--sub); margin-bottom: 6px; }
+.gc-brands { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+.gc-brand {
+  font-size: 12px; padding: 4px 10px; border-radius: 6px; cursor: pointer;
+  background: #f3f4f6; color: #555; border: none;
+  transition: all .15s; font-family: inherit;
+}
+.gc-brand:active { background: var(--accent); color: #fff; }
+.gc-brand.copied { background: var(--green); color: #fff; }
+
+.gc-warning {
+  margin-top: 8px; padding: 8px 12px; background: #fef2f2; border-radius: 8px;
+  font-size: 12px; color: #991b1b;
+}
+.gc-actions { display: flex; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid #f3f4f6; }
+.gc-fav {
+  padding: 8px 16px; border-radius: 10px; border: 1px solid var(--border);
+  background: #fff; color: var(--sub); font-size: 12px; font-weight: 600;
+  cursor: pointer; font-family: inherit; transition: all .15s;
+}
+.gc-fav:active { transform: scale(.96); }
+.gc-fav.saved { border-color: var(--accent); color: var(--accent); background: #fff7ed; }
+
+.budget-tabs {
+  display: flex; gap: 6px; margin-bottom: 16px; overflow-x: auto;
+  padding: 0 16px;
+}
+.budget-tabs::-webkit-scrollbar { width: 0; }
+.budget-tab {
+  padding: 8px 16px; border-radius: 20px; border: 1px solid var(--border);
+  background: #fff; color: var(--sub); font-size: 13px; font-weight: 600;
+  cursor: pointer; font-family: inherit; white-space: nowrap; transition: all .15s;
+}
+.budget-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.budget-tab:active { transform: scale(.96); }
+.action-row { display: flex; gap: 10px; margin: 12px 0 8px; justify-content: center; }
+.btn {
+  flex: 1; padding: 14px; border-radius: 28px; border: none;
+  font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit;
+  transition: all .15s;
+}
+.btn:active { transform: scale(.96); }
+.btn.primary { background: var(--accent); color: #fff; }
+.btn.secondary { background: #fff; color: var(--text); border: 1px solid var(--border); }
+
+/* ── Poll ── */
+.poll-card { background: #fff; border-radius: var(--radius); padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.poll-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; cursor: pointer; transition: background .15s; border-radius: 8px;
+}
+.poll-row:active { background: #fef3c7; }
+.poll-left { display: flex; align-items: center; gap: 8px; flex: 1; font-size: 13px; }
+.poll-title { font-weight: 600; }
+.poll-price { font-size: 11px; color: var(--accent); }
+.poll-right { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--sub); }
+.poll-pct { font-weight: 700; color: var(--text); min-width: 32px; text-align: right; }
+.poll-bar { height: 4px; background: #f3f4f6; border-radius: 2px; margin-bottom: 4px; }
+.poll-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width .4s ease; }
+
+/* ── Favorites Drawer ── */
+.drawer-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 29; display: none; }
+.drawer-backdrop.open { display: block; }
+.drawer {
+  position: fixed; top: 0; right: 0; width: min(360px, 88vw); height: 100vh;
+  background: #fff; z-index: 30; transform: translateX(100%);
+  transition: transform .25s ease; display: flex; flex-direction: column;
+  box-shadow: -4px 0 24px rgba(0,0,0,.1);
+}
+.drawer.open { transform: translateX(0); }
+.drawer-head {
+  padding: 16px; display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+.drawer-head h3 { font-size: 16px; font-weight: 700; }
+.drawer-close {
+  border: 1px solid var(--border); background: #fff; color: var(--text);
+  border-radius: 999px; width: 34px; height: 34px; font-size: 18px; cursor: pointer;
+}
+.drawer-list { flex: 1; overflow-y: auto; padding: 12px; }
+.drawer-empty { text-align: center; padding: 60px 20px; color: var(--sub); }
+.drawer-empty .de-icon { font-size: 48px; margin-bottom: 12px; }
+.fav-item {
+  background: #fafafa; border: 1px solid var(--border); border-radius: 12px;
+  padding: 14px; margin-bottom: 8px;
+}
+.fav-item .fav-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
+.fav-item .fav-name { font-size: 14px; font-weight: 700; flex: 1; display: flex; align-items: center; gap: 6px; }
+.fav-item .fav-price { font-size: 12px; font-weight: 800; color: var(--accent); }
+.fav-item .fav-why { font-size: 12px; color: var(--sub); line-height: 1.5; margin-bottom: 6px; }
+.fav-item .fav-brands { font-size: 11px; color: #999; }
+.fav-item .fav-meta { font-size: 10px; color: #bbb; margin-top: 6px; display: flex; gap: 12px; }
+.fav-remove { margin-top: 4px; font-size: 11px; color: var(--red); cursor: pointer; background: none; border: none; font-family: inherit; padding: 0; }
+
+.toast {
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  background: rgba(26,26,46,0.9); color: #fff; padding: 12px 28px; border-radius: 12px;
+  font-size: 14px; font-weight: 600; z-index: 100; animation: toastIn .3s;
+  pointer-events: none;
+}
+@keyframes toastIn { from { opacity: 0; transform: translate(-50%,-50%) translateY(8px); } }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="nav">
+    <div class="logo" style="cursor:pointer" onclick="resetAll()"><em>Gift</em>Wise</div>
+    <button class="nav-btn" onclick="openFavs()">★ Saved <span class="count" id="favCount">0</span></button>
+  </div>
+
+  <div class="view active" id="stepperView">
+    <div class="stepper" id="stepperContent"></div>
+  </div>
+
+  <div class="view" id="resultsView">
+    <div class="results" id="resultsContent"></div>
+  </div>
+
+  <div class="drawer-backdrop" id="drawerBackdrop" onclick="closeFavs()"></div>
+  <div class="drawer" id="drawer">
+    <div class="drawer-head">
+      <h3>★ Saved gifts</h3>
+      <button class="drawer-close" onclick="closeFavs()">×</button>
+    </div>
+    <div class="drawer-list" id="drawerList"></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// Gift knowledge base
+// ═══════════════════════════════════════════
+var GIFT_POOL = {
+  girlfriend:{ birthday:{ low:[
+    {i:"🕯️",t:"Scented candle / home fragrance",p:"£15-25",b:"Jo Malone (mini)/The White Company/NEOM/Yankee Candle",w:"A scented candle is a safe, lovely classic.",c:"Go light on scent if she's sensitive."},
+    {i:"💄",t:"Beauty treat",p:"£12-25",b:"Charlotte Tilbury/MAC/Glossier/Rimmel",w:"A go-to lipstick or mascara she'll use up.",c:"Stick to shades she already wears."},
+    {i:"🧴",t:"Bath & body set",p:"£12-25",b:"L'Occitane/Sanctuary Spa/Rituals/The Body Shop",w:"Pampering she won't buy herself.",c:""},
+    {i:"🍫",t:"Chocolates / treats",p:"£10-22",b:"Hotel Chocolat/Lindt/Montezuma's",w:"Hard to go wrong.",c:"Check for allergies."},
+    {i:"🌸",t:"Letterbox flowers",p:"£20-25",b:"Bloom & Wild/Freddie's Flowers",w:"Flowers through the letterbox always land.",c:""},
+    {i:"📖",t:"A book she'll love",p:"£8-16",b:"Waterstones/her favourite author",w:"Thoughtful if you know her taste.",c:"Only if she reads."}
+  ], mid:[
+    {i:"💎",t:"Everyday jewellery",p:"£30-90",b:"Missoma/Astrid & Miyu/Pandora/Daisy London",w:"Pieces she'll actually wear day to day.",c:"Necklaces & earrings are safest."},
+    {i:"🧖",t:"Spa day / experience",p:"£40-95",b:"Champneys/Virgin Experience Days/afternoon tea",w:"Memories beat things, a spa day or afternoon tea.",c:"Check her diary."},
+    {i:"🧴",t:"Premium skincare set",p:"£40-90",b:"Liz Earle/ESPA/Drunk Elephant/The Ordinary",w:"Top up what she already uses.",c:"Don't gamble on a new brand for sensitive skin."},
+    {i:"🧣",t:"Quality scarf / knit",p:"£35-90",b:"COS/& Other Stories/John Lewis",w:"A good scarf lasts years.",c:"Match her usual colours."},
+    {i:"🎧",t:"Earbuds / speaker",p:"£40-90",b:"JBL/Marshall Emberton/Anker/Ultimate Ears",w:"Useful and used daily.",c:"Check she hasn't got the same."}
+  ], high:[
+    {i:"👜",t:"Designer-ish bag",p:"£120-400",b:"Mulberry (small)/Polène/Radley/Aspinal of London",w:"A lovely bag she'll carry for years.",c:"Know her taste or shop together."},
+    {i:"💎",t:"Fine jewellery",p:"£100-400",b:"Monica Vinader/Missoma/Astley Clarke/Pandora",w:"A piece with real meaning.",c:"Necklace > earrings > ring (a ring sends a signal)."},
+    {i:"⌚",t:"Watch",p:"£120-350",b:"Olivia Burton/Daniel Wellington/Skagen/Cluse",w:"A classic everyday watch.",c:"Check she doesn't wear one already."},
+    {i:"✈️",t:"Weekend away",p:"£150-600",b:"Airbnb/Mr & Mrs Smith/spa break",w:"The most romantic big gift.",c:"Check her diary first."},
+    {i:"💇",t:"Dyson Airwrap / styler",p:"£150-450",b:"Dyson/ghd",w:"The wish-list but won't buy it gift.",c:"Buy from official sellers only."}
+  ]} },
+
+  boyfriend:{ birthday:{ low:[
+    {i:"☕",t:"Coffee kit / beans",p:"£12-25",b:"Hasbean/Origin/AeroPress/cafetière",w:"For the coffee snob in training.",c:"Only if he's into coffee."},
+    {i:"🍺",t:"Craft beer / spirits set",p:"£15-25",b:"BrewDog/Beavertown/gin miniatures",w:"A tasty mixed case is fun and easy.",c:"Only if he drinks."},
+    {i:"🧦",t:"Nice socks / basics",p:"£10-25",b:"London Sock Co./Uniqlo/Calvin Klein",w:"Good socks, he'll never buy them himself.",c:"Don't make it the only gift."},
+    {i:"🎮",t:"Game / gift card",p:"£10-25",b:"Steam/PlayStation/Xbox/Nintendo",w:"There's always something on his wishlist.",c:"Check his library first."},
+    {i:"📖",t:"A book on his thing",p:"£8-18",b:"Waterstones/his interest",w:"History, football, sci-fi, match his world.",c:"Only if he reads."},
+    {i:"🧴",t:"Grooming kit",p:"£12-25",b:"Bulldog/L'Oréal Men/Aesop (small)",w:"Smart everyday grooming.",c:""}
+  ], mid:[
+    {i:"🎧",t:"Wireless earbuds",p:"£40-90",b:"Sony/JBL/Anker/Beats",w:"Commute and gym essential.",c:"Skip if he's got AirPods."},
+    {i:"👟",t:"Trainers",p:"£50-95",b:"New Balance/Adidas Samba/Veja",w:"Classic trainers never date.",c:"Confirm size, brands vary."},
+    {i:"🍳",t:"Kitchen gadget",p:"£40-90",b:"Ninja/Sage/SodaStream",w:"Kitchen toys he'll actually use.",c:"Check he hasn't got it."},
+    {i:"🎮",t:"Controller / gaming kit",p:"£45-90",b:"official controller/headset/mousepad",w:"Upgrade his setup.",c:"Avoid games he already owns."},
+    {i:"🥃",t:"Whisky / tasting set",p:"£40-90",b:"The Whisky Exchange sets/Glenmorangie",w:"A nice dram or a tasting flight.",c:"Only if he drinks."}
+  ], high:[
+    {i:"🎧",t:"Flagship headphones",p:"£150-380",b:"Sony WH-1000XM/Bose QC/AirPods Max",w:"Top-tier noise cancelling.",c:"Check he hasn't got them."},
+    {i:"⌚",t:"Watch",p:"£120-400",b:"Seiko/Tissot/Garmin/Daniel Wellington",w:"Smart everyday, or a Garmin if he runs.",c:"Match his style."},
+    {i:"🎮",t:"Console / Steam Deck",p:"£150-500",b:"Switch OLED/PS5/Steam Deck",w:"The big-ticket gamer gift.",c:"Check what he already owns."},
+    {i:"🚲",t:"Bike / cycling kit",p:"£150-600",b:"Brompton/Halfords/Rapha",w:"For the commuter or weekend rider.",c:"Get the size right."},
+    {i:"🔊",t:"Speaker / hi-fi",p:"£120-400",b:"Sonos/Marshall/KEF",w:"Great sound at home, used daily.",c:"Check the space."}
+  ]} },
+
+  partner:{ birthday:{ low:[
+    {i:"🍷",t:"Wine & glasses set",p:"£18-25",b:"Laithwaites/nice bottle + glasses",w:"A bottle and proper glasses for a cosy night in.",c:"Skip if they don't drink."},
+    {i:"🕯️",t:"Home fragrance",p:"£15-25",b:"The White Company/NEOM/Diptyque mini",w:"Makes the whole home feel lovely.",c:"Pick a scent you both like."},
+    {i:"🎲",t:"Board game / night in",p:"£15-25",b:"Articulate/Catan/card games",w:"A games night beats another gadget.",c:""},
+    {i:"🍫",t:"Treats hamper",p:"£15-25",b:"M&S/Hotel Chocolat",w:"Easy and always welcome.",c:"Check for allergies."},
+    {i:"🪴",t:"Plant + nice pot",p:"£12-25",b:"Patch/houseplant + pot",w:"Grow something together.",c:"Check the light at home."}
+  ], mid:[
+    {i:"🛋️",t:"Home upgrade",p:"£40-95",b:"Dyson (small)/Ninja/Sage",w:"Take the chore out of a chore, you'll both feel it.",c:"Check you don't have it."},
+    {i:"🎫",t:"Experience for two",p:"£40-95",b:"Virgin Experience Days/dinner/spa",w:"Time together over stuff.",c:"Check the diary."},
+    {i:"🛏️",t:"Quality bedding / towels",p:"£40-90",b:"The White Company/Christy/M&S",w:"Used every single day.",c:"Confirm the bed size."},
+    {i:"📺",t:"Projector / film night",p:"£60-95",b:"mini projector/streaming kit",w:"Turn the lounge into a cinema.",c:"Check you've got a wall."},
+    {i:"⌚",t:"His & hers watches",p:"£50-95",b:"Skagen/Cluse/Casio",w:"Matching watches, same time.",c:"Keep the style neutral."}
+  ], high:[
+    {i:"💍",t:"Matching rings / jewellery",p:"£120-600",b:"Pandora/Monica Vinader/local jeweller",w:"The most meaningful big gift.",c:"Size rings carefully."},
+    {i:"🧹",t:"Premium home tech",p:"£150-500",b:"Dyson/Shark/iRobot/Sage",w:"Cordless vac, robot mop or barista machine, both win.",c:"Check you don't own it."},
+    {i:"📽️",t:"Home cinema",p:"£150-700",b:"Anker Nebula/Epson/Sonos",w:"Proper film nights at home.",c:"Check the space."},
+    {i:"✈️",t:"Anniversary trip",p:"£200-1000",b:"Airbnb/Mr & Mrs Smith/UK breaks",w:"What couples miss most is time together.",c:"Sort childcare and diary first."},
+    {i:"💆",t:"Spa break / massage chair",p:"£150-800",b:"spa weekend/recovery gadgets",w:"Relax and recover together.",c:"Spa breaks travel better than big furniture."}
+  ]} },
+
+  mum:{ birthday:{ low:[
+    {i:"🌷",t:"Letterbox flowers",p:"£20-25",b:"Bloom & Wild/Freddie's Flowers",w:"Mums love flowers but won't buy them.",c:""},
+    {i:"🧴",t:"Bath & body set",p:"£15-25",b:"Molton Brown/Sanctuary Spa/L'Occitane",w:"A little pampering she'll appreciate.",c:""},
+    {i:"🍵",t:"Tea / coffee hamper",p:"£15-25",b:"Whittard/Fortnum's (small)/M&S",w:"A cosy treat with a nice mug.",c:""},
+    {i:"🧣",t:"Scarf / cosy knit",p:"£18-25",b:"M&S/John Lewis/Joules",w:"Practical and worn for years.",c:"Stick to classic colours."},
+    {i:"📖",t:"A book / nice diary",p:"£10-22",b:"Waterstones/her genre",w:"Thoughtful if you know her taste.",c:""}
+  ], mid:[
+    {i:"🧖",t:"Spa day / afternoon tea",p:"£40-95",b:"Champneys/afternoon tea/Virgin Experience",w:"A proper treat and time to relax.",c:"Check her diary."},
+    {i:"🧴",t:"Skincare / beauty set",p:"£40-90",b:"Liz Earle/Clarins/No7/Elemis",w:"Top up what she already uses.",c:"No7 and Elemis are safe UK favourites."},
+    {i:"🏡",t:"Kitchen gadget",p:"£40-90",b:"Ninja/Sage/Joseph Joseph",w:"Makes daily cooking nicer.",c:"Check the worktop space."},
+    {i:"💆",t:"Neck / back massager",p:"£40-90",b:"HoMedics/RENPHO",w:"For aches after a long day.",c:""},
+    {i:"👜",t:"Handbag",p:"£45-95",b:"Radley/Cath Kidston/M&S",w:"A smart everyday bag she'll use loads.",c:"Not too small."}
+  ], high:[
+    {i:"💎",t:"Jewellery",p:"£100-400",b:"Pandora/Monica Vinader/Clogau",w:"Classic pieces she'll treasure.",c:"Keep it timeless."},
+    {i:"🏡",t:"Dyson / premium appliance",p:"£150-500",b:"Dyson/Shark/Sage",w:"The dream machine she won't splurge on.",c:"Check she hasn't got it."},
+    {i:"💆",t:"Massage chair / recliner",p:"£150-800",b:"recliner/spa weekend",w:"Relaxation she'll use every day.",c:"Check the space."},
+    {i:"✈️",t:"A trip / break",p:"£150-900",b:"UK break/spa weekend",w:"Take her somewhere she's wanted to go.",c:"Mind her energy and pace."},
+    {i:"📱",t:"New phone / tablet",p:"£150-600",b:"iPhone/Samsung/iPad",w:"If hers is on its last legs.",c:"Don't switch ecosystems; help migrate."}
+  ]} },
+
+  dad:{ birthday:{ low:[
+    {i:"🍺",t:"Craft beer / ale case",p:"£15-25",b:"BrewDog/local brewery/ale crate",w:"A tasty case is the easy win.",c:"Only if he drinks."},
+    {i:"☕",t:"Coffee / tea set",p:"£12-25",b:"Whittard/Yorkshire Tea (fancy)/cafetière",w:"A daily ritual upgrade.",c:""},
+    {i:"🧦",t:"Socks / accessories",p:"£12-25",b:"M&S/London Sock Co.",w:"Good socks or a smart belt.",c:"Don't make it the only gift."},
+    {i:"🪴",t:"Gardening / BBQ bits",p:"£12-25",b:"garden tools/BBQ tools",w:"For the shed or the grill.",c:"Only if he's into it."},
+    {i:"📖",t:"A book on his thing",p:"£8-20",b:"Waterstones/sport/history",w:"Match his hobby.",c:""},
+    {i:"🔌",t:"Phone / charging kit",p:"£10-25",b:"Anker/power bank/cables",w:"Always useful, used every day.",c:"Check the connector."}
+  ], mid:[
+    {i:"⌚",t:"Watch",p:"£40-95",b:"Casio/Sekonda/Timex/Garmin (entry)",w:"A smart everyday watch.",c:"Only if he wears one."},
+    {i:"👞",t:"Good shoes / trainers",p:"£50-95",b:"Clarks/New Balance/Skechers",w:"Comfortable shoes he'll wear for years.",c:"Confirm size."},
+    {i:"🍖",t:"BBQ / outdoor kit",p:"£40-95",b:"Weber bits/Ninja Woodfire",w:"For the garden chef.",c:"Only if he's got the space."},
+    {i:"💆",t:"Massager / recovery",p:"£40-90",b:"HoMedics/RENPHO massage gun",w:"For the dodgy back or shoulders.",c:""},
+    {i:"🎣",t:"Hobby kit",p:"£40-95",b:"fishing/golf/cycling gear",w:"Top up the hobby he loves.",c:"Only if it's really his thing."}
+  ], high:[
+    {i:"⌚",t:"Quality watch",p:"£120-400",b:"Seiko/Tissot/Garmin",w:"A milestone watch he'll wear daily.",c:"Confirm he'll wear it."},
+    {i:"🪑",t:"Recliner / massage chair",p:"£150-700",b:"recliner/massage chair",w:"Used every evening in front of the telly.",c:"Check the room."},
+    {i:"📷",t:"Camera / hobby splurge",p:"£150-700",b:"Canon/Fujifilm/DJI",w:"For the photography or DIY enthusiast.",c:"Very personal, better to ask."},
+    {i:"✈️",t:"A trip / experience",p:"£150-900",b:"UK break/driving day/golf trip",w:"Plan it and pay, a proper treat.",c:"Check his diary."},
+    {i:"📺",t:"TV / soundbar / hi-fi",p:"£150-700",b:"LG/Samsung/Sonos",w:"A telly or soundbar upgrade he'll love.",c:"Check the space and inputs."}
+  ]} },
+
+  teacher:{ birthday:{ low:[
+    {i:"☕",t:"Coffee / tea + mug",p:"£10-22",b:"Whittard/Yorkshire Tea/nice mug",w:"A safe, kind thank-you.",c:""},
+    {i:"🕯️",t:"Candle / hand cream",p:"£12-25",b:"The White Company/L'Occitane",w:"Small, lovely, appreciated.",c:"Keep scents light."},
+    {i:"🍫",t:"Chocolates / treats",p:"£10-22",b:"Hotel Chocolat/M&S",w:"Always welcome at end of term.",c:"Check for allergies."},
+    {i:"📓",t:"Nice notebook / pen",p:"£10-25",b:"Moleskine/Leuchtturm/Lamy",w:"Useful and a bit special.",c:"Add ink for a fountain pen."},
+    {i:"🌼",t:"Letterbox flowers",p:"£20-25",b:"Bloom & Wild",w:"A warm thank-you that lasts.",c:""}
+  ], mid:[
+    {i:"🖊️",t:"Quality pen set",p:"£35-90",b:"Lamy/Parker/Cross",w:"A proper pen says thank you nicely.",c:"Pair with ink."},
+    {i:"🍵",t:"Tea / hamper",p:"£40-90",b:"Fortnum's (small)/Whittard set",w:"Tasteful and generous.",c:""},
+    {i:"🪴",t:"Plant / desk gift",p:"£35-80",b:"nice plant + pot/desk kit",w:"Brightens the classroom or desk.",c:""},
+    {i:"🎫",t:"Afternoon tea / voucher",p:"£40-95",b:"afternoon tea/John Lewis voucher",w:"Let them treat themselves.",c:"A voucher avoids guesswork."}
+  ], high:[
+    {i:"🎫",t:"Experience / afternoon tea for two",p:"£100-250",b:"spa/afternoon tea/theatre",w:"A generous, tasteful thank-you.",c:"Check it's appropriate / allowed."},
+    {i:"🖊️",t:"Premium pen / writing set",p:"£100-300",b:"Parker/Cross/Lamy 2000",w:"A keepsake they'll use for years.",c:""},
+    {i:"🍵",t:"Luxury hamper",p:"£100-250",b:"Fortnum & Mason/Whittard",w:"Generous and always appropriate.",c:""},
+    {i:"🪑",t:"Wellbeing gift",p:"£100-300",b:"massage cushion/quality blanket/voucher",w:"Help them unwind after a long term.",c:""}
+  ]} },
+
+  bestie:{ birthday:{ low:[
+    {i:"💄",t:"Beauty treat",p:"£10-25",b:"Charlotte Tilbury/MAC/Glossier",w:"The classic best-mate gift.",c:"Stick to her usual shades."},
+    {i:"🕯️",t:"Candle / home scent",p:"£15-25",b:"Jo Malone (mini)/Yankee/NEOM",w:"Always a winner.",c:"Go light if she's scent-sensitive."},
+    {i:"🍫",t:"Snack / treat box",p:"£12-25",b:"Hotel Chocolat/Graze/M&S",w:"A box of nice things for a night in.",c:"Check for allergies."},
+    {i:"☕",t:"Coffee/tea + nice mug",p:"£12-25",b:"Whittard/Grind + mug",w:"A daily reminder of you.",c:""},
+    {i:"🧩",t:"Puzzle / craft kit",p:"£12-25",b:"LEGO flowers/jigsaw/candle-making",w:"Fun and relaxing.",c:""}
+  ], mid:[
+    {i:"💎",t:"Jewellery",p:"£30-90",b:"Astrid & Miyu/Missoma/Pandora",w:"Something she'll wear all the time.",c:"Avoid ring sizes."},
+    {i:"🎫",t:"Gig / spa / experience",p:"£40-95",b:"gig tickets/spa/afternoon tea",w:"Go together, make it a memory.",c:"Check she's free and keen."},
+    {i:"🧴",t:"Beauty gadget / set",p:"£40-90",b:"ghd/Foreo/skincare set",w:"A treat she'll love.",c:"Check she'll actually use it."},
+    {i:"👗",t:"Quality clothing",p:"£35-90",b:"COS/& Other Stories/ASOS Design",w:"If you know her style and size.",c:"Get the size right."},
+    {i:"🎧",t:"Earbuds / speaker",p:"£40-90",b:"JBL/Marshall/Anker",w:"Useful all-rounder.",c:"Check she hasn't got it."}
+  ], high:[
+    {i:"👜",t:"Nice bag",p:"£100-300",b:"Polène/Radley/Coach",w:"Every best mate deserves a good bag.",c:"Stick to a classic colour."},
+    {i:"💎",t:"Jewellery",p:"£100-350",b:"Monica Vinader/Missoma/Astrid & Miyu",w:"Friendship you can wear.",c:"Necklaces and earrings are safest."},
+    {i:"💇",t:"ghd / Dyson styler",p:"£120-450",b:"ghd/Dyson",w:"The want it but won't buy it gift.",c:"Official sellers only."},
+    {i:"🎫",t:"Gig / weekend away",p:"£100-500",b:"festival/gig/city break",w:"An experience you'll both remember.",c:"Check dates and interest."},
+    {i:"📱",t:"iPad / tech treat",p:"£150-500",b:"iPad/Kindle/instant camera",w:"A high-value useful gift.",c:"Check she hasn't got it."}
+  ] }, wedding:{low:"partner.birthday.low",mid:"partner.birthday.mid",high:"partner.birthday.high"} },
+
+  colleague:{ birthday:{low:"any.birthday.low",mid:"any.birthday.mid",high:"any.birthday.high"}, wedding:{low:"partner.birthday.low",mid:"partner.birthday.mid",high:"partner.birthday.high"} },
+
+  kid:{ birthday:{ low:[
+    {i:"📚",t:"Books",p:"£8-20",b:"Waterstones/Usborne/The Works",w:"Books are never wrong.",c:"Match the age; ask parents to avoid doubles."},
+    {i:"🧩",t:"LEGO / building set",p:"£12-25",b:"LEGO/Smyths Toys",w:"LEGO is the all-ages classic.",c:"Mind small parts for under-3s."},
+    {i:"🎨",t:"Arts & crafts set",p:"£8-22",b:"Crayola/Hobbycraft/Galt",w:"Kids love making things.",c:"Glue and scissors not for the very young."},
+    {i:"🦖",t:"Figures / models",p:"£10-25",b:"Schleich/Jurassic World/Sylvanian Families",w:"Dinosaurs and animals are a hit.",c:"Small parts for under-3s."},
+    {i:"🧸",t:"Soft toy",p:"£12-25",b:"Jellycat/Build-a-Bear",w:"Jellycat is the cuddly gold standard.",c:"Buy from official sellers."},
+    {i:"🎲",t:"Family game",p:"£12-25",b:"Orchard Toys/Top Trumps/Dobble",w:"Something the whole family plays.",c:"Check the age rating."}
+  ], mid:[
+    {i:"🧩",t:"Big LEGO / playset",p:"£40-90",b:"LEGO City/Technic/Harry Potter",w:"A proper build with real wow factor.",c:"Match the age."},
+    {i:"🛴",t:"Scooter / bike kit",p:"£45-95",b:"Micro Scooter/helmet",w:"Top outdoor pick.",c:"Add a helmet and pads."},
+    {i:"🎮",t:"Games / accessories",p:"£40-90",b:"Nintendo/LEGO sets/Smyths",w:"A wishlist game or kit.",c:"Check what they've got."},
+    {i:"🔬",t:"STEM / science kit",p:"£40-90",b:"National Geographic/Thames & Kosmos",w:"Learning that feels like play.",c:"Mind the age."},
+    {i:"🎸",t:"Starter instrument",p:"£45-95",b:"Yamaha keyboard/ukulele",w:"If they're showing interest.",c:"Confirm they actually want it."}
+  ], high:[
+    {i:"📱",t:"Kids tablet / learning",p:"£120-300",b:"Amazon Fire Kids/iPad + case",w:"Parents-approved with parental controls.",c:"Agree screen-time rules."},
+    {i:"🧩",t:"Flagship LEGO set",p:"£100-300",b:"LEGO Technic/Icons/Star Wars",w:"The all-ages crowd-pleaser.",c:"Match the age."},
+    {i:"🤖",t:"Coding robot",p:"£120-350",b:"Sphero/LEGO Spike/mBot",w:"Learn to code through play.",c:"Best for 8+."},
+    {i:"🚲",t:"Bike / electric ride-on",p:"£120-400",b:"Frog Bikes/Halfords",w:"The big outdoor wow gift.",c:"Get the size right; add safety gear."},
+    {i:"🔭",t:"Telescope / microscope",p:"£100-250",b:"Celestron/National Geographic",w:"Spark a love of science.",c:"Best for 6+, with a grown-up."}
+  ]} },
+
+  any:{ birthday:{ low:[
+    {i:"🕯️",t:"Candle / home scent",p:"£12-25",b:"Yankee/The White Company/NEOM",w:"Safe and welcome for almost anyone.",c:"Keep scents light."},
+    {i:"🍫",t:"Chocolates / treats",p:"£10-22",b:"Hotel Chocolat/Lindt/M&S",w:"You can't really go wrong.",c:"Check for allergies."},
+    {i:"☕",t:"Coffee / tea hamper",p:"£12-25",b:"Whittard/Grind/Yorkshire Tea",w:"A safe bet if you're unsure.",c:""},
+    {i:"📖",t:"Book / nice notebook",p:"£8-20",b:"Waterstones/Moleskine",w:"Thoughtful and low-risk.",c:""},
+    {i:"🪴",t:"Plant / desk gift",p:"£10-22",b:"succulent + pot",w:"Cheerful and easy.",c:""},
+    {i:"🎁",t:"Gift card + a card",p:"£10-25",b:"John Lewis/Amazon/M&S",w:"Let them choose, add a handwritten card.",c:"Pair with a card so it's not impersonal."}
+  ], mid:[
+    {i:"⌚",t:"Watch",p:"£40-90",b:"Sekonda/Casio/Skagen",w:"A classic if you're stuck.",c:"Only if they wear one."},
+    {i:"👜",t:"Wallet / leather goods",p:"£35-90",b:"Fossil/Radley/Bellroy",w:"Wallet, cardholder or keyring, unisex and useful.",c:""},
+    {i:"🎧",t:"Earbuds / speaker",p:"£40-90",b:"JBL/Anker/Marshall",w:"Useful for almost everyone.",c:"Check they haven't got it."},
+    {i:"🍵",t:"Hamper / drinks set",p:"£40-90",b:"M&S/Fortnum's (small)/gin set",w:"Generous and crowd-pleasing.",c:""},
+    {i:"🧖",t:"Experience voucher",p:"£40-95",b:"Virgin Experience Days",w:"Let them pick the treat.",c:""}
+  ], high:[
+    {i:"⌚",t:"Nice watch",p:"£120-350",b:"Tissot/Seiko/Daniel Wellington",w:"A safe high-value gift, unisex.",c:"Only if they wear one."},
+    {i:"🎧",t:"Flagship headphones",p:"£150-380",b:"Sony/Bose/AirPods",w:"Premium and almost universally useful.",c:"Check they haven't got them."},
+    {i:"📱",t:"Tablet / e-reader",p:"£130-500",b:"iPad/Kindle",w:"Reading, films, work, broad appeal.",c:"Check they haven't got one."},
+    {i:"✈️",t:"Trip / experience",p:"£150-700",b:"UK break/experience day",w:"A memory beats an object.",c:"Check dates."},
+    {i:"🍷",t:"Premium hamper / drinks",p:"£100-300",b:"Fortnum & Mason/whisky/wine case",w:"Generous and crowd-pleasing for adults.",c:"Check they drink; swap for a food hamper if not."},
+    {i:"🏡",t:"Home tech",p:"£150-500",b:"Dyson/Sonos/Ninja",w:"A premium home upgrade most people love.",c:"Check they haven't got it."}
+  ] }, wedding:{low:"partner.birthday.low",mid:"partner.birthday.mid",high:"partner.birthday.high"} },
+};
+
+// Resolve string references at load time (only dot-paths like 'girlfriend.birthday.low', not data strings)
+(function resolveRefs(obj){
+  for(var k in obj){
+    var v=obj[k];
+    if(typeof v==='string'&&v.indexOf('.')>0){
+      var parts=v.split('.'),ref=GIFT_POOL;
+      for(var p=0;p<parts.length;p++)ref=ref[parts[p]];
+      obj[k]=ref;
+    }else if(v&&typeof v==='object'&&!Array.isArray(v)){
+      resolveRefs(v);
+    }
+  }
+})(GIFT_POOL);
+
+// ──────────────────────────────────
+// Budget: 4 tiers
+// ──────────────────────────────────
+var BUDGET_TIERS = [
+  {id:"low",label:"Under £25",desc:"A little something",range:[0,25]},
+  {id:"midLow",label:"£25 – 50",desc:"Thoughtful",range:[18,50]},
+  {id:"midHigh",label:"£50 – 100",desc:"Something special",range:[40,100]},
+  {id:"high",label:"£100+",desc:"A big gesture",range:[90,99999]},
+];
+
+function parsePrice(str){
+  var m=str.match(/¥?(\d+)\s*[-–—~至到]?\s*¥?(\d+)/);
+  if(m)return{min:parseInt(m[1]),max:parseInt(m[2])};
+  m=str.match(/¥?(\d+)/);
+  if(m)return{min:parseInt(m[1]),max:parseInt(m[1])};
+  return{min:0,max:9999};
+}
+
+function budgetMatch(giftPrice,budgetId){
+  var pp=parsePrice(giftPrice);
+  for(var i=0;i<BUDGET_TIERS.length;i++){
+    if(BUDGET_TIERS[i].id===budgetId){
+      var r=BUDGET_TIERS[i].range;
+      // Gift must have actual price overlap with budget range
+      // e.g. ¥50-150 does NOT overlap ¥500-1000
+      return pp.min<=r[1]&&pp.max>=r[0];
+    }
+  }
+  return true;
+}
+
+// ──────────────────────────────────
+// Occasion-person mapping
+// ──────────────────────────────────
+var PERSON_OCCASIONS = {
+  girlfriend:["birthday","valentines","anniversary","christmas","newyear","housewarming","justbecause","other"],
+  boyfriend:["birthday","valentines","anniversary","christmas","newyear","housewarming","justbecause","other"],
+  partner:["birthday","anniversary","valentines","christmas","newyear","housewarming","justbecause","other"],
+  mum:["birthday","mothersday","christmas","easter","housewarming","justbecause","other"],
+  dad:["birthday","fathersday","christmas","easter","housewarming","justbecause","other"],
+  teacher:["birthday","christmas","justbecause","other"],
+  bestie:["birthday","christmas","newyear","halloween","wedding","newjob","housewarming","justbecause","other"],
+  colleague:["newjob","christmas","wedding","housewarming","birthday"],
+  kid:["birthday","christmas","easter","halloween","graduation","justbecause","other"],
+  any:["birthday","christmas","newyear","wedding","housewarming","newjob","getwell","justbecause","other"],
+};
+
+var ALL_OCCASIONS = [
+  {id:"birthday",icon:"🎂",label:"Birthday",desc:"The big personal one",seasonal:false},
+  {id:"valentines",icon:"💝",label:"Valentine's Day",desc:"Romance is the point",seasonal:true,months:[2]},
+  {id:"anniversary",icon:"💍",label:"Anniversary",desc:"Your special date",seasonal:false},
+  {id:"mothersday",icon:"🌷",label:"Mother's Day",desc:"UK Mothering Sunday",seasonal:true,months:[3]},
+  {id:"fathersday",icon:"👔",label:"Father's Day",desc:"For your dad",seasonal:true,months:[6]},
+  {id:"easter",icon:"🐣",label:"Easter",desc:"Spring treat",seasonal:true,months:[3,4]},
+  {id:"graduation",icon:"🎓",label:"Graduation",desc:"A big milestone",seasonal:true,months:[6,7]},
+  {id:"halloween",icon:"🎃",label:"Halloween",desc:"Spooky season",seasonal:true,months:[10]},
+  {id:"bonfire",icon:"🎆",label:"Bonfire Night",desc:"5th of November",seasonal:true,months:[11]},
+  {id:"christmas",icon:"🎄",label:"Christmas",desc:"The big one",seasonal:true,months:[11,12]},
+  {id:"newyear",icon:"🥂",label:"New Year",desc:"New beginnings",seasonal:true,months:[12,1]},
+  {id:"wedding",icon:"💒",label:"Wedding",desc:"For the newlyweds",seasonal:false},
+  {id:"housewarming",icon:"🏠",label:"Housewarming",desc:"New home treats",seasonal:false},
+  {id:"newjob",icon:"📈",label:"New job / promotion",desc:"Career milestone",seasonal:false},
+  {id:"getwell",icon:"🌼",label:"Get well soon",desc:"A little pick-me-up",seasonal:false},
+  {id:"justbecause",icon:"✨",label:"Just because",desc:"No reason needed",seasonal:false},
+  {id:"other",icon:"🎁",label:"Other",desc:"Something else",seasonal:false},
+];
+
+function isNearby(occ){
+  if(!occ.seasonal)return true;
+  var now=new Date(),thisMonth=now.getMonth()+1;
+  var mons=occ.months;if(!mons)return true;
+  for(var i=0;i<mons.length;i++){
+    var m=mons[i];
+    var dist=m-thisMonth;
+    if(dist<-6)dist+=12;
+    if(dist>6)dist-=12;
+    if(Math.abs(dist)<=2)return true;
+  }
+  return false;
+}
+
+var ALL_INTERESTS = [
+  {i:"dunno",icon:"🤷",l:"Not sure…"},
+  {i:"beauty",icon:"💄",l:"Beauty & skincare"},
+  {i:"tech",icon:"💻",l:"Tech & gadgets"},
+  {i:"fashion",icon:"👔",l:"Fashion & style"},
+  {i:"sports",icon:"⚽",l:"Sport & fitness"},
+  {i:"food",icon:"☕",l:"Food, coffee & drink"},
+  {i:"reading",icon:"📚",l:"Books & culture"},
+  {i:"home",icon:"🏠",l:"Home & living"},
+  {i:"music",icon:"🎵",l:"Music"},
+];
+
+var INTEREST_ICONS = {
+  beauty:["💄","🧴","🧖","💆","🌸","💇","🌷"],
+  tech:["💻","🎧","⌚","📱","🔊","📺","🎮","🤖","📷","🔌"],
+  fashion:["🧣","👟","👜","👗","👞","🧦"],
+  sports:["⚽","👟","🚲","🎣","🛴","🏃"],
+  food:["☕","🍫","🍷","🍺","🍳","🥃","🍵","🍖"],
+  reading:["📖","📚","📓"],
+  home:["🕯️","🏠","🛏️","🪴","🛋️","🍽️","🖼️","🧹","📽️","🪑","🏡","🎲"],
+  music:["🎧","🎵","🎸","🔊"],
+};
+
+// ──────────────────────────────────
+// State
+// ──────────────────────────────────
+var state = {step:0,relation:null,occasion:null,budget:null,interest:null};
+var savedGifts = [];
+
+// ──────────────────────────────────
+// Resolve + recommend
+// ──────────────────────────────────
+function resolvePool(rel,occ,bud){
+  var r=GIFT_POOL[rel];
+  if(!r)return null;
+  var o=r[occ];
+  if(!o){o=r['birthday'];if(!o)return null;}
+  // Map 4-tier budget to 3-tier pool keys. No cross-tier fallback.
+  var key=bud;
+  if(bud==='midLow'||bud==='midHigh')key='mid';
+  var pool=o[key];
+  return (pool&&Array.isArray(pool))?pool:null;
+}
+
+function getRecommendations(){
+  // Only merge strictly adjacent budget tiers
+  var tiers=[state.budget];
+  if(state.budget==='midLow')tiers=['midLow','low'];
+  if(state.budget==='midHigh')tiers=['midHigh','midLow'];
+  if(state.budget==='low')tiers=['low'];
+  if(state.budget==='high')tiers=['high'];
+
+  var pool=[],seen={};
+  for(var ti=0;ti<tiers.length;ti++){
+    var p=resolvePool(state.relation,state.occasion,tiers[ti]);
+    if(!p||!Array.isArray(p))continue;
+    for(var pi=0;pi<p.length;pi++){
+      var g=p[pi];
+      if(!budgetMatch(g.p,state.budget))continue;
+      if(state.interest&&state.interest!=='dunno'){
+        var icons=INTEREST_ICONS[state.interest]||[];
+        if(icons.length&&icons.indexOf(g.i)===-1)continue;
+      }
+      var key=g.t+'|'+g.p;
+      if(!seen[key]){seen[key]=true;pool.push(g);}
+    }
+  }
+  if(pool.length<3){
+    var fb=resolvePool('any','birthday',state.budget);
+    if(fb)pool=pool.concat(fb);
+  }
+  return pool;
+}
+
+// ──────────────────────────────────
+// Stepper
+// ──────────────────────────────────
+var PPL_LABELS = [
+  {i:"girlfriend",icon:"💃",l:"Girlfriend"},{i:"boyfriend",icon:"🕺",l:"Boyfriend"},
+  {i:"partner",icon:"💑",l:"Husband/Wife"},{i:"mum",icon:"👩",l:"Mum"},
+  {i:"dad",icon:"👨",l:"Dad"},{i:"bestie",icon:"👯",l:"Best friend"},
+  {i:"teacher",icon:"🧑‍🏫",l:"Teacher/Mentor"},{i:"kid",icon:"👶",l:"Kid"},
+  {i:"colleague",icon:"💼",l:"Colleague"},{i:"any",icon:"🤷",l:"Acquaintance"},
+];
+
+var STEPS = [
+  {
+    title:"Who's it for?",sub:"Pick one and we'll find the right gift",
+    render:function(){
+      var h='<div class="opt-grid">';
+      for(var i=0;i<PPL_LABELS.length;i++){
+        var o=PPL_LABELS[i];
+        h+='<div class="opt-card'+(state.relation===o.i?' selected':'')+'" onclick="next(\'relation\',\''+o.i+'\')"><div class="oi">'+o.icon+'</div><div class="ol">'+o.l+'</div></div>';
+      }
+      return h+'</div>';
+    }
+  },
+  {
+    title:"What's the occasion?",sub:"",
+    render:function(){
+      var valid=state.relation?PERSON_OCCASIONS[state.relation]:['birthday'];
+      var opts=[];
+      for(var i=0;i<ALL_OCCASIONS.length;i++){
+        var o=ALL_OCCASIONS[i];
+        if(valid.indexOf(o.id)!==-1&&isNearby(o))opts.push(o);
+      }
+      var h='<div class="opt-grid">';
+      for(var j=0;j<opts.length;j++){
+        var p=opts[j];
+        h+='<div class="opt-card'+(state.occasion===p.id?' selected':'')+'" onclick="next(\'occasion\',\''+p.id+'\')"><div class="oi">'+p.icon+'</div><div class="ol">'+p.label+'</div><div class="od">'+p.desc+'</div></div>';
+      }
+      return h+'</div>';
+    }
+  },
+  {
+    title:"What's your budget?",sub:"Best picks within your budget",
+    render:function(){
+      var h='<div class="budget-list">';
+      var icons=['💰','💎','👑','💎'];
+      for(var i=0;i<BUDGET_TIERS.length;i++){
+        var b=BUDGET_TIERS[i];
+        h+='<div class="budget-row'+(state.budget===b.id?' selected':'')+'" onclick="next(\'budget\',\''+b.id+'\')"><span class="bi">'+icons[i]+'</span><span class="bl">'+b.label+'</span><span class="bd">'+b.desc+'</span></div>';
+      }
+      h+='</div>';
+      return h;
+    }
+  },
+  {
+    title:"What are they into?",sub:"Helps us narrow it down",
+    render:function(){
+      var h='<div class="opt-grid">';
+      for(var i=0;i<ALL_INTERESTS.length;i++){
+        var o=ALL_INTERESTS[i];
+        h+='<div class="opt-card'+(state.interest===o.i?' selected':'')+'" onclick="next(\'interest\',\''+o.i+'\')"><div class="oi">'+o.icon+'</div><div class="ol">'+o.l+'</div></div>';
+      }
+      return h+'</div>';
+    }
+  },
+];
+
+function renderStep(){
+  var s=STEPS[state.step];
+  var c=document.getElementById('stepperContent');
+  var dots='';
+  for(var i=0;i<4;i++){
+    var cls='step-dot';
+    if(i<state.step)cls+=' done';else if(i===state.step)cls+=' active';
+    dots+='<div class="'+cls+'"></div>';
+  }
+  c.innerHTML='<div class="step-dots">'+dots+'</div><div class="step-title">'+s.title+'</div><div class="step-sub">'+s.sub+'</div>'+s.render()+(state.step>0?'<div class="back-link" onclick="prev()">← Back</div>':'');
+  document.getElementById('stepperView').scrollTop=0;
+}
+
+function next(key,val){
+  state[key]=val;
+  if(key==='relation'){state.occasion=null;}
+  if(key==='occasion'){}
+  if(key==='budget'){}
+  state.step++;
+  if(state.step>=4)showResults();
+  else renderStep();
+}
+
+function prev(){if(state.step>0){state.step--;renderStep();}}
+
+// ──────────────────────────────────
+// Results
+// ──────────────────────────────────
+function showResults(){
+  showView('resultsView');
+  renderResults();
+}
+
+function renderResults(){
+  var pool=getRecommendations();
+  var gifts=pool;
+
+  var relLabel='';for(var i=0;i<PPL_LABELS.length;i++)if(PPL_LABELS[i].i===state.relation)relLabel=PPL_LABELS[i].l;
+  var occLabel='';for(var j=0;j<ALL_OCCASIONS.length;j++)if(ALL_OCCASIONS[j].id===state.occasion)occLabel=ALL_OCCASIONS[j].label;
+  if(!relLabel)relLabel='them';
+
+  var h='<div class="result-header"><div class="rh-icon">🎁</div><h2>'+relLabel+' · '+occLabel+'</h2><p><a href="javascript:resetAll()" style="color:var(--accent);font-size:13px;font-weight:600;text-decoration:none">← Start over</a></p></div>';
+
+  h+='<div class="budget-tabs">';
+  for(var bi=0;bi<BUDGET_TIERS.length;bi++){
+    var bt=BUDGET_TIERS[bi];
+    h+='<button class="budget-tab'+(state.budget===bt.id?' active':'')+'" onclick="switchBudget(\''+bt.id+'\')">'+bt.label+'</button>';
+  }
+  h+='</div>';
+
+  for(var m=0;m<gifts.length;m++){
+    var g=gifts[m];
+    var rank=m+1;
+    var brandsHtml='';
+    var brandList=g.b.split('/');
+    for(var b=0;b<brandList.length;b++){
+      var bn=brandList[b].trim();
+      brandsHtml+='<button class="gc-brand" onclick="copyBrand(event,\''+bn.replace(/'/g,"\\'")+'\')">'+bn+'</button>';
+    }
+
+    var saved=false;
+    for(var s=0;s<savedGifts.length;s++){
+      if(savedGifts[s].item.t===g.t){saved=true;break;}
+    }
+
+    h+='<div class="gift-card" style="animation-delay:'+(m*0.04)+'s">'+
+      '<div class="gc-rank">Pick '+rank+'</div>'+
+      '<div class="gc-top"><div class="gc-title"><span class="gc-icon">'+g.i+'</span>'+g.t+'</div><div class="gc-price">'+g.p+'</div></div>'+
+      '<div class="gc-why">'+g.w+'</div>'+
+      '<div class="gc-brands-label">🏷️ Brands · tap to copy</div>'+
+      '<div class="gc-brands">'+brandsHtml+'</div>'+
+      (g.c?'<div class="gc-warning">⚠️ '+g.c+'</div>':'')+
+      '<div class="gc-actions"><button class="gc-fav'+(saved?' saved':'')+'" onclick="toggleFav(this,'+m+')">★ '+(saved?'Saved':'Save')+'</button></div></div>';
+  }
+
+  h+='<div class="action-row">';
+  h+='<button class="btn secondary" style="background:#10b981;color:#fff;border:none" onclick="sharePoll()">💬 Ask a friend to pick</button></div>';
+
+  document.getElementById('resultsContent').innerHTML=h;
+  document.getElementById('resultsView').scrollTop=0;
+}
+
+function switchBudget(id){
+  state.budget=id;
+  showView('resultsView');renderResults();
+}
+
+
+var pollVotes=[];
+
+	var sharePoll = function(){
+	  var data = { rel: state.relation, occ: state.occasion, bud: state.budget, int: state.interest||'dunno' };
+	  var url = location.href.split('#')[0] + '#share=' + encodeURIComponent(JSON.stringify(data));
+	  if (navigator.clipboard) {
+	    navigator.clipboard.writeText(url).then(function () { showToast('Link copied — send it to a friend'); });
+	  } else {
+	    var ta = document.createElement('textarea'); ta.value = url;
+	    document.body.appendChild(ta); ta.select();
+	    document.execCommand('copy'); document.body.removeChild(ta);
+	    showToast('Link copied — send it to a friend');
+	  }
+	};
+
+	function loadSharedResults(data) {
+	  state.relation = data.rel; state.occasion = data.occ; state.budget = data.bud; state.interest = data.int||'dunno';
+	  state.step = 4;
+	  showView('resultsView');
+	  renderResults();
+	}
+
+
+
+// ──────────────────────────────────
+// Copy brand
+// ──────────────────────────────────
+function copyBrand(e,name){
+  e.stopPropagation();
+  var el=e.target;
+  el.style.background='var(--green)';el.style.color='#fff';
+  setTimeout(function(){el.style.background='';el.style.color='';},300);
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(name).then(function(){showToast('Copied: '+name);});
+  }else{
+    var ta=document.createElement('textarea');ta.value=name;
+    document.body.appendChild(ta);ta.select();
+    document.execCommand('copy');document.body.removeChild(ta);
+    showToast('Copied: '+name);
+  }
+}
+
+// ──────────────────────────────────
+// Favorites
+// ──────────────────────────────────
+function getGiftByIndex(k){
+  var cards=document.querySelectorAll('.gift-card');
+  var card=cards[k];if(!card)return null;
+  var iconEl=card.querySelector('.gc-icon'),priceEl=card.querySelector('.gc-price');
+  var whyEl=card.querySelector('.gc-why'),titleEl=card.querySelector('.gc-title');
+  var brandsEls=card.querySelectorAll('.gc-brand');
+  var brands=[];for(var b=0;b<brandsEls.length;b++)brands.push(brandsEls[b].textContent);
+  return{
+    i:iconEl?iconEl.textContent:'🎁',
+    t:titleEl?titleEl.textContent.replace(iconEl?iconEl.textContent:'','').trim():'',
+    p:priceEl?priceEl.textContent:'',w:whyEl?whyEl.textContent:'',
+    b:brands.join('/'),
+  };
+}
+
+function toggleFav(btn,k){
+  var item=getGiftByIndex(k);if(!item||!item.t)return;
+  var idx=-1;
+  for(var i=0;i<savedGifts.length;i++){if(savedGifts[i].item.t===item.t){idx=i;break;}}
+  if(idx>=0){
+    savedGifts.splice(idx,1);btn.classList.remove('saved');btn.innerHTML='★ Save';
+    showToast('Removed from saved');
+  }else{
+    savedGifts.unshift({relation:state.relation,occasion:state.occasion,budget:state.budget,item:item,date:new Date().toLocaleDateString('en-GB')});
+    btn.classList.add('saved');btn.innerHTML='★ Saved';
+    showToast('Saved ★');
+  }
+  document.getElementById('favCount').textContent=savedGifts.length;
+}
+
+function openFavs(){
+  document.getElementById('drawerBackdrop').classList.add('open');
+  document.getElementById('drawer').classList.add('open');
+  renderFavList();
+}
+
+function closeFavs(){
+  document.getElementById('drawerBackdrop').classList.remove('open');
+  document.getElementById('drawer').classList.remove('open');
+}
+
+function renderFavList(){
+  var c=document.getElementById('drawerList');
+  if(savedGifts.length===0){
+    c.innerHTML='<div class="drawer-empty"><div class="de-icon">★</div><h3>No saved gifts yet</h3><p style="font-size:13px;color:var(--sub);margin-top:4px">Tap ★ on any gift to save it here</p></div>';
+    return;
+  }
+  var h='';
+  for(var i=0;i<savedGifts.length;i++){
+    var f=savedGifts[i],rl='';for(var x=0;x<PPL_LABELS.length;x++)if(PPL_LABELS[x].i===f.relation)rl=PPL_LABELS[x].l;
+    h+='<div class="fav-item"><div class="fav-top"><div class="fav-name"><span>'+f.item.i+'</span>'+f.item.t+'</div><div class="fav-price">'+f.item.p+'</div></div><div class="fav-why">'+f.item.w+'</div><div class="fav-brands">'+f.item.b+'</div><div class="fav-meta"><span>For '+rl+'</span><span>'+f.date+'</span></div><button class="fav-remove" onclick="removeFav('+i+')">Remove</button></div>';
+  }
+  c.innerHTML=h;
+}
+
+function removeFav(idx){savedGifts.splice(idx,1);document.getElementById('favCount').textContent=savedGifts.length;renderFavList();showToast('Removed');}
+
+// ──────────────────────────────────
+// Utils
+// ──────────────────────────────────
+function resetAll(){
+  state={step:0,relation:null,occasion:null,budget:null,interest:null,shown:[]};
+  showView('stepperView');
+  renderStep();
+}
+function showView(id){
+  document.getElementById('stepperView').classList.remove('active');
+  document.getElementById('resultsView').classList.remove('active');
+  document.getElementById(id).classList.add('active');
+  document.getElementById(id).scrollTop=0;
+}
+function showToast(msg){
+  var t=document.createElement('div');t.className='toast';t.textContent=msg;
+  document.body.appendChild(t);setTimeout(function(){t.remove();},2000);
+}
+
+// Init
+(function(){
+  var hash=location.hash;
+  if(hash.indexOf('#share=')===0){
+    try{
+      var json=decodeURIComponent(hash.substring(7));
+      var data=JSON.parse(json);
+      loadSharedResults(data);
+      return;
+    }catch(e){}
+  }
+  renderStep();
+})();
+document.getElementById('favCount').textContent=savedGifts.length;
+</script>
+</body>
+</html>
