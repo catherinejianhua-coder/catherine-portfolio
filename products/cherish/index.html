@@ -103,16 +103,9 @@ const go = document.getElementById('go');
 const STORAGE_KEY = 'cherish_en_v6_history';
 let messages = [], lastStage = '';
 
-// ── Init ──
+// ── Init ── (always start fresh — no localStorage restore)
 (async function init(){
-  const saved = loadConversation();
-  if(saved && saved.messages && saved.messages.length){
-    messages = saved.messages;
-    lastStage = saved.lastStage || '';
-    await restoreConversation();
-  } else {
-    await startFresh();
-  }
+  await startFresh();
 })();
 
 go.addEventListener('click', () => send());
