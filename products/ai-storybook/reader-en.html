@@ -52,16 +52,15 @@
   .caption-cn{margin-top:8px;font-size:0.95rem;color:var(--muted);line-height:1.75;max-width:640px;margin-left:auto;margin-right:auto;text-align:center}
 
   @media(max-width:560px){
-    .tabs{flex-direction:column;padding:12px 12px 0}
-    .tab{border-radius:8px;text-align:center}
-    .tab:first-child,.tab:last-child{border-radius:8px}
+    .tabs{padding:12px 12px 0}
+    .tab{flex:1;padding:10px 6px;font-size:12.5px;text-align:center}
   }
 </style>
 </head>
 <body>
   <header class="bar">
     <span class="title">📖 AI Storybook — sample books</span>
-    <a href="../../index.html#ai-storybook">← Back to portfolio</a>
+    <a href="../../index.html#explorations" onclick="if(history.length>1){history.back();return false;}">← Back to portfolio</a>
   </header>
 
   <div class="tabs">
