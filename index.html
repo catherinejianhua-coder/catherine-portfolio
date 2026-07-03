@@ -4,8 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Jianhua Chen (Catherine) | Senior Product Manager</title>
-  <!-- Microsoft Clarity (self-test: visit ?noclarity=1 to opt out on this device) --><script type="text/javascript">if(new URLSearchParams(location.search).get("noclarity")==="1"){localStorage.setItem("noclarity","1")}if(localStorage.getItem("noclarity")!=="1"){(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "xfwovphh2v")}</script>
   <meta name="description" content="Portfolio of Jianhua Chen (Catherine), Senior Product Manager — commerce platforms, data products, applied AI.">
+  <!-- Microsoft Clarity — analytics (heatmaps, session recordings, scroll depth). Replace PASTE_YOUR_CLARITY_ID with your project ID. -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xfwovphh2v");
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -246,6 +253,7 @@
     .evidence-pair img {
       display: block; width: 100%; height: auto;
     }
+    .baidu-pair { display: grid; grid-template-columns: 0.65fr 1.35fr; gap: 10px; }
 
     /* FitCue dark preview */
     .fitcue-preview {
@@ -326,6 +334,7 @@
       .case-links { flex-direction: column; gap: 8px; }
       .fitcue-preview { grid-template-columns: 1fr; }
       .story-sample { grid-template-columns: 1fr; }
+      .baidu-pair { grid-template-columns: 1fr; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -460,7 +469,7 @@
               <img src="assets/screenshots/baidu_platform_2.jpg" alt="Baidu merchant & creator live-commerce operations dashboard" onclick="openLightbox(this.src)" style="display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:3px;cursor:pointer">
               <div style="font-size:0.7rem;color:var(--muted);margin-top:3px">Merchant & creator operations dashboard</div>
             </div>
-            <div style="display:grid;grid-template-columns:0.65fr 1.35fr;gap:10px">
+            <div class="baidu-pair">
               <div>
                 <img src="assets/screenshots/baidu_platform_1.jpg" alt="Baidu consumer live-commerce streaming room" onclick="openLightbox(this.src)" style="display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:3px;cursor:pointer">
                 <div style="font-size:0.7rem;color:var(--muted);margin-top:3px">Consumer live-commerce streaming</div>
