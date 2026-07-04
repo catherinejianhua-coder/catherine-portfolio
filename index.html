@@ -398,7 +398,7 @@
 <!-- ════════════════ HEADER ════════════════ -->
 <header class="topbar">
   <div class="container">
-    <div class="brand">
+    <div class="brand" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor:pointer" title="Back to top" role="button" tabindex="0" onkeydown="if(event.key==='Enter')window.scrollTo({top:0,behavior:'smooth'})">
       <strong>Jianhua Chen (Catherine)</strong>
       <span>Senior Product Manager</span>
     </div>
@@ -677,18 +677,19 @@
     });
   });
 
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(entries => {
-      const visible = entries
-        .filter(e => e.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (visible) setActiveNav(visible.target.id);
-    }, {
-      rootMargin: '-15% 0px -60% 0px',
-      threshold: [0.08, 0.2, 0.4]
+  function updateActiveNav() {
+    const marker = window.scrollY + window.innerHeight * 0.3;
+    let current = null;
+    sectionEls.forEach(el => { if (el.offsetTop <= marker) current = el; });
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 40) {
+      current = sectionEls[sectionEls.length - 1];
+    }
+    navLinks.forEach(link => {
+      link.classList.toggle('active', !!current && link.getAttribute('href') === '#' + current.id);
     });
-    sectionEls.forEach(el => observer.observe(el));
   }
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  updateActiveNav();
 
   // ── Scroll reveal ──
   if ('IntersectionObserver' in window) {
