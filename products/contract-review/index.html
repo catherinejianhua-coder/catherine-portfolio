@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Contract Review Triage | Jianhua Chen</title>
+  <meta name="description" content="A playbook-driven AI contract-review triage prototype by Jianhua Chen: lawyer workbench, prompt pipeline, evaluation harness and human sign-off gates.">
+  <link rel="icon" href="data:,">
+  <style>
+    :root {
+      --bg: #f7f7f3;
+      --ink: #15202b;
+      --muted: #66717b;
+      --line: #ddd9ce;
+      --surface: #ffffff;
+      --soft: #edeae2;
+      --accent: #1b5c46;
+      --risk: #9f2f2f;
+      --warn: #95620d;
+      --font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-display: Georgia, "Times New Roman", serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-underline-offset: 0.22em; }
+    a:hover { color: var(--accent); }
+    img { max-width: 100%; display: block; }
+    .container { width: min(1080px, calc(100% - 40px)); margin: 0 auto; }
+
+    .topbar {
+      border-bottom: 1px solid var(--line);
+      background: rgba(247, 247, 243, 0.95);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+    }
+    .topbar .container {
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .brand {
+      display: grid;
+      gap: 1px;
+      text-decoration: none;
+    }
+    .brand strong { font-size: 0.94rem; }
+    .brand span { color: var(--muted); font-size: 0.74rem; }
+    .nav {
+      display: flex;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 0.84rem;
+      white-space: nowrap;
+    }
+    .nav a { text-decoration: none; }
+
+    .hero {
+      padding: 58px 0 34px;
+      border-bottom: 1px solid var(--line);
+    }
+    .eyebrow {
+      color: var(--accent);
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 8vw, 4.25rem);
+      line-height: 1.02;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .lede {
+      max-width: 760px;
+      color: #34404a;
+      font-size: 1.12rem;
+      line-height: 1.66;
+      margin-bottom: 22px;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .btn {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: #fff;
+      font-size: 0.86rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .btn.secondary { background: transparent; color: var(--ink); }
+    .btn.secondary:hover { background: transparent; color: var(--accent); border-color: var(--accent); }
+
+    .proof-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      margin: 24px 0 28px;
+    }
+    .proof {
+      padding: 16px 18px;
+      border-right: 1px solid var(--line);
+    }
+    .proof:last-child { border-right: 0; }
+    .proof strong {
+      display: block;
+      color: var(--accent);
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      line-height: 1.1;
+      margin-bottom: 5px;
+    }
+    .proof span { color: var(--muted); font-size: 0.84rem; }
+
+    .screenshot-band {
+      background: #e8e6df;
+      border: 1px solid var(--line);
+      padding: 10px;
+    }
+    .screenshot-band img {
+      width: 100%;
+      border: 1px solid #cfcbbd;
+      background: #fff;
+    }
+
+    .section {
+      padding: 48px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .section h2 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+    .section-intro {
+      color: var(--muted);
+      max-width: 660px;
+      font-size: 0.98rem;
+      margin-bottom: 24px;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 420px);
+      gap: 38px;
+      align-items: start;
+    }
+    .memo {
+      border-left: 3px solid var(--accent);
+      padding-left: 16px;
+      margin-bottom: 22px;
+    }
+    .memo h3 {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .memo p { color: #333d45; font-size: 0.96rem; }
+    .fact-list {
+      display: grid;
+      gap: 10px;
+    }
+    .fact {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      padding: 14px 16px;
+    }
+    .fact strong {
+      display: block;
+      font-size: 0.92rem;
+      margin-bottom: 4px;
+    }
+    .fact span { color: var(--muted); font-size: 0.86rem; }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .step {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      padding: 16px;
+      min-height: 160px;
+    }
+    .step b {
+      display: block;
+      color: var(--accent);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+    .step strong {
+      display: block;
+      font-size: 1.02rem;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    .step p { color: var(--muted); font-size: 0.88rem; }
+
+    .eval-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+    .eval {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      padding: 18px;
+    }
+    .eval h3 {
+      color: var(--ink);
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+    .eval p { color: #333d45; font-size: 0.94rem; }
+    .eval .flag {
+      display: inline-block;
+      margin-bottom: 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #fff;
+      background: var(--warn);
+      padding: 3px 8px;
+    }
+    .eval .flag.risk { background: var(--risk); }
+
+    .footer {
+      padding: 38px 0 46px;
+      background: var(--soft);
+    }
+    .footer .container {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+    }
+    .footer p { color: var(--muted); max-width: 660px; }
+
+    @media (max-width: 820px) {
+      .topbar .container,
+      .footer .container { align-items: flex-start; flex-direction: column; }
+      .nav { flex-wrap: wrap; gap: 12px; }
+      .proof-strip { grid-template-columns: 1fr 1fr; }
+      .proof:nth-child(2) { border-right: 0; }
+      .proof:nth-child(1),
+      .proof:nth-child(2) { border-bottom: 1px solid var(--line); }
+      .two-col,
+      .flow,
+      .eval-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) {
+      .container { width: min(100% - 28px, 1080px); }
+      .hero { padding-top: 38px; }
+      .proof-strip { grid-template-columns: 1fr; }
+      .proof,
+      .proof:nth-child(2) { border-right: 0; border-bottom: 1px solid var(--line); }
+      .proof:last-child { border-bottom: 0; }
+      .actions { flex-direction: column; }
+      .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <a class="brand" href="../../index.html">
+        <strong>Jianhua Chen (Catherine)</strong>
+        <span>Senior Product Manager</span>
+      </a>
+      <nav class="nav" aria-label="Contract review page navigation">
+        <a href="../../index.html">Portfolio</a>
+        <a href="workbench.html" target="_blank">Workbench</a>
+        <a href="../../docs/contract_review_solution_design.pdf" target="_blank">Solution PDF</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="eyebrow">Applied AI workflow case</div>
+        <h1>AI Contract Review Triage</h1>
+        <p class="lede">
+          A playbook-driven contract-review workbench for routing inbound NDAs, drafting standard redlines and keeping legal judgement with a human reviewer. I built the product flow, prompt pipeline, clickable workbench and evaluation harness as a solo applied-AI artefact.
+        </p>
+        <div class="actions">
+          <a class="btn" href="workbench.html" target="_blank">Open the workbench</a>
+          <a class="btn secondary" href="../../docs/contract_review_solution_design.pdf" target="_blank">Read solution design</a>
+          <a class="btn secondary" href="../../index.html#contract-review">Back to portfolio</a>
+        </div>
+
+        <div class="proof-strip" aria-label="Project evidence">
+          <div class="proof"><strong>3 lanes</strong><span>green, amber and red routing with different human-review paths</span></div>
+          <div class="proof"><strong>18 cases</strong><span>golden-set evaluation to test prompt and playbook behaviour</span></div>
+          <div class="proof"><strong>17/18</strong><span>fresh-context reruns exposed the same false-green case</span></div>
+          <div class="proof"><strong>0 false greens</strong><span>the proposed go-live gate before any auto-clear lane</span></div>
+        </div>
+
+        <div class="screenshot-band">
+          <img src="../../assets/screenshots/contract_review_workbench.png" alt="AI Contract Review Triage workbench showing a review queue, contract dashboard and audit-ready routing information">
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container two-col">
+        <div>
+          <h2>The Product Judgement</h2>
+          <p class="section-intro">
+            The useful product was not a contract chatbot. It was a repeatable decision system: capture legal positions in a playbook, let the model apply them clause by clause, and keep the reviewer in control of anything that carries judgement or context.
+          </p>
+          <div class="memo">
+            <h3>Problem</h3>
+            <p>Legal teams spend too much time re-making familiar decisions on boilerplate contracts. The risk is not slow reading alone; it is letting repeated decisions remain trapped in individual reviewers' heads.</p>
+          </div>
+          <div class="memo">
+            <h3>Decision</h3>
+            <p>I made the playbook the real product. The model classifies clauses against standard positions, but every recommendation cites the rule it used and every override becomes a controlled playbook-change proposal.</p>
+          </div>
+          <div class="memo">
+            <h3>Boundary</h3>
+            <p>The tool never sends a counterparty response. A lawyer signs off the outcome, and auto-clear only becomes possible after shadow-mode evidence shows zero false greens on real historical contracts.</p>
+          </div>
+        </div>
+        <aside class="fact-list" aria-label="What was built">
+          <div class="fact"><strong>Clickable review workbench</strong><span>Queue, dashboard, annotated contract views, drafted amends email, audit trail and blind sampling views.</span></div>
+          <div class="fact"><strong>Prompt and playbook pipeline</strong><span>Standard positions, fallback wording, escalation triggers and clause-level routing.</span></div>
+          <div class="fact"><strong>Evaluation harness</strong><span>18-case golden set, confusion checks and a separate fresh-context rerun record.</span></div>
+          <div class="fact"><strong>Rollout plan</strong><span>Two-week sprint shape: discovery with lawyers, shadow mode, assisted mode, measured handover.</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>How The Workflow Works</h2>
+        <p class="section-intro">The contract goes through a narrow, auditable path before any reviewer sees a draft response.</p>
+        <div class="flow">
+          <div class="step">
+            <b>Step 1</b>
+            <strong>Classify the contract</strong>
+            <p>Template match, key facts and clause coverage are extracted so the reviewer knows what kind of review they are dealing with before reading line by line.</p>
+          </div>
+          <div class="step">
+            <b>Step 2</b>
+            <strong>Apply the legal playbook</strong>
+            <p>Each clause is checked against written positions and fallbacks. The output is green, amber or red with a citation, not a free-form model opinion.</p>
+          </div>
+          <div class="step">
+            <b>Step 3</b>
+            <strong>Keep judgement human</strong>
+            <p>Green contracts are candidates for later auto-clear; ambers produce editable amends; reds start with a human review brief. Nothing is sent by the system.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>What The Evals Changed</h2>
+        <p class="section-intro">The strongest part of this artefact is not the score. It is the place where the system failed and the product rule got tighter.</p>
+        <div class="eval-grid">
+          <div class="eval">
+            <span class="flag">Initial smoke test</span>
+            <h3>18-case golden set</h3>
+            <p>The first run behaved coherently against the drafted playbook, including two deliberately borderline cases. That was useful as a regression test, but not enough to claim real-world readiness because the clauses were synthetic and the prompt, playbook and eval set were authored in the same working context.</p>
+          </div>
+          <div class="eval">
+            <span class="flag risk">Fresh-context failure</span>
+            <h3>One stable false green</h3>
+            <p>Three fresh-context reruns each scored 17/18 and put the same case through as green when it should have been amber. The clause text matched the fallback, but the fallback depended on commercial context the model could not see. The fix was a playbook rule: conditional fallbacks never auto-clear from text alone.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>This is a portfolio artefact, not legal advice. Sample contracts are fictional; the value shown here is the product system: playbook governance, evaluation, reviewer workflow and controlled rollout.</p>
+      <a class="btn" href="workbench.html" target="_blank">Use the workbench</a>
+    </div>
+  </footer>
+</body>
+</html>

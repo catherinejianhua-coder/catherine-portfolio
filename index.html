@@ -3,24 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Jianhua Chen (Catherine) | Senior Product Manager</title>
-  <meta name="description" content="Portfolio of Jianhua Chen (Catherine), Senior Product Manager — 0-to-1 products, growth, data platforms and applied AI.">
+  <title>Jianhua Chen (Catherine) | Applied AI Product Portfolio</title>
+  <meta name="description" content="AI-first portfolio of Jianhua Chen (Catherine), Senior Product Manager for applied AI workflows, 0-to-1 products and data products.">
+  <link rel="icon" href="favicon.svg">
 
-  <!-- ── Social share (Open Graph + Twitter) ── -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://catherinejianhua-coder.github.io/catherine-portfolio/">
-  <meta property="og:title" content="Jianhua Chen (Catherine) — Senior Product Manager">
-  <meta property="og:description" content="8+ years building 0-to-1 products, growth systems, data platforms and applied AI — at Baidu and major consumer-tech platforms. Manchester, UK · Global Talent Visa · no sponsorship required.">
-  <meta property="og:image" content="https://catherinejianhua-coder.github.io/catherine-portfolio/assets/og_card.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Jianhua Chen (Catherine), Senior Product Manager — 0-to-1 products, growth and applied AI.">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Jianhua Chen (Catherine) — Senior Product Manager">
-  <meta name="twitter:description" content="8+ years building 0-to-1 products, growth systems, data platforms and applied AI — at Baidu and major consumer-tech platforms. Manchester, UK · Global Talent Visa.">
-  <meta name="twitter:image" content="https://catherinejianhua-coder.github.io/catherine-portfolio/assets/og_card.png">
-
-  <!-- Microsoft Clarity — analytics (heatmaps, session recordings, scroll depth) -->
+  <!-- Microsoft Clarity -->
   <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -28,705 +15,1610 @@
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "xfwovphh2v");
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
-    /* ── Token system ── */
     :root {
-      --bg:       #fafaf7;
-      --ink:      #141413;
-      --muted:    #6e7168;
-      --faint:    #989b92;
-      --line:     #e8e6dd;
-      --surface:  #f3f2ec;
-      --accent:   #1b5c46;
-      --accent-dim: rgba(27,92,70,0.08);
-      --font-display: 'Newsreader', Georgia, 'Times New Roman', serif;
-      --font-body:    'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+      --bg: #f7f7f5;
+      --surface: #eef2ff;
+      --paper: #ffffff;
+      --ink: #171717;
+      --muted: #6b6b6b;
+      --faint: #92928d;
+      --line: #e7e7e3;
+      --accent: #315cf5;
+      --accent-2: #1746dd;
+      --accent-soft: #eef2ff;
+      --accent-alt: #f05a36;
+      --highlight: #315cf5;
+      --risk: #f05a36;
+      --amber: #f05a36;
+      --name-accent: #315cf5;
+      --shadow: 0 24px 64px rgba(23, 23, 23, 0.08);
+      --display: Georgia, "Times New Roman", serif;
+      --body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; }
-
+    * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-
     body {
-      font-family: var(--font-body);
+      margin: 0;
+      font-family: var(--body);
       color: var(--ink);
-      background: var(--bg);
-      line-height: 1.6;
+      background:
+        linear-gradient(180deg, #ffffff 0%, var(--bg) 52%, #f1f5ff 100%);
+      line-height: 1.55;
       -webkit-font-smoothing: antialiased;
     }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-underline-offset: 0.2em; }
+    [id] { scroll-margin-top: 82px; }
 
-    /* ── Typography ── */
-    .display {
-      font-family: var(--font-display);
-      font-weight: 500;
-      letter-spacing: -0.01em;
-    }
-
-    h1 { font: 500 3.6rem/1.06 var(--font-display); letter-spacing: -0.015em; }
-    h2 { font: 500 2.2rem/1.1 var(--font-display); letter-spacing: -0.01em; }
-    h3 { font: 600 0.85rem/1.3 var(--font-body); letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
-
-    p  { font-size: 1.02rem; color: var(--ink); }
-    .prose { font-size: 1.05rem; line-height: 1.65; color: #2d2e2a; }
-    .small { font-size: 0.82rem; color: var(--muted); }
-
-    a { color: inherit; text-underline-offset: 0.22em; text-decoration-thickness: 1px; }
-    a:hover { color: var(--accent); }
-
-    /* ── Layout ── */
     .container {
-      width: min(1060px, calc(100% - 40px));
+      width: min(1396px, calc(100% - 96px));
       margin: 0 auto;
     }
-    .narrow { max-width: 780px; }
 
-    /* ── Topbar ── */
     .topbar {
-      position: sticky; top: 0; z-index: 20;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.92);
       border-bottom: 1px solid var(--line);
-      background: rgba(250,250,247,0.94);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
     }
     .topbar .container {
-      display: flex; align-items: center; justify-content: space-between;
-      min-height: 58px; gap: 18px;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
     }
-    .brand { display: grid; gap: 1px; min-width: 200px; }
-    .brand strong { font-size: 0.94rem; font-weight: 600; }
-    .brand span  { font-size: 0.74rem; color: var(--muted); }
-
-    .nav-links { display: flex; gap: 22px; font-size: 0.84rem; color: var(--muted); white-space: nowrap; }
+    .brand {
+      display: grid;
+      gap: 1px;
+      text-decoration: none;
+      min-width: 220px;
+    }
+    .brand strong {
+      font-size: 0.94rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      color: var(--ink);
+    }
+    .brand strong::after {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      margin-left: 8px;
+      border-radius: 999px;
+      background: var(--accent-alt);
+      vertical-align: 2px;
+    }
+    .brand span {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      white-space: nowrap;
+      font-size: 0.84rem;
+      color: var(--ink);
+    }
     .nav-links a {
-      position: relative; text-decoration: none; padding: 4px 0;
-      transition: color 0.2s;
+      min-height: 34px;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 800;
+      box-shadow: none;
+      transition: color 0.18s ease, transform 0.18s ease;
     }
     .nav-links a::after {
-      content: ""; position: absolute; left: 0; right: 0; bottom: 0;
-      height: 1.5px; background: var(--accent);
-      transform: scaleX(0); transform-origin: left;
-      transition: transform 0.22s ease;
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 2px;
+      height: 2px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.18s ease;
     }
     .nav-links a:hover,
-    .nav-links a.active { color: var(--accent); }
-    .nav-links a.active::after,
-    .nav-links a:hover::after { transform: scaleX(1); }
-
-    /* ── Anchor offset for sticky header ── */
-    [id] { scroll-margin-top: 74px; }
-
-    /* ── Hero ── */
-    .hero-band {
-      padding: 72px 0 54px;
-      border-bottom: 1px solid var(--line);
-    }
-    .eyebrow {
-      font-size: 0.74rem; font-weight: 600; letter-spacing: 0.09em;
-      text-transform: uppercase; color: var(--accent);
-      margin-bottom: 16px;
-    }
-    .hero-band h1 { margin-bottom: 18px; }
-    .hero-band h1 em {
-      font-style: normal; font-weight: 400; color: var(--muted);
-    }
-    .hero-copy {
-      font-size: 1.12rem; line-height: 1.6; color: #3a3b36; max-width: 640px;
-      margin-bottom: 28px;
-    }
-    .hero-actions {
-      display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 36px;
-    }
-    .btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      min-height: 40px; padding: 0 16px;
-      font-family: var(--font-body); font-size: 0.86rem; font-weight: 600;
-      text-decoration: none; cursor: pointer;
-      border: 1px solid var(--ink); background: var(--ink); color: #fff;
-      transition: background 0.2s, border-color 0.2s, color 0.2s;
-    }
-    .btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
-    .btn.ghost { background: transparent; color: var(--ink); }
-    .btn.ghost:hover { color: var(--accent); border-color: var(--accent); background: transparent; }
-
-    /* ── Hero stat line (signature) ── */
-    .stat-line {
-      display: flex; gap: 0; align-items: flex-start;
-      padding-top: 28px; border-top: 1px solid var(--line);
-    }
-    .stat-item {
-      flex: 1; min-width: 140px;
-      padding: 0 22px;
-      border-right: 1px solid var(--line);
-    }
-    .stat-item:first-child { padding-left: 0; }
-    .stat-item:last-child  { border-right: 0; padding-right: 0; }
-    .stat-item .num {
-      display: block;
+    .nav-links a.active {
       color: var(--accent);
-      font-size: 1.5rem;
-      font-weight: 700;
-      line-height: 1.1;
+      transform: translateY(-1px);
     }
-    .stat-item .lbl {
-      color: var(--muted);
-      font-size: 0.86rem;
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      transform: scaleX(1);
+    }
+    .nav-links a.active {
+      color: var(--highlight);
+    }
+    .nav-links a[href$=".pdf"]:hover {
+      color: var(--accent);
+    }
+    .nav-links a[href="#contact"] {
+      color: var(--accent);
+      font-weight: 900;
+    }
+    .nav-links a[href="#contact"]:hover {
+      color: var(--highlight);
     }
 
-    /* ── Section ── */
-    .section { padding: 58px 0; }
-    .section-header {
-      margin-bottom: 36px; padding-bottom: 18px;
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 52px 0 42px;
       border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 82% 22%, rgba(232, 228, 255, 0.58) 0, rgba(232, 228, 255, 0.25) 26%, rgba(232, 228, 255, 0) 48%),
+        linear-gradient(90deg, rgba(238, 242, 255, 0.82) 0, rgba(247, 247, 245, 0.7) 50%, rgba(255, 255, 255, 0) 84%),
+        linear-gradient(180deg, #ffffff 0%, rgba(247, 247, 245, 0.95) 100%);
     }
-    .section-header h2 { margin-bottom: 6px; }
-    .section-header p  { color: var(--muted); font-size: 0.96rem; max-width: 540px; }
-
-    /* ── Case article ── */
-    .case {
-      padding: 48px 0;
-      border-bottom: 1px solid var(--line);
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 42px;
+      right: max(24px, calc((100vw - 1120px) / 2));
+      width: min(420px, 34vw);
+      height: 180px;
+      pointer-events: none;
+      opacity: 0.38;
+      background-image: radial-gradient(rgba(49, 92, 245, 0.25) 1px, transparent 1.5px);
+      background-size: 14px 14px;
+      mask-image: linear-gradient(120deg, transparent 0%, #000 22%, #000 74%, transparent 100%);
     }
-    .case:first-of-type { padding-top: 0; }
-    .case:last-of-type  { border-bottom: 0; padding-bottom: 0; }
-
-    .case-grid {
+    .hero-grid {
+      position: relative;
+      z-index: 1;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
-      gap: 40px;
-      align-items: start;
-    }
-
-    /* Case left — memo narrative */
-    .case-kicker {
-      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
-    }
-    .case h2 { margin-bottom: 12px; font-size: 2rem; }
-    .case h2 strong { color: var(--accent); font-weight: 600; }
-    .case-summary { font-size: 1rem; color: #3a3b36; margin-bottom: 14px; line-height: 1.6; max-width: 560px; }
-
-    .case-tags {
-      display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0;
-      margin-bottom: 18px;
-    }
-    .case-tags li {
-      font-size: 0.72rem; font-weight: 500; color: var(--muted);
-      padding: 3px 8px; border: 1px solid var(--line); background: var(--bg);
-    }
-
-    .memo-block { margin-bottom: 20px; }
-    .memo-block h3 { font: 600 1rem/1.3 var(--font-body); letter-spacing: 0; text-transform: none; color: var(--ink); margin-bottom: 4px; padding-left: 10px; border-left: 3px solid #c73e51; }
-    .memo-block p  { font-size: 0.95rem; color: #3a3b36; line-height: 1.6; }
-    .memo-block em   { font-style: normal; font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: #c73e51; }
-    .memo-block strong { font-weight: 600; color: var(--ink); }
-
-    .case-links { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 20px; }
-    .case-links a {
-      font-size: 0.86rem; font-weight: 600; text-decoration: none;
-      color: var(--accent); display: inline-flex; align-items: center; gap: 4px;
-    }
-    .case-links a::after { content: "→"; font-size: 0.8rem; }
-    .case-links a:hover { text-decoration: underline; }
-
-    /* Case right — evidence panel */
-    .evidence {
-      border: 1px solid var(--line);
-      background: #fdfdfc;
-    }
-    .evidence-head {
-      display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
-      padding: 11px 14px; border-bottom: 1px solid var(--line);
-      font-size: 0.78rem; font-weight: 600; color: var(--ink);
-    }
-    .evidence-head span { font-weight: 400; font-size: 0.72rem; color: var(--faint); }
-    .evidence-img {
-      display: block; width: 100%; height: auto;
-      border-bottom: 1px solid var(--line);
-    }
-    .evidence-body { padding: 14px; }
-
-    .metric-row {
-      display: grid; grid-template-columns: 88px 1fr; gap: 12px;
-      align-items: baseline; padding: 10px 0;
-      border-bottom: 1px solid var(--line);
-    }
-    .metric-row:last-child { border-bottom: 0; padding-bottom: 0; }
-    .metric-row:first-child { padding-top: 0; }
-    .metric-row strong {
-      font: 500 1.22rem/1 var(--font-display);
-      color: var(--accent);
-    }
-    .metric-row span { font-size: 0.84rem; color: var(--muted); }
-
-    /* Evidence screenshot pair */
-    .evidence-pair {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
-    }
-    .evidence-pair img {
-      display: block; width: 100%; height: auto;
-    }
-    .baidu-pair { display: grid; grid-template-columns: 0.65fr 1.35fr; gap: 10px; }
-
-    /* FitCue dark preview */
-    .fitcue-preview {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-      padding: 14px; color: #e0e8e2;
-    }
-    .fitcue-screen {
-      padding: 14px; border: 1px solid #2a332d;
-      background: #121613; min-height: 200px;
-    }
-    .fitcue-screen .fh { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.72rem; color: rgba(224,232,226,0.55); }
-    .fitcue-screen .fh strong { color: #f0f5f1; font-size: 0.88rem; }
-    .fitcue-screen .fc { display: grid; gap: 6px; }
-    .fitcue-screen .fc span {
-      display: flex; justify-content: space-between; padding: 7px 9px;
-      border: 1px solid #2a332d; background: #1a1f1c;
-      font-size: 0.74rem; color: rgba(224,232,226,0.7);
-    }
-    .fitcue-screen .fc span b { color: #5bd98b; }
-
-    /* AI Storybook sample */
-    .story-sample {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 14px;
-      background: #fefdf7;
-    }
-    .story-sample img { display: block; width: 100%; aspect-ratio: 16/9; object-fit: cover; }
-    .story-copy { display: grid; gap: 8px; }
-    .story-copy h3 { font-family: var(--font-display); font-size: 1.1rem; text-transform: none; letter-spacing: 0; color: #6f5b2d; margin: 0; }
-    .story-copy p  { font-size: 0.84rem; color: var(--muted); }
-
-    /* ── Contact ── */
-    .contact-band {
-      border-top: 1px solid var(--line); padding: 52px 0;
-      background: var(--surface);
-    }
-    .contact-grid {
-      display: grid; grid-template-columns: 1fr auto; gap: 28px;
+      grid-template-columns: minmax(580px, 1.02fr) minmax(420px, 0.72fr);
+      gap: 48px;
       align-items: center;
     }
-    .contact-grid h2 { margin-bottom: 6px; font-size: 1.75rem; }
-    .contact-grid p  { color: var(--muted); max-width: 600px; }
+    .hero-side {
+      max-width: 520px;
+      justify-self: end;
+      transform: translateY(58px);
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1 {
+      font-family: var(--display);
+      font-size: clamp(2.65rem, 4.4vw, 3.9rem);
+      font-weight: 500;
+      line-height: 0.98;
+      letter-spacing: 0;
+      margin-bottom: 14px;
+      white-space: nowrap;
+    }
+    .role-line {
+      max-width: 760px;
+      margin-bottom: 18px;
+      font-size: clamp(1.2rem, 1.9vw, 1.58rem);
+      line-height: 1.16;
+      font-family: var(--display);
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .hero-copy {
+      max-width: 700px;
+      color: #343844;
+      font-size: 0.98rem;
+      line-height: 1.66;
+      margin-bottom: 14px;
+    }
+    .visa {
+      color: var(--accent);
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 0;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.86rem;
+      font-weight: 700;
+      border-radius: 2px;
+      box-shadow: 0 16px 32px rgba(49, 92, 245, 0.2);
+      transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .button:hover {
+      background: var(--accent-2);
+      border-color: var(--accent-2);
+      transform: translateY(-1px);
+      box-shadow: 0 18px 34px rgba(49, 92, 245, 0.24);
+    }
+    .button.secondary {
+      background: transparent;
+      color: var(--ink);
+      box-shadow: none;
+      border-color: #2d3140;
+    }
+    .button.secondary:hover {
+      color: var(--accent);
+      background: rgba(238, 242, 255, 0.72);
+      border-color: var(--accent);
+      box-shadow: none;
+    }
 
-    /* ── Scroll reveal ── */
+    .proof-line {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+    .proof {
+      position: relative;
+      min-height: 156px;
+      padding: 18px 16px 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: 0 18px 44px rgba(23, 23, 23, 0.06);
+    }
+    .proof-icon {
+      position: relative;
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      margin-bottom: 16px;
+      border-radius: 999px;
+      border: 0;
+      background:
+        linear-gradient(135deg, rgba(49, 92, 245, 0.1), rgba(232, 228, 255, 0.46));
+      box-shadow:
+        inset 0 0 0 1px rgba(49, 92, 245, 0.24),
+        0 8px 16px rgba(49, 92, 245, 0.06);
+    }
+    .proof-icon svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      display: block;
+      width: 16px;
+      height: 16px;
+      transform: translate(-50%, -50%);
+      stroke: var(--accent);
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      overflow: visible;
+    }
+    .proof strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--highlight);
+      font-size: 1.04rem;
+      font-weight: 900;
+      line-height: 1.18;
+    }
+    .proof span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.76rem;
+      line-height: 1.45;
+    }
+
+    .system-card {
+      border: 1px solid var(--line);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+    .system-head {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: baseline;
+    }
+    .system-head strong {
+      font-size: 0.9rem;
+    }
+    .system-head span {
+      font-size: 0.74rem;
+      color: var(--faint);
+    }
+    .workflow {
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+    }
+    .flow-row {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 12px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+    }
+    .flow-row b {
+      width: 28px;
+      height: 28px;
+      display: inline-grid;
+      place-items: center;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.78rem;
+    }
+    .flow-row strong {
+      display: block;
+      font-size: 0.86rem;
+      margin-bottom: 2px;
+    }
+    .flow-row span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+    .system-foot {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--line);
+      background: var(--surface);
+    }
+    .system-foot div {
+      padding: 12px;
+      border-right: 1px solid var(--line);
+    }
+    .system-foot div:last-child { border-right: 0; }
+    .system-foot strong {
+      display: block;
+      color: var(--accent);
+      line-height: 1.1;
+    }
+    .system-foot span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.74rem;
+      margin-top: 3px;
+    }
+
+    .section {
+      padding: 52px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(280px, 1fr);
+      gap: 36px;
+      align-items: end;
+      padding-top: 22px;
+      border-top: 2px solid var(--accent);
+      margin-bottom: 24px;
+    }
+    .section-head h2 {
+      position: relative;
+      font-family: var(--display);
+      font-size: clamp(1.75rem, 3.2vw, 2.7rem);
+      font-weight: 500;
+      line-height: 1.05;
+    }
+    .section-head h2::after {
+      content: "";
+      display: block;
+      width: 42px;
+      height: 3px;
+      margin-top: 10px;
+      background: var(--accent-alt);
+    }
+    .section-head p {
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.58;
+      max-width: 670px;
+    }
+
+    .spotlight {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
+      gap: 0;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      margin-bottom: 24px;
+      box-shadow: 0 20px 50px rgba(23, 23, 23, 0.06);
+    }
+    .spotlight-body {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 28px;
+    }
+    .case-label {
+      color: var(--accent);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .spotlight h3,
+    .card h3,
+    .career-card h3 {
+      font-family: var(--display);
+      font-size: 1.55rem;
+      line-height: 1.14;
+      font-weight: 500;
+      margin-bottom: 10px;
+      color: var(--ink);
+    }
+    .spotlight p,
+    .card p,
+    .career-card p {
+      color: #333744;
+      font-size: 0.95rem;
+      line-height: 1.62;
+    }
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      list-style: none;
+      margin: 18px 0 0;
+      padding: 0;
+    }
+    .tag-list li {
+      border: 1px solid var(--line);
+      background: #ffffff;
+      color: var(--muted);
+      padding: 4px 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border-radius: 999px;
+    }
+    .text-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 22px;
+    }
+    .text-links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.86rem;
+      font-weight: 800;
+      border-bottom: 1px solid transparent;
+    }
+    .text-links a:hover {
+      border-bottom-color: currentColor;
+      text-decoration: none;
+    }
+    .spotlight-media {
+      border-left: 1px solid var(--line);
+      min-height: 100%;
+      background: var(--accent-soft);
+    }
+    .case-switcher .spotlight-body {
+      gap: 22px;
+    }
+    .case-switcher .result {
+      margin-top: 18px;
+    }
+    .case-carousel {
+      position: relative;
+      margin-bottom: 24px;
+    }
+    .case-arrow {
+      position: absolute;
+      top: calc(50% - 18px);
+      z-index: 4;
+      width: 112px;
+      height: 340px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      background: transparent;
+      color: rgba(49, 92, 245, 0.42);
+      cursor: pointer;
+      opacity: 1;
+      box-shadow: none;
+      transform: translateY(-50%);
+      transition: color 0.18s ease, opacity 0.18s ease, transform 0.18s ease;
+    }
+    .case-arrow[data-direction="-1"] {
+      left: -98px;
+    }
+    .case-arrow[data-direction="1"] {
+      right: -98px;
+    }
+    .case-arrow:hover {
+      color: rgba(49, 92, 245, 0.78);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .case-arrow-icon {
+      width: 50px;
+      height: 50px;
+      stroke-width: 1.95;
+      filter:
+        drop-shadow(0 2px 0 rgba(255, 255, 255, 0.9))
+        drop-shadow(0 14px 24px rgba(49, 92, 245, 0.14));
+    }
+    .case-carousel .spotlight {
+      margin-bottom: 0;
+      touch-action: pan-y;
+      user-select: none;
+    }
+    .case-footer-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding-top: 12px;
+    }
+    .case-step {
+      color: var(--highlight);
+      font-size: 0.68rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+    }
+    .case-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+    .case-dot {
+      width: 9px;
+      height: 9px;
+      padding: 0;
+      border: 1px solid rgba(49, 92, 245, 0.42);
+      border-radius: 999px;
+      background: #ffffff;
+      cursor: pointer;
+      transition: width 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+    }
+    .case-dot.active {
+      width: 30px;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    #career-cases .section-head {
+      gap: 56px;
+      margin-bottom: 26px;
+    }
+    #career-cases .section-head p {
+      max-width: 560px;
+      font-size: 0.92rem;
+      line-height: 1.58;
+    }
+    #career-cases .case-carousel {
+      width: min(1100px, 100%);
+      margin-inline: auto;
+      padding: 30px 42px 18px;
+      border: 1px solid rgba(231, 231, 227, 0.95);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(238, 242, 255, 0.72) 48%, rgba(247, 247, 245, 0.92) 100%);
+      box-shadow: 0 28px 82px rgba(23, 23, 23, 0.06);
+    }
+    #career-cases .case-carousel .spotlight {
+      grid-template-columns: minmax(300px, 0.78fr) minmax(520px, 1.22fr);
+      gap: 34px;
+      align-items: stretch;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+    }
+    #career-cases .spotlight-body {
+      padding: 26px 28px;
+      justify-content: center;
+      gap: 22px;
+      border-left: 0;
+      background: rgba(255, 255, 255, 0.76);
+      box-shadow: 0 16px 40px rgba(23, 23, 23, 0.045);
+    }
+    #career-cases .case-label {
+      margin-bottom: 12px;
+      font-size: 0.66rem;
+    }
+    #career-cases .spotlight h3 {
+      margin-bottom: 12px;
+      font-size: 1.36rem;
+    }
+    #career-cases .spotlight p {
+      max-width: 430px;
+      font-size: 0.88rem;
+      line-height: 1.54;
+    }
+    #career-cases .case-switcher .result {
+      max-width: 430px;
+      margin-top: 18px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(231, 231, 227, 0.95);
+      font-size: 0.84rem;
+      line-height: 1.46;
+    }
+    #career-cases .media-head {
+      display: none;
+    }
+    #career-cases .spotlight-media {
+      display: flex;
+      align-items: center;
+      border-left: 0;
+      background: transparent;
+    }
+    #career-cases .media-img {
+      width: 100%;
+      max-height: 500px;
+      border: 0;
+      box-shadow: none;
+      background: transparent;
+    }
+    #career-cases .case-footer-nav {
+      padding-top: 14px;
+      opacity: 0.9;
+    }
+    .media-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--line);
+      background: #f7f7f5;
+      color: var(--ink);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+    .media-head span {
+      color: var(--faint);
+      font-weight: 500;
+      font-size: 0.72rem;
+    }
+    .media-img {
+      width: auto;
+      max-width: 100%;
+      max-height: 540px;
+      height: auto;
+      margin: 0 auto;
+      object-fit: contain;
+      cursor: zoom-in;
+    }
+
+    .ai-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 16px;
+      align-items: stretch;
+    }
+    #applied-ai .ai-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .card,
+    .career-card,
+    .prototype-card {
+      border: 1px solid var(--line);
+      background: var(--paper);
+      border-radius: 8px;
+      box-shadow: 0 18px 44px rgba(23, 23, 23, 0.055);
+    }
+    .card {
+      display: flex;
+      flex-direction: column;
+    }
+    #applied-ai .card {
+      display: grid;
+      grid-template-columns: minmax(0, 0.98fr) minmax(150px, 0.82fr);
+      min-height: 284px;
+      overflow: hidden;
+    }
+    .card img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      border-bottom: 1px solid var(--line);
+    }
+    #applied-ai .card img {
+      grid-column: 2;
+      grid-row: 1;
+      height: 100%;
+      min-height: 284px;
+      aspect-ratio: auto;
+      border-bottom: 0;
+      border-left: 1px solid var(--line);
+    }
+    .card:hover,
+    .career-card:hover,
+    .prototype-card:hover {
+      border-color: rgba(49, 92, 245, 0.28);
+      box-shadow: 0 24px 56px rgba(49, 92, 245, 0.1);
+    }
+    .card-body {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    #applied-ai .card-body {
+      grid-column: 1;
+      grid-row: 1;
+      min-width: 0;
+    }
+    #applied-ai .card h3 {
+      font-size: 1.24rem;
+    }
+    #applied-ai .card p {
+      font-size: 0.78rem;
+      line-height: 1.48;
+    }
+    #applied-ai .tag-list {
+      gap: 4px;
+      margin-top: 12px;
+    }
+    #applied-ai .tag-list li {
+      padding: 3px 6px;
+      font-size: 0.62rem;
+    }
+    #applied-ai .text-links {
+      gap: 10px;
+      margin-top: auto;
+      padding-top: 14px;
+    }
+
+    .career-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .career-card {
+      padding: 22px;
+    }
+    .result {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+    .result strong {
+      color: var(--highlight);
+      font-size: 1.1em;
+      font-weight: 900;
+      line-height: 1.25;
+    }
+    .career-card .result strong {
+      font-size: 1.16em;
+    }
+
+    .prototype-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .prototype-card {
+      color: inherit;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+    }
+    .prototype-card:hover { transform: translateY(-2px); }
+    .prototype-card img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      border-bottom: 1px solid var(--line);
+    }
+    .prototype-card div {
+      padding: 15px;
+      display: grid;
+      gap: 7px;
+    }
+    .prototype-card strong {
+      font-size: 1rem;
+    }
+    .prototype-card span {
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+    .prototype-card em {
+      color: var(--accent);
+      font-style: normal;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .contact {
+      padding: 54px 0;
+      background:
+        linear-gradient(135deg, #171717 0%, #25316f 58%, #315cf5 100%);
+      color: #fff;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 30px;
+      align-items: center;
+    }
+    .contact h2 {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+    .contact p {
+      color: rgba(255, 255, 255, 0.78);
+      max-width: 700px;
+    }
+    .contact .button {
+      border-color: rgba(255, 255, 255, 0.82);
+      background: #fff;
+      color: var(--ink);
+    }
+    .contact .button:hover {
+      border-color: #fff;
+      background: var(--amber);
+      color: #121412;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.24);
+    }
+
     .reveal {
-      opacity: 0; transform: translateY(18px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* ── Responsive ── */
-    @media (max-width: 860px) {
-      h1 { font-size: 2.6rem; }
-      h2 { font-size: 1.75rem; }
-      .case h2 { font-size: 1.6rem; }
-
-      .hero-band { padding: 48px 0 36px; }
-      .stat-line  { flex-wrap: wrap; }
-      .stat-item  { flex: 0 0 calc(50% - 0px); border-right: 0; padding: 10px 0; }
-      .stat-item:nth-child(odd) { padding-right: 12px; }
-      .stat-item:nth-child(even) { padding-left: 12px; }
-      .stat-item:nth-child(1),
-      .stat-item:nth-child(2) { border-bottom: 1px solid var(--line); }
-
-      .case-grid { grid-template-columns: 1fr; gap: 24px; }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
     }
 
-    @media (max-width: 580px) {
-      .topbar .container { flex-direction: column; align-items: flex-start; padding: 10px 0; }
-      .nav-links { width: 100%; gap: 14px; flex-wrap: wrap; }
-      h1 { font-size: 2rem; }
-      .stat-item { flex: 0 0 100%; }
-      .stat-item:nth-child(odd)  { padding-right: 0; }
-      .stat-item:nth-child(even) { padding-left: 0; }
-      .stat-item:nth-child(2) { border-bottom: 1px solid var(--line); }
-      .stat-item:nth-child(3) { padding-top: 10px; }
-      .contact-grid { grid-template-columns: 1fr; }
-      .hero-actions { flex-direction: column; }
-      .hero-actions .btn { width: 100%; justify-content: center; }
-      .case-links { flex-direction: column; gap: 8px; }
-      .fitcue-preview { grid-template-columns: 1fr; }
-      .story-sample { grid-template-columns: 1fr; }
-      .baidu-pair { grid-template-columns: 1fr; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      background: rgba(0, 0, 0, 0.82);
+      cursor: pointer;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      width: auto;
+      max-width: 94vw;
+      max-height: 90vh;
+      box-shadow: 0 22px 80px rgba(0, 0, 0, 0.45);
+      cursor: default;
+    }
+    .lightbox button {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      width: 40px;
+      height: 40px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    #contract-review {
+      border-top: 3px solid var(--risk);
+    }
+    #contract-review .case-label {
+      color: var(--risk);
+    }
+    #contract-review .tag-list li:nth-child(2) {
+      border-color: rgba(240, 90, 54, 0.28);
+      background: #fff0ea;
+      color: #b83a1d;
+    }
+
+    @media (max-width: 940px) {
+      .hero-grid,
+      .section-head,
+      .spotlight {
+        grid-template-columns: 1fr;
+      }
+      h1 {
+        white-space: normal;
+      }
+      .hero-side {
+        max-width: 700px;
+        justify-self: start;
+        transform: none;
+      }
+      .spotlight-media {
+        border-left: 0;
+        border-top: 1px solid var(--line);
+      }
+      .case-arrow {
+        width: 82px;
+        height: 280px;
+      }
+      .case-arrow[data-direction="-1"] {
+        left: -56px;
+      }
+      .case-arrow[data-direction="1"] {
+        right: -56px;
+      }
+      #career-cases .case-carousel {
+        width: min(100% - 24px, 920px);
+        padding: 24px 24px 16px;
+      }
+      #career-cases .case-carousel .spotlight {
+        grid-template-columns: 1fr;
+      }
+      #career-cases .spotlight-body {
+        padding: 24px;
+      }
+      #career-cases .spotlight p,
+      #career-cases .case-switcher .result {
+        max-width: none;
+      }
+      #career-cases .media-img {
+        max-height: 520px;
+      }
+      #applied-ai .ai-grid {
+        grid-template-columns: 1fr;
+      }
+      .proof-line,
+      .prototype-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 1240px) and (min-width: 941px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-side {
+        max-width: 700px;
+        justify-self: start;
+        transform: none;
+      }
+      h1 {
+        white-space: normal;
+      }
+      .proof-line {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .container { width: min(100% - 28px, 1120px); }
+      .topbar .container {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 11px 0;
+        gap: 8px;
+      }
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        gap: 15px;
+        padding-bottom: 3px;
+      }
+      .hero { padding: 42px 0 34px; }
+      .hero-grid { gap: 28px; }
+      .actions { flex-direction: column; }
+      .button { width: 100%; }
+      .proof-line,
+      .ai-grid,
+      .career-grid,
+      .prototype-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      #applied-ai .card {
+        display: flex;
+        min-height: 0;
+      }
+      #applied-ai .card img {
+        grid-column: auto;
+        grid-row: auto;
+        width: 100%;
+        height: auto;
+        min-height: 0;
+        aspect-ratio: 16 / 10;
+        border-left: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      #applied-ai .card-body {
+        grid-column: auto;
+        grid-row: auto;
+      }
+      #applied-ai .card h3 {
+        font-size: 1.34rem;
+      }
+      #applied-ai .card p {
+        font-size: 0.9rem;
+        line-height: 1.58;
+      }
+      .proof {
+        min-height: 0;
+        padding: 18px;
+      }
+      .system-foot { grid-template-columns: 1fr; }
+      .system-foot div {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .system-foot div:last-child { border-bottom: 0; }
+      .section { padding: 46px 0; }
+      .section-head { gap: 16px; margin-bottom: 22px; }
+      .case-carousel {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .case-arrow {
+        position: static;
+        width: 100%;
+        height: 54px;
+        transform: none;
+      }
+      .case-arrow:hover {
+        transform: translateY(-1px);
+      }
+      .case-arrow-icon {
+        width: 34px;
+        height: 34px;
+      }
+      .case-carousel .spotlight,
+      .case-footer-nav {
+        grid-column: 1 / -1;
+      }
+      .case-carousel .spotlight {
+        order: 1;
+      }
+      .case-footer-nav {
+        order: 2;
+      }
+      .case-arrow {
+        order: 3;
+      }
+      #career-cases .case-carousel {
+        width: 100%;
+        padding: 18px 14px 14px;
+      }
+      #career-cases .spotlight-body {
+        padding: 18px;
+      }
+      #career-cases .media-img {
+        max-height: none;
+      }
+      .spotlight-body,
+      .card-body,
+      .career-card { padding: 18px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .reveal { opacity: 1; transform: none; transition: none; }
     }
-
-    /* ── Explorations grid ── */
-    .explore-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 18px;
-    }
-    .explore-grid > a {
-      box-shadow: 0 1px 3px rgba(20,20,19,0.06);
-    }
-    @media (max-width: 580px) {
-      .explore-grid { gap: 30px; }
-    }
-
-    /* ── Lightbox ── */
-    .lightbox {
-      display: none; position: fixed; inset: 0; z-index: 100;
-      background: rgba(0,0,0,0.82); cursor: pointer;
-      align-items: center; justify-content: center;
-    }
-    .lightbox.open { display: flex; }
-    .lightbox img {
-      max-width: 92vw; max-height: 90vh; width: auto; height: auto;
-      border-radius: 4px; box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-      cursor: default;
-    }
-    .lightbox-close {
-      position: absolute; top: 16px; right: 20px;
-      width: 40px; height: 40px; border: 0; background: rgba(255,255,255,0.12);
-      color: #fff; font-size: 1.4rem; border-radius: 50%; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s;
-    }
-    .lightbox-close:hover { background: rgba(255,255,255,0.22); }
   </style>
 </head>
 <body>
-
-<!-- ════════════════ HEADER ════════════════ -->
-<header class="topbar">
-  <div class="container">
-    <div class="brand" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor:pointer" title="Back to top" role="button" tabindex="0" onkeydown="if(event.key==='Enter')window.scrollTo({top:0,behavior:'smooth'})">
-      <strong>Jianhua Chen (Catherine)</strong>
-      <span>Senior Product Manager</span>
+  <header class="topbar">
+    <div class="container">
+      <a class="brand" href="#top" aria-label="Back to top">
+        <strong>Jianhua Chen (Catherine)</strong>
+        <span>Senior Product Manager &amp; AI Builder</span>
+      </a>
+      <nav class="nav-links" aria-label="Portfolio navigation">
+        <a href="#applied-ai">Applied AI</a>
+        <a href="#scale">Product scale</a>
+        <a href="#career-cases">Career cases</a>
+        <a href="#prototypes">Other prototypes</a>
+        <a href="docs/Jianhua_Chen_CV_UK_ATS_V4_2.pdf" target="_blank" rel="noopener">CV</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
-    <nav class="nav-links" aria-label="Portfolio navigation">
-      <a href="#case-studies">Career case studies</a>
-      <a href="#independent">AI prototypes</a>
-      <a href="docs/Jianhua_Chen_CV_UK_ATS_V4_2.pdf" target="_blank">CV</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </div>
-</header>
+  </header>
 
-<main>
-  <!-- ════════════════ HERO ════════════════ -->
-  <section class="hero-band">
-    <div class="container narrow">
-      <div class="eyebrow">Senior Product Manager · 0-to-1 Products, Growth &amp; Applied AI</div>
-      <h1>Jianhua Chen <em>(Catherine)</em></h1>
-      <p class="hero-copy">
-        I turn uncertainty into shipped product decisions. 8+ years building 0-to-1 products, growth systems, self-serve data platforms and applied AI — at Baidu and major consumer-tech platforms.
-      </p>
-      <div class="hero-visa" style="margin:2px 0 18px;font-weight:600;color:var(--accent);font-size:0.96rem">Manchester, UK · Global Talent Visa · No sponsorship required</div>
-      <div class="hero-actions">
-        <a class="btn" href="#case-studies">View career case studies</a>
-        <a class="btn ghost" href="docs/Jianhua_Chen_CV_UK_ATS_V4_2.pdf" target="_blank">View CV</a>
-        <a class="btn ghost" href="https://www.linkedin.com/in/jianhua-catherine-chen-8a3847302/" target="_blank">LinkedIn</a>
-      </div>
-
-      <!-- Signature: editorial stat line -->
-      <div class="stat-line">
-        <div class="stat-item">
-          <div class="num">8+ yrs</div>
-          <div class="lbl">product management<br>at scale</div>
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy-block">
+          <h1>Jianhua Chen <span style="color:var(--name-accent);font-weight:400">(Catherine)</span></h1>
+          <p class="role-line">Senior Product Manager &amp; AI Builder.</p>
+          <div class="proof-line" aria-label="Portfolio proof points">
+            <div class="proof">
+              <span class="proof-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="6.5" width="14" height="13" rx="2.4"></rect><path d="M8.5 4.5v4"></path><path d="M15.5 4.5v4"></path><path d="M8 11.5h8"></path><path d="M8 15.5h5"></path></svg>
+              </span>
+              <strong>8+ years</strong>
+              <span>Product management across consumer, platform and B2B2C systems.</span>
+            </div>
+            <div class="proof">
+              <span class="proof-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M5 17h14"></path><path d="M6.5 14.5l4-4 3.2 3.1 4.8-6.1"></path><path d="M16 7.5h2.5V10"></path></svg>
+              </span>
+              <strong>&pound;2M+ daily GMV</strong>
+              <span>Baidu live-commerce platform and merchant operating tools.</span>
+            </div>
+            <div class="proof">
+              <span class="proof-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="6" r="2.3"></circle><circle cx="7" cy="17" r="2.3"></circle><circle cx="17" cy="17" r="2.3"></circle><path d="M12 8.5v3.5"></path><path d="M12 12l-4 3"></path><path d="M12 12l4 3"></path></svg>
+              </span>
+              <strong>AI workflow design</strong>
+              <span>Review queues, checks and human sign-off around model output.</span>
+            </div>
+            <div class="proof">
+              <span class="proof-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M6 8.2L12 5l6 3.2-6 3.2-6-3.2Z"></path><path d="M6 12l6 3.2 6-3.2"></path><path d="M6 15.8l6 3.2 6-3.2"></path></svg>
+              </span>
+              <strong>Working prototypes</strong>
+              <span>Product prototypes built from real user problems, with live pages to try.</span>
+            </div>
+          </div>
         </div>
-        <div class="stat-item">
-          <div class="num">0-to-1 Platforms</div>
-          <div class="lbl">B2B2C operating platform<br>£2M+ daily GMV</div>
-        </div>
-        <div class="stat-item">
-          <div class="num">Real-time Analytics</div>
-          <div class="lbl">Self-serve data product<br>built 0-to-1</div>
-        </div>
-        <div class="stat-item">
-          <div class="num">Applied AI</div>
-          <div class="lbl">GenAI &amp; ML in<br>shipped products</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════════════ CASE STUDIES ════════════════ -->
-  <div class="section" id="case-studies">
-
-    <!-- ── Baidu case studies ── -->
-    <div class="container" style="scroll-margin-top:74px">
-      <div style="border-top:2px solid var(--ink);padding-top:32px;margin-bottom:30px;border-bottom:1px solid var(--line);padding-bottom:30px">
-        <div style="font:600 0.72rem/1 var(--font-body);letter-spacing:0.1em;text-transform:uppercase;color:#226c5c;margin-bottom:6px">Career case studies</div>
-        <h2 style="margin:0;font-size:1.6rem">Eight years of product judgement, in depth</h2>
-        <p style="margin:8px 0 0;color:var(--muted);font-size:0.94rem;max-width:700px">Five deep-dives — <strong>0-to-1 product building, growth &amp; experimentation, data products and applied AI</strong> — proven at scale across Huajiao and Baidu (one of China's largest tech companies), including a live-commerce platform at <strong>£2M+ daily GMV</strong>. Each is the decision behind the number, not just the number.</p>
-      </div>
-      <!-- B2B SaaS Control Centre -->
-      <div class="case-grid" style="align-items:center;margin-bottom:30px;padding-bottom:30px;border-bottom:1px solid var(--line)">
-        <div>
-          <div class="case-kicker">0-to-1 platform build &middot; B2B2C SaaS &middot; Baidu</div>
-          <h2 style="font-size:1.5rem"><strong>Live-Commerce Operating Platform</strong></h2>
-          <p class="case-summary">The platform merchants and creators ran their entire live-commerce business on — products, live content, talent&ndash;merchant collaboration, marketing, campaigns and data in one place. I built it <strong>0-to-1</strong> (comparable in functionality to TikTok Shop's merchant &amp; creator platform).</p>
-          <ul class="case-tags"><li>0-to-1 platform</li><li>Merchant &amp; creator tools</li><li>Live commerce</li></ul>
-          <div class="memo-block"><h3>Decision</h3><p>Merchants ran their business across a scatter of disconnected tools &mdash; slow to operate, hard to learn, with serious gaps between them. As product lead I unified products, live content, talent&ndash;merchant matching, marketing and data onto <strong>a single operating surface</strong> &mdash; so a seller could run their whole live-commerce business in one place instead of stitching it together.</p></div>
-          <div class="memo-block"><h3>Result</h3><p>Collapsed broadcaster onboarding from <strong>72 hours to under a minute</strong> and grew <strong>monthly active merchants +116%</strong> — the console became the daily operating surface sellers returned to.</p></div>
-          <div class="case-links"><a href="docs/b2b_saas_control_center_case_study.pdf" target="_blank">Read full case study</a></div>
-        </div>
-        <div class="evidence">
-          <div class="evidence-head">Product<span>Merchant &amp; creator operating platform</span></div>
-          <img width="1080" height="940" class="evidence-img" src="assets/screenshots/merchant_platform_infographic.png" alt="Merchant and creator operating platform infographic — one operating surface, onboarding from 72 hours to under a minute, monthly active merchants +116%" loading="lazy" onclick="openLightbox(this.src)" style="cursor:zoom-in">
+        <div class="hero-side">
+          <p class="hero-copy">
+            My background is 8+ years in product management, including Baidu live-commerce systems at &pound;2M+ daily GMV and working AI prototypes built since 2024.
+          </p>
+          <p class="hero-copy">
+            Most of my AI work is about making model output usable inside a real workflow. That means clear queues, playbooks, evaluation checks, escalation paths and a human decision point.
+          </p>
+          <div class="visa">Manchester, UK. Global Talent Visa. No sponsorship required.</div>
+          <div class="actions">
+            <a class="button" href="#applied-ai">View applied AI work</a>
+            <a class="button secondary" href="docs/Jianhua_Chen_CV_UK_ATS_V4_2.pdf" target="_blank" rel="noopener">Open CV</a>
+            <a class="button secondary" href="https://www.linkedin.com/in/jianhua-catherine-chen-8a3847302/" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
         </div>
       </div>
+    </section>
 
-      <!-- Huajiao Livestream -->
-      <div class="case-grid" style="align-items:center;margin-bottom:30px;padding-bottom:30px;border-bottom:1px solid var(--line)">
-        <div>
-          <div class="case-kicker">Growth + new-format 0-to-1 &middot; Huajiao</div>
-          <h2 style="font-size:1.5rem"><strong>Livestream Platform Growth &amp; New Formats</strong></h2>
-          <p class="case-summary">Owned user growth and the creator ecosystem on a top live-streaming platform &mdash; and shipped new 0-to-1 formats, including the company's first digital-human livestreaming and an audio live product.</p>
-          <ul class="case-tags"><li>Growth</li><li>Creator tooling</li><li>0-to-1 formats</li></ul>
-          <div class="memo-block"><h3>Decision</h3><p>Treated growth as a product problem, not a spend one. Rebuilt discovery &mdash; Channels, Nearby and Moments &mdash; with AI-based content distribution so the right viewer reached the right room in fewer steps, and gave creators tooling that made them measurably more effective. On a live platform, retained creators are what retain the audience.</p></div>
-          <div class="memo-block"><h3>Result</h3><p><strong>CTR +27%</strong>, <strong>retention +10.3%</strong>, onboarding conversion <strong>+7&ndash;11%</strong>; creator tooling used across <strong>13K+ daily livestreams</strong>.</p></div>
-          <div class="case-links"><a href="docs/huajiao_livestream_case_study.pdf" target="_blank">Read full case study</a></div>
-        </div>
-        <div class="evidence">
-          <div class="evidence-head">Live discovery<span>Channels · Nearby · Moments</span></div>
-          <img width="880" height="1170" class="evidence-img" src="assets/screenshots/huajiao_discovery.png?v=2" alt="Huajiao live-streaming discovery surface — Channels, Nearby and Moments feeds of live rooms including the new 0-to-1 digital-human and audio-live formats; +27% discovery CTR, +10.3% user retention, 13K+ daily livestreams" loading="lazy" onclick="openLightbox(this.src)" style="cursor:zoom-in">
-        </div>
-      </div>
-
-      <!-- Growth -->
-      <div class="case-grid" style="align-items:center;margin-bottom:30px;padding-bottom:30px;border-bottom:1px solid var(--line)">
-        <div>
-          <div class="case-kicker">Conversion, experimentation &amp; A/B &middot; Baidu</div>
-          <h2 style="font-size:1.5rem"><strong>Conversion &amp; Growth</strong></h2>
-          <p class="case-summary">Growth wasn't one big idea — it was finding exactly where buyers dropped off and running disciplined experiments there, instead of shipping features and hoping.</p>
-          <ul class="case-tags"><li>Funnel analysis</li><li>A/B experimentation</li><li>Targeting</li></ul>
-          <div class="memo-block"><h3>Decision</h3><p>Segmented the B2C purchase funnel, quantified each drop-off, and attacked the highest-leverage leak first.</p></div>
-          <div class="memo-block"><h3>Result</h3><p><strong>+12.5% conversion</strong> and <strong>+6.8% GMV</strong> on a platform at <strong>£2M+ daily GMV</strong>, delivered through <strong>12 A/B tests over three months</strong> — attributable and repeatable.</p></div>
-          <div class="case-links"><a href="docs/growth_funnel_case_study.pdf" target="_blank">Read full case study</a></div>
-        </div>
-        <div class="evidence">
-          <div class="evidence-head">Impact<span>B2C purchase funnel</span></div>
-<img width="1080" height="940" class="evidence-img" src="assets/screenshots/baidu_funnel.png?v=2" alt="Live-commerce conversion funnel from external reach to post-sale review, with +12.5% conversion and +6.8% GMV" loading="lazy" onclick="openLightbox(this.src)" style="cursor:zoom-in">
-        </div>
-      </div>
-
-      <!-- Data Compass -->
-      <div class="case-grid" style="align-items:center;margin-bottom:30px;padding-bottom:30px;border-bottom:1px solid var(--line)">
-        <div>
-          <div class="case-kicker">Self-serve data product &middot; 0-to-1 &middot; Baidu</div>
-          <h2 style="font-size:1.5rem"><strong>Data Compass</strong></h2>
-          <p class="case-summary">I built Baidu's real-time merchant analytics product <strong>0-to-1</strong> — and the hard part wasn't surfacing 110+ dimensions, it was turning them into a decision a non-technical operator could act on.</p>
-          <ul class="case-tags"><li>Analytics product</li><li>Merchant intelligence</li><li>Adoption</li></ul>
-          <div class="memo-block"><h3>Decision</h3><p>Designed it for the operator's next action, not the analyst's completeness — real-time signals a non-technical merchant could act on mid-broadcast.</p></div>
-          <div class="memo-block"><h3>Result</h3><p><strong>110+ dimensions</strong> turned into decision support, reaching <strong>90%+ adoption</strong> and <strong>95%+ retention</strong> among active broadcasters and operators.</p></div>
-          <div class="case-links"><a href="docs/data_compass_case_study.pdf" target="_blank">Read full case study</a></div>
-        </div>
-        <div class="evidence">
-          <div class="evidence-head">Product<span>Real-time merchant intelligence</span></div>
-          <img width="1080" height="940" class="evidence-img" src="assets/screenshots/data_compass_infographic.png" alt="Data Compass infographic — 110+ live dimensions turned into decision support, 90%+ adoption and 95%+ retention" loading="lazy" onclick="openLightbox(this.src)" style="cursor:zoom-in">
-        </div>
-      </div>
-
-      <!-- Digital Human -->
-      <div class="case-grid" style="align-items:center">
-        <div>
-          <div class="case-kicker">Applied AI in production &middot; Baidu</div>
-          <h2 style="font-size:1.5rem"><strong>Digital Human Live Commerce</strong></h2>
-          <p class="case-summary">The bottleneck in live commerce was never content — it was the cost and availability of a human anchor. The win wasn't a lifelike avatar; it was an unmanned live room a merchant could trust to run 24/7.</p>
-          <ul class="case-tags"><li>Applied AI</li><li>Live commerce</li><li>0→1</li></ul>
-          <div class="memo-block"><h3>Decision</h3><p>Chose script-driven, merchant-configurable automation over free-form generation — reliability and brand-safety beat novelty in a commerce setting.</p></div>
-          <div class="memo-block"><h3>Result</h3><p>Enabled <strong>unmanned, 24/7 script-driven live selling</strong> and gave Baidu's Du Xiaoxiao AI persona a real commercial landing.</p></div>
-          <div class="case-links"><a href="docs/digital_human_case_study.pdf" target="_blank">Read full case study</a></div>
-        </div>
-        <div class="evidence">
-          <div class="evidence-head">Digital-human live rooms<span>Baidu · unmanned selling</span></div>
-          <img width="1080" height="940" class="evidence-img" src="assets/screenshots/digital_human_infographic.png" alt="Digital-human live rooms infographic — script-driven, unmanned 24/7 live selling with the Du Xiaoxiao AI persona" loading="lazy" onclick="openLightbox(this.src)" style="cursor:zoom-in">
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ── Independent Products divider ── -->
-    <div class="container" id="independent" style="padding-top:36px;scroll-margin-top:74px">
-      <div style="border-top:2px solid var(--ink);padding-top:32px;margin-bottom:30px;border-bottom:1px solid var(--line);padding-bottom:30px">
-        <div style="font:600 0.72rem/1 var(--font-body);letter-spacing:0.1em;text-transform:uppercase;color:#c73e51;margin-bottom:6px">AI Prototypes</div>
-        <h2 style="margin:0;font-size:1.6rem">AI prototypes — built solo, 2024 to now</h2>
-        <p style="margin:8px 0 0;color:var(--muted);font-size:0.94rem;max-width:600px">Each one independently conceived, designed and built — not assigned. Working prototypes in real use, showing end-to-end ownership from problem framing to working software.</p>
-      </div>
-    </div>
-
-    <!-- FitCue -->
-    <article class="case reveal" id="fitcue">
+    <section class="section" id="applied-ai">
       <div class="container">
-        <div class="case-grid">
-          <div>
-            <div class="case-kicker">Concept prototype · Constraint-based recommendation</div>
-            <h2><strong>FitCue</strong></h2>
-            <p class="case-summary">
-              A lightweight video-matching product that helps users find feasible workouts based on today's time, space, equipment and physical constraints — not generic recommendations.
+        <div class="section-head">
+          <h2>Selected applied AI work.</h2>
+          <p>
+            Three examples where the product work sits close to the model: a controlled legal review workflow, AI selling inside Baidu live commerce, and a constraint-first recommendation prototype. The focus is whether the system can be checked, corrected and used in a real decision.
+          </p>
+        </div>
+
+        <div class="ai-grid">
+          <article class="card reveal" id="contract-review">
+            <img src="assets/screenshots/contract_review_workbench.png" alt="AI Contract Review Triage workbench showing queue, dashboard, routing tiers and review controls" onclick="openLightbox(this.src)">
+            <div class="card-body">
+              <div class="case-label">Controlled review workflow</div>
+              <h3>AI Contract Review Triage</h3>
+              <p>
+                A NDA review workbench with playbook-grounded clause checks, suggested fallback wording, risk routing and explicit lawyer sign-off. The key product choice was to keep legal judgement owned by the reviewer while making repeated checks faster and easier to audit.
+              </p>
+              <ul class="tag-list">
+                <li>Playbook design</li>
+                <li>Evaluation set</li>
+                <li>Human sign-off</li>
+                <li>Audit trail</li>
+              </ul>
+              <div class="text-links">
+                <a href="products/contract-review/workbench.html" target="_blank" rel="noopener">Try the workbench</a>
+                <a href="products/contract-review/index.html" target="_blank" rel="noopener">Open case</a>
+                <a href="docs/contract_review_solution_design.pdf" target="_blank" rel="noopener">Solution design</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card reveal" id="digital-human">
+            <img src="assets/screenshots/baidu_dh_pair.jpg" alt="Digital-human live-commerce product screenshots from Baidu" onclick="openLightbox(this.src)">
+            <div class="card-body">
+              <div class="case-label">Production AI commerce case</div>
+              <h3>Digital Human Live Commerce</h3>
+              <p>
+                Script-driven, merchant-configurable AI selling for Baidu live commerce. I framed the product around reliability, brand safety and commercial use rather than open-ended generation.
+              </p>
+              <ul class="tag-list">
+                <li>Applied AI</li>
+                <li>Live commerce</li>
+                <li>Merchant workflow</li>
+              </ul>
+              <div class="text-links">
+                <a href="docs/digital_human_case_study.pdf" target="_blank" rel="noopener">Read case study</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card reveal" id="fitcue">
+            <img src="assets/screenshots/fitcue_en.png" alt="FitCue constraint-first workout matching product page" onclick="openLightbox(this.src)">
+            <div class="card-body">
+              <div class="case-label">Independent AI product prototype</div>
+              <h3>FitCue</h3>
+              <p>
+                A workout matcher that narrows the choice by time, space, equipment and body restrictions. The product question was whether a smaller, feasible set beats a broad catalogue.
+              </p>
+              <ul class="tag-list">
+                <li>Recommendation UX</li>
+                <li>Constraint matching</li>
+                <li>MVP scoping</li>
+              </ul>
+              <div class="text-links">
+                <a href="products/fitcue/index.html" target="_blank" rel="noopener">Open product</a>
+                <a href="docs/fitcue_case_study.pdf" target="_blank" rel="noopener">Read case study</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="scale">
+      <div class="container">
+        <div class="section-head">
+          <h2>The product scale behind the AI work.</h2>
+          <p>
+            The AI projects sit on top of a broader product background: live-commerce platforms, growth systems and data products used by merchants, creators and operators.
+          </p>
+        </div>
+        <div class="career-grid">
+          <article class="career-card reveal">
+            <div class="case-label">0-to-1 platform build, Baidu</div>
+            <h3>Live-Commerce Operating Platform</h3>
+            <p>
+              A single operating surface for products, live content, talent-merchant collaboration, marketing and data. Built for sellers who needed fewer disconnected tools.
             </p>
-            <ul class="case-tags">
-              <li>JTBD</li><li>AI matching</li><li>MVP scoping</li><li>Commercial judgement</li>
-            </ul>
+            <div class="result">On a <strong>&pound;2M+ daily GMV</strong> platform, broadcaster onboarding moved from <strong>72 hours to under a minute</strong>, with monthly active merchants up <strong>116%</strong>.</div>
+            <div class="text-links"><a href="docs/b2b_saas_control_center_case_study.pdf" target="_blank" rel="noopener">Read full case study</a></div>
+          </article>
 
-            <div class="memo-block">
-              <h3>Context</h3>
-              <p>Users fail to start because they cannot tell which workout is realistic <em>today</em>. Broad catalogues increase choice without increasing action.</p>
-            </div>
-            <div class="memo-block">
-              <h3>Decision</h3>
-              <p>Narrowed recommendations into <strong>constraint-first feasibility matching</strong>. Each result answers "can I actually do this right now?" before "is this popular?"</p>
-            </div>
-            <div class="memo-block">
-              <h3>Current stage</h3>
-              <p>Discovery pointed to <strong>travellers, new mothers, small-space users and restarters</strong> as the sharpest-need segments — underserved by one-size-fits-all fitness products. Next step is live validation with a real cohort.</p>
-            </div>
+          <article class="career-card reveal">
+            <div class="case-label">Self-serve data product, Baidu</div>
+            <h3>Data Compass</h3>
+            <p>
+              A real-time analytics product for non-technical merchant operators. The design focused on the next action, not dashboard completeness.
+            </p>
+            <div class="result"><strong>110+ dimensions</strong>, <strong>90%+ adoption</strong> and <strong>95%+ retention</strong> among active broadcasters and operators.</div>
+            <div class="text-links"><a href="docs/data_compass_case_study.pdf" target="_blank" rel="noopener">Read full case study</a></div>
+          </article>
 
-            <div class="case-links">
-              <a href="products/fitcue/index.html" target="_blank">Try the prototype</a>
-              <a href="docs/fitcue_case_study.pdf" target="_blank">Read case study</a>
-            </div>
-          </div>
+          <article class="career-card reveal">
+            <div class="case-label">Growth and experimentation, Baidu</div>
+            <h3>Conversion and Growth</h3>
+            <p>
+              Segmented the B2C funnel, found the highest-leverage drop-offs and ran a disciplined A/B programme instead of adding loosely connected features.
+            </p>
+            <div class="result"><strong>+12.5% conversion</strong> and <strong>+6.8% GMV</strong> on a platform at <strong>&pound;2M+ daily GMV</strong>.</div>
+            <div class="text-links"><a href="docs/growth_funnel_case_study.pdf" target="_blank" rel="noopener">Read full case study</a></div>
+          </article>
 
-          <div class="evidence">
-            <div class="evidence-head">Product page<span>Constraint-first matching</span></div>
-            <a href="products/fitcue/index.html" target="_blank"><img width="2200" height="1560" class="evidence-img" src="assets/screenshots/fitcue_en.png" alt="FitCue product page showing workout constraints and video recommendations" loading="lazy" style="cursor:pointer"></a>
+          <article class="career-card reveal">
+            <div class="case-label">Growth and creator ecosystem, Huajiao</div>
+            <h3>Livestream Platform Growth</h3>
+            <p>
+              Owned user growth and creator ecosystem work across discovery, onboarding and creator tooling on a large live-streaming platform.
+            </p>
+            <div class="result"><strong>CTR +27%</strong>, <strong>retention +10.3%</strong> and creator tooling used across <strong>13K+ daily livestreams</strong>.</div>
+            <div class="text-links"><a href="docs/huajiao_livestream_case_study.pdf" target="_blank" rel="noopener">Read full case study</a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="career-cases">
+      <div class="container">
+        <div class="section-head">
+          <h2>Career case studies.</h2>
+          <p>
+            These case studies give the commercial context behind the AI work: a &pound;2M+ daily GMV live-commerce platform, self-serve analytics, funnel experimentation and creator growth across Baidu and Huajiao.
+          </p>
+        </div>
+        <div class="case-carousel reveal" aria-label="Career case studies">
+          <button class="case-arrow" type="button" data-direction="-1" aria-label="Previous career case">
+            <svg class="case-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 18l-6-6 6-6"></path>
+            </svg>
+          </button>
+          <article class="spotlight case-switcher" aria-label="Selected career case study">
+            <div class="spotlight-body">
+              <div>
+                <div class="case-label" id="career-case-label">0-to-1 platform build</div>
+                <h3 id="career-case-title">Live-Commerce Operating Platform</h3>
+                <p id="career-case-summary">
+                  A merchant and creator operating platform for Baidu live commerce, bringing products, live content, talent matching, campaigns and data into one operating surface.
+                </p>
+                <div class="result" id="career-case-result">On a <strong>&pound;2M+ daily GMV</strong> platform, broadcaster onboarding moved from <strong>72 hours to under a minute</strong>, with monthly active merchants up <strong>116%</strong>.</div>
+                <div class="text-links">
+                  <a id="career-case-link" href="docs/b2b_saas_control_center_case_study.pdf" target="_blank" rel="noopener">Read full case study</a>
+                </div>
+              </div>
+            </div>
+            <div class="spotlight-media">
+              <div class="media-head">Product evidence <span id="career-case-evidence">platform build and scale</span></div>
+              <img class="media-img" id="career-case-image" src="assets/screenshots/merchant_platform_infographic.png" alt="Live-commerce operating platform infographic" onclick="openLightbox(this.src)">
+            </div>
+          </article>
+          <button class="case-arrow" type="button" data-direction="1" aria-label="Next career case">
+            <svg class="case-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6"></path>
+            </svg>
+          </button>
+          <div class="case-footer-nav" aria-live="polite">
+            <span class="case-step" id="career-case-step">01 / 04</span>
+            <div class="case-dots" aria-label="Career case position">
+              <button class="case-dot active" type="button" aria-label="Show Live-commerce platform" aria-current="true" data-case="0"></button>
+              <button class="case-dot" type="button" aria-label="Show Data Compass" data-case="1"></button>
+              <button class="case-dot" type="button" aria-label="Show Conversion and Growth" data-case="2"></button>
+              <button class="case-dot" type="button" aria-label="Show Huajiao Livestream Growth" data-case="3"></button>
+            </div>
           </div>
         </div>
       </div>
-    </article>
+    </section>
 
-    <!-- Other product explorations (collapsed) -->
-    <div class="container" id="explorations" style="padding-top:40px;scroll-margin-top:74px">
-      <div style="border-top:1px solid var(--line);padding-top:32px;margin-bottom:22px">
-        <div style="font:600 0.72rem/1 var(--font-body);letter-spacing:0.1em;text-transform:uppercase;color:#c73e51;margin-bottom:6px">Other product explorations</div>
-        <h2 style="margin:0;font-size:1.6rem">Four more prototypes, built end-to-end</h2>
+    <section class="section" id="prototypes">
+      <div class="container">
+        <div class="section-head">
+          <h2>Other working prototypes.</h2>
+          <p>
+            Independent builds used to test a specific product interaction: wording support, story generation, life-choice simulation and structured gifting. Each one is a working page with a defined user flow.
+          </p>
+        </div>
+        <div class="prototype-grid">
+          <a class="prototype-card reveal" href="products/cherish/index.html" target="_blank" rel="noopener">
+            <img src="assets/screenshots/cherish_scene.png" alt="Cherish product screen">
+            <div>
+              <strong>Cherish</strong>
+              <span>Writing support for difficult relationship conversations, helping the user find safer wording without making a diagnosis.</span>
+              <em>Open product</em>
+            </div>
+          </a>
+          <a class="prototype-card reveal" href="products/ai-storybook/reader-en.html" target="_blank" rel="noopener">
+            <img src="assets/screenshots/ai_storybook_en.png" alt="AI Storybook Generator product screen">
+            <div>
+              <strong>AI Storybook Generator</strong>
+              <span>A prompt-to-picture-book workflow that checks the story before generating a child-friendly reader.</span>
+              <em>See sample</em>
+            </div>
+          </a>
+          <a class="prototype-card reveal" href="products/parallel-life/index.html" target="_blank" rel="noopener">
+            <img src="assets/screenshots/parallel_life_scene.png" alt="Parallel Life product screen">
+            <div>
+              <strong>Parallel Life</strong>
+              <span>An interactive narrative simulation where choices change memory, relationships and later scenes.</span>
+              <em>Play simulation</em>
+            </div>
+          </a>
+          <a class="prototype-card reveal" href="products/giftwise/index.html" target="_blank" rel="noopener">
+            <img src="assets/screenshots/giftwise_scene.png" alt="GiftWise product screen">
+            <div>
+              <strong>GiftWise</strong>
+              <span>A small decision tool using recipient, occasion and budget to narrow the choice to three gift options.</span>
+              <em>Open product</em>
+            </div>
+          </a>
+        </div>
       </div>
-      <div class="explore-grid">
-        <a href="products/cherish/index.html" target="_blank" style="display:block;border:1px solid var(--line);text-decoration:none;color:inherit;background:#fdfdfc">
-          <img width="900" height="562" src="assets/screenshots/cherish_scene.png" alt="Cherish product screen" loading="lazy" style="display:block;width:100%;height:auto;border-bottom:1px solid var(--line)">
-          <div style="padding:14px 16px">
-            <div class="case-kicker" style="margin-bottom:5px">AI communication coach</div>
-            <div style="font-weight:700;font-size:1.05rem;margin-bottom:7px">Cherish</div>
-            <div style="font-size:0.84rem;color:var(--muted);margin-bottom:11px;line-height:1.55">Turns conflict and cold silence into a message you can actually send — communication translation, not diagnosis.</div>
-            <div style="font-size:0.8rem;color:var(--accent);font-weight:600">Open the prototype &rarr;</div>
-          </div>
-        </a>
-        <a href="products/ai-storybook/reader-en.html" target="_blank" style="display:block;border:1px solid var(--line);text-decoration:none;color:inherit;background:#fdfdfc">
-          <img width="1408" height="768" src="assets/storybook/ladybug_cover.jpg" alt="AI Storybook Generator product screen" loading="lazy" style="display:block;width:100%;height:auto;border-bottom:1px solid var(--line)">
-          <div style="padding:14px 16px">
-            <div class="case-kicker" style="margin-bottom:5px">Multimodal AI pipeline</div>
-            <div style="font-weight:700;font-size:1.05rem;margin-bottom:7px">AI Storybook Generator</div>
-            <div style="font-size:0.84rem;color:var(--muted);margin-bottom:11px;line-height:1.55">A value-guided, safety-checked story-to-image-to-publishing pipeline. The linked demo is a generated sample of the output — a prototype, not a finished library.</div>
-            <div style="font-size:0.8rem;color:var(--accent);font-weight:600">See a generated sample &rarr;</div>
-          </div>
-        </a>
-        <a href="products/parallel-life/index.html" target="_blank" style="display:block;border:1px solid var(--line);text-decoration:none;color:inherit;background:#fdfdfc">
-          <img width="900" height="562" src="assets/screenshots/parallel_life_scene.png" alt="Parallel Life product screen" loading="lazy" style="display:block;width:100%;height:auto;border-bottom:1px solid var(--line)">
-          <div style="padding:14px 16px">
-            <div class="case-kicker" style="margin-bottom:5px">AI narrative simulation</div>
-            <div style="font-weight:700;font-size:1.05rem;margin-bottom:7px">Parallel Life</div>
-            <div style="font-size:0.84rem;color:var(--muted);margin-bottom:11px;line-height:1.55">A decision tool repositioned into a serious narrative game that makes the emotional cost of life choices visible.</div>
-            <div style="font-size:0.8rem;color:var(--accent);font-weight:600">Play the simulation &rarr;</div>
-          </div>
-        </a>
-        <a href="products/giftwise/index.html" target="_blank" style="display:block;border:1px solid var(--line);text-decoration:none;color:inherit;background:#fdfdfc">
-          <img width="900" height="562" src="assets/screenshots/giftwise_scene.png" alt="GiftWise product screen" loading="lazy" style="display:block;width:100%;height:auto;border-bottom:1px solid var(--line)">
-          <div style="padding:14px 16px">
-            <div class="case-kicker" style="margin-bottom:5px">Structured gift-finder</div>
-            <div style="font-weight:700;font-size:1.05rem;margin-bottom:7px">GiftWise</div>
-            <div style="font-size:0.84rem;color:var(--muted);margin-bottom:11px;line-height:1.55">Recipient × occasion × budget to a confident shortlist in a few taps — localised UK version with £ price bands.</div>
-            <div style="font-size:0.8rem;color:var(--accent);font-weight:600">Open the prototype &rarr;</div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
-</main>
+    </section>
+  </main>
 
-<!-- ════════════════ CONTACT ════════════════ -->
-<footer class="contact-band" id="contact">
-  <div class="container">
-    <div class="contact-grid">
+  <footer class="contact" id="contact">
+    <div class="container contact-grid">
       <div>
         <h2>Looking for Senior PM, Applied AI PM and Product Lead roles in the UK.</h2>
-        <p>Especially roles in AI productisation, B2B SaaS, data products, growth and experimentation, marketplace and discovery systems, and complex product strategy.</p>
+        <p>Most interested in AI workflow products, B2B SaaS, data products, growth and experimentation, marketplace systems and product strategy where reliability matters.</p>
       </div>
-      <a class="btn" href="mailto:catherine.jianhua@gmail.com">Email Catherine</a>
+      <a class="button" href="mailto:catherine.jianhua@gmail.com">Email Catherine</a>
     </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button type="button" onclick="closeLightbox()" aria-label="Close preview">x</button>
+    <img src="" alt="">
   </div>
-</footer>
 
-<!-- ════════════════ SCRIPTS ════════════════ -->
-<script>
-  // ── Navigation active state ──
-  const navLinks = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
-  const sectionEls = navLinks
-    .map(link => document.querySelector(link.getAttribute('href')))
-    .filter(Boolean);
+  <script>
+    const navLinks = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
+    const sections = navLinks
+      .map(link => document.querySelector(link.getAttribute('href')))
+      .filter(Boolean);
 
-  function setActiveNav(id) {
-    navLinks.forEach(link => {
-      link.classList.toggle('active', link.getAttribute('href') === '#' + id);
-    });
-  }
-
-  navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      setActiveNav(link.getAttribute('href').slice(1));
-    });
-  });
-
-  function updateActiveNav() {
-    const marker = window.scrollY + window.innerHeight * 0.3;
-    let current = null;
-    sectionEls.forEach(el => { if (el.offsetTop <= marker) current = el; });
-    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 40) {
-      current = sectionEls[sectionEls.length - 1];
+    function updateActiveNav() {
+      const marker = window.scrollY + window.innerHeight * 0.32;
+      let current = null;
+      sections.forEach(section => {
+        if (section.offsetTop <= marker) current = section;
+      });
+      navLinks.forEach(link => {
+        link.classList.toggle('active', current && link.getAttribute('href') === '#' + current.id);
+      });
     }
-    navLinks.forEach(link => {
-      link.classList.toggle('active', !!current && link.getAttribute('href') === '#' + current.id);
-    });
-  }
-  window.addEventListener('scroll', updateActiveNav, { passive: true });
-  updateActiveNav();
+    window.addEventListener('scroll', updateActiveNav, { passive: true });
+    updateActiveNav();
 
-  // ── Scroll reveal ──
-  if ('IntersectionObserver' in window) {
-    const revealObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
+    const careerCases = [
+      {
+        navTitle: 'Live-commerce platform',
+        navMeta: 'Platform build',
+        label: '0-to-1 platform build',
+        title: 'Live-Commerce Operating Platform',
+        summary: 'A merchant and creator operating platform for Baidu live commerce, bringing products, live content, talent matching, campaigns and data into one operating surface.',
+        result: 'On a <strong>&pound;2M+ daily GMV</strong> platform, broadcaster onboarding moved from <strong>72 hours to under a minute</strong>, with monthly active merchants up <strong>116%</strong>.',
+        evidence: 'platform build and scale',
+        image: 'assets/screenshots/merchant_platform_infographic.png',
+        alt: 'Live-commerce operating platform infographic',
+        href: 'docs/b2b_saas_control_center_case_study.pdf'
+      },
+      {
+        navTitle: 'Data Compass',
+        navMeta: 'Analytics',
+        label: 'Self-serve data product',
+        title: 'Data Compass',
+        summary: 'A real-time analytics product for non-technical merchant operators, designed around the next decision rather than dashboard completeness.',
+        result: '<strong>110+ dimensions</strong>, <strong>90%+ adoption</strong> and <strong>95%+ retention</strong> among active broadcasters and operators.',
+        evidence: 'self-serve analytics',
+        image: 'assets/screenshots/data_compass_infographic.png',
+        alt: 'Data Compass analytics product infographic',
+        href: 'docs/data_compass_case_study.pdf'
+      },
+      {
+        navTitle: 'Conversion and Growth',
+        navMeta: 'Experimentation',
+        label: 'Growth and experimentation',
+        title: 'Conversion and Growth',
+        summary: 'Segmented the live-commerce purchase funnel, found the highest-leverage drop-offs and ran a focused A/B programme.',
+        result: '<strong>+12.5% conversion</strong> and <strong>+6.8% GMV</strong> on a platform at <strong>&pound;2M+ daily GMV</strong>.',
+        evidence: 'funnel experiment results',
+        image: 'assets/screenshots/baidu_funnel.png?v=2',
+        alt: 'Baidu live-commerce conversion funnel case visual',
+        href: 'docs/growth_funnel_case_study.pdf'
+      },
+      {
+        navTitle: 'Huajiao Livestream Growth',
+        navMeta: 'Creator ecosystem',
+        label: 'Creator ecosystem and discovery',
+        title: 'Huajiao Livestream Growth',
+        summary: 'Growth and creator ecosystem work across discovery, onboarding and creator tooling on a large live-streaming platform.',
+        result: '<strong>CTR +27%</strong>, <strong>retention +10.3%</strong> and creator tooling used across <strong>13K+ daily livestreams</strong>.',
+        evidence: 'creator growth and tooling',
+        image: 'assets/screenshots/huajiao_discovery.png?v=2',
+        alt: 'Huajiao livestream discovery and creator growth case visual',
+        href: 'docs/huajiao_livestream_case_study.pdf'
+      }
+    ];
+
+    const caseDots = Array.from(document.querySelectorAll('.case-dot[data-case]'));
+    const caseArrows = Array.from(document.querySelectorAll('.case-arrow[data-direction]'));
+    const caseSwitcher = document.querySelector('.case-switcher');
+    const caseStep = document.getElementById('career-case-step');
+    const caseLabel = document.getElementById('career-case-label');
+    const caseTitle = document.getElementById('career-case-title');
+    const caseSummary = document.getElementById('career-case-summary');
+    const caseResult = document.getElementById('career-case-result');
+    const caseEvidence = document.getElementById('career-case-evidence');
+    const caseImage = document.getElementById('career-case-image');
+    const caseLink = document.getElementById('career-case-link');
+    let currentCaseIndex = 0;
+
+    function setCareerCase(index) {
+      const nextIndex = (index + careerCases.length) % careerCases.length;
+      const item = careerCases[nextIndex];
+      if (!item) return;
+      currentCaseIndex = nextIndex;
+      caseStep.textContent = `${String(nextIndex + 1).padStart(2, '0')} / ${String(careerCases.length).padStart(2, '0')}`;
+      caseLabel.textContent = item.label;
+      caseTitle.textContent = item.title;
+      caseSummary.textContent = item.summary;
+      caseResult.innerHTML = item.result;
+      caseEvidence.textContent = item.evidence;
+      caseImage.src = item.image;
+      caseImage.alt = item.alt;
+      caseLink.href = item.href;
+      caseDots.forEach(button => {
+        const isActive = Number(button.dataset.case) === nextIndex;
+        button.classList.toggle('active', isActive);
+        if (isActive) {
+          button.setAttribute('aria-current', 'true');
+        } else {
+          button.removeAttribute('aria-current');
         }
       });
-    }, { rootMargin: '0px 0px -40px 0px', threshold: 0.08 });
+    }
 
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-  } else {
-    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
-  }
+    caseDots.forEach(button => {
+      button.addEventListener('click', () => setCareerCase(Number(button.dataset.case)));
+    });
 
-  // ── Lightbox ──
-  const lb = document.createElement('div');
-  lb.className = 'lightbox';
-  lb.id = 'lightbox';
-  lb.innerHTML = '<button class="lightbox-close" onclick="closeLightbox()">&times;</button><img src="" alt="">';
-  lb.addEventListener('click', function(e) { if (e.target === lb) closeLightbox(); });
-  document.body.appendChild(lb);
+    caseArrows.forEach(button => {
+      button.addEventListener('click', () => setCareerCase(currentCaseIndex + Number(button.dataset.direction)));
+    });
 
-  function openLightbox(src) {
-    const img = lb.querySelector('img');
-    img.src = src;
-    lb.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeLightbox() {
-    lb.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightbox(); });
-</script>
+    if (caseSwitcher) {
+      let swipeStartX = null;
+      let didSwipe = false;
+      caseSwitcher.addEventListener('pointerdown', event => {
+        swipeStartX = event.clientX;
+        didSwipe = false;
+        if (caseSwitcher.setPointerCapture) caseSwitcher.setPointerCapture(event.pointerId);
+      });
+      caseSwitcher.addEventListener('pointerup', event => {
+        if (swipeStartX === null) return;
+        const deltaX = event.clientX - swipeStartX;
+        if (Math.abs(deltaX) > 42) {
+          didSwipe = true;
+          setCareerCase(currentCaseIndex + (deltaX < 0 ? 1 : -1));
+        }
+        swipeStartX = null;
+      });
+      caseSwitcher.addEventListener('pointercancel', () => {
+        swipeStartX = null;
+      });
+      caseSwitcher.addEventListener('click', event => {
+        if (!didSwipe) return;
+        event.preventDefault();
+        event.stopPropagation();
+        didSwipe = false;
+      }, true);
+    }
 
+    setCareerCase(0);
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -40px 0px', threshold: 0.08 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+    }
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+
+    function openLightbox(src) {
+      lightboxImg.src = src;
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightboxImg.src = '';
+      document.body.style.overflow = '';
+    }
+
+    lightbox.addEventListener('click', event => {
+      if (event.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') closeLightbox();
+    });
+  </script>
 </body>
 </html>

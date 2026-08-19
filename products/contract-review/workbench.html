@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>First Pass — contract review workbench (prototype)</title>
+<link rel="icon" href="data:,">
+<style>
+  :root{
+    --paper:#F1F0EB;
+    --doc:#FFFFFF;
+    --ink:#1C2733;
+    --slate:#5C6B7A;
+    --line:#D9D7CF;
+    --line-soft:#E8E6DF;
+    --del:#B3261E;
+    --del-bg:#FBE9E7;
+    --ins:#1A56C4;
+    --ins-bg:#E7EEFB;
+    --keyfact:#FBF3D5;
+    --accept:#1E7A46;
+    --counter:#96610A;
+    --escalate:#A61B1B;
+    --accept-bg:#EAF4EE;
+    --counter-bg:#F8F0E0;
+    --escalate-bg:#F9EAE8;
+    --chip-line:#C9C6BC;
+    --serif:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5}
+
+  /* ---------- header ---------- */
+  .topbar{background:var(--ink);color:#F4F3EE;padding:14px 24px;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .wordmark{font-family:var(--serif);font-size:22px;font-weight:700;letter-spacing:.01em}
+  .wordmark em{font-style:italic;font-weight:400;opacity:.85}
+  .proto-tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(244,243,238,.4);border-radius:3px;padding:2px 8px;opacity:.85}
+  .topbar .who{margin-left:auto;font-size:12.5px;opacity:.75}
+
+  .tourbar{background:#E9E7DF;border-bottom:1px solid var(--line);padding:9px 24px;font-size:13.5px;color:#3D4A57}
+  .tourbar strong{color:var(--ink)}
+
+  /* ---------- layout ---------- */
+  .app{display:flex;min-height:calc(100vh - 110px)}
+  .queue{width:330px;flex:none;border-right:1px solid var(--line);padding:18px 0 30px}
+  .detail{flex:1;min-width:0;padding:26px 34px 70px;max-width:1080px}
+
+  /* ---------- queue ---------- */
+  .queue h2{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);margin:0 0 4px;padding:0 20px}
+  .queue h2.sysh{margin-top:22px}
+  .queue .stats{font-size:12.5px;color:var(--slate);padding:0 20px;margin:0 0 14px}
+  .qitem{display:block;width:100%;text-align:left;background:none;border:none;border-top:1px solid var(--line-soft);padding:13px 20px;cursor:pointer;font:inherit;color:inherit}
+  .qitem:hover{background:#EBEAE3}
+  .qitem[aria-current="true"]{background:var(--doc);box-shadow:inset 3px 0 0 var(--ink)}
+  .qitem:focus-visible{outline:2px solid var(--ins);outline-offset:-2px}
+  .qitem .docket{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--slate)}
+  .qitem .name{font-family:var(--serif);font-size:15.5px;margin:2px 0 5px;display:block}
+  .qitem .meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .qitem.cleared .name,.qitem.cleared .docket{color:#9AA3AC}
+  .qitem.sys .name{font-family:var(--sans);font-size:13.5px;font-weight:600}
+  .wait{font-family:var(--mono);font-size:10.5px;color:var(--slate)}
+  .wait.hot{color:var(--counter);font-weight:700}
+
+  .tier{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;border:1px solid var(--chip-line);border-radius:3px;padding:1px 7px;background:#fff}
+  .tier.t1{color:var(--accept);border-color:var(--accept)}
+  .tier.t2{color:var(--counter);border-color:var(--counter)}
+  .tier.t3{color:var(--escalate);border-color:var(--escalate)}
+  .tier.tp{color:var(--slate)}
+  .status{font-size:11.5px;color:var(--slate)}
+  .status.done{color:var(--accept)}
+
+  /* ---------- detail shared ---------- */
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);margin:0 0 6px}
+  .detail h1{font-family:var(--serif);font-size:27px;font-weight:700;margin:0 0 4px;line-height:1.25}
+  .subline{color:var(--slate);font-size:14px;margin:0 0 18px}
+  .subline .tier{font-size:11px;vertical-align:1px}
+  .subline .wait{font-size:12px}
+
+  /* overview strip: AI pre-review summary, never a replacement for the contract */
+  .overview{background:var(--doc);border:1px solid var(--line);border-radius:4px;margin:0 0 18px;overflow:hidden}
+  .ov-cap{padding:8px 16px;border-bottom:1px solid var(--line-soft);font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);background:#FAFAF7}
+  .ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .ov{padding:12px 16px;border-right:1px solid var(--line-soft)}
+  .ov:last-child{border-right:none}
+  .ov .k{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);display:block;margin-bottom:3px;cursor:help}
+  .ov .v{font-size:13.5px;font-weight:600}
+  .ov .v small{font-weight:400;color:var(--slate)}
+  .ov .v .to{color:var(--del);font-weight:700}
+
+  .aicard{background:var(--doc);border:1px solid var(--line);border-radius:4px;padding:20px 24px;margin:0 0 18px}
+  .aicard h3{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);margin:0 0 12px}
+
+  details.prompt-peek{margin:22px 0 0;border-top:1px dashed var(--line);padding-top:12px}
+  details.prompt-peek summary{cursor:pointer;font-family:var(--mono);font-size:12px;color:var(--slate)}
+  details.prompt-peek summary:hover{color:var(--ink)}
+  details.prompt-peek pre{background:#22303D;color:#DCE3E9;font-family:var(--mono);font-size:12px;line-height:1.55;padding:16px 18px;border-radius:4px;overflow-x:auto;white-space:pre-wrap}
+
+  .actions{display:flex;gap:12px;align-items:center;margin-top:20px;flex-wrap:wrap}
+  .btn{font:inherit;font-weight:600;font-size:14px;border-radius:4px;padding:9px 18px;cursor:pointer;border:1px solid var(--ink);background:var(--ink);color:#F4F3EE}
+  .btn:hover{background:#2E3D4C}
+  .btn:focus-visible{outline:2px solid var(--ins);outline-offset:2px}
+  .btn.secondary{background:transparent;color:var(--ink)}
+  .btn.secondary:hover{background:#E9E7DF}
+  .btn.sm{font-size:12.5px;padding:5px 12px}
+  .btn[disabled]{opacity:.45;cursor:default}
+  .action-note{font-size:12.5px;color:var(--slate)}
+  .done-note{color:var(--accept);font-weight:600;font-size:14px}
+
+  /* ---------- full contract with side annotations ---------- */
+  .contract-wrap{background:var(--doc);border:1px solid var(--line);border-radius:4px;margin:0 0 18px;overflow:hidden}
+  .contract-head{padding:12px 22px;border-bottom:1px solid var(--line-soft)}
+  .contract-head .t{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);display:block;margin-bottom:6px}
+  .legend{font-size:12.5px;color:var(--ink)}
+  .legend .sw{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:-1px;margin:0 4px 0 0}
+  .legend .li{margin-right:16px;white-space:nowrap}
+  .crow{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);border-bottom:1px solid var(--line-soft)}
+  .crow:last-child{border-bottom:none}
+  .clausecell{padding:16px 22px;font-family:var(--serif);font-size:14.5px;line-height:1.7;border-right:1px solid var(--line-soft);background:#FDFDFB}
+  .clausecell h4{font-family:var(--sans);font-size:12px;font-weight:700;margin:0 0 6px;color:var(--ink)}
+  .clausecell h4 .cno{font-family:var(--mono);font-weight:400;color:var(--slate);margin-right:8px}
+  .clausecell p{margin:0}
+  .clausecell del{color:var(--del);background:var(--del-bg);text-decoration:line-through;text-decoration-thickness:1px;padding:0 1px}
+  .clausecell ins{color:var(--ins);background:var(--ins-bg);text-decoration:underline;text-underline-offset:2px;padding:0 1px}
+  mark.keyfact{background:var(--keyfact);padding:0 2px;border-radius:2px;color:inherit}
+  .notecell{padding:14px 18px;font-size:13px}
+  .notecell.quiet{display:flex;align-items:flex-start;color:#9AA697;font-size:12px;font-family:var(--mono)}
+  .note-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+  .verdict{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:3px;padding:3px 10px}
+  .verdict.accept{color:var(--accept);background:var(--accept-bg)}
+  .verdict.counter{color:var(--counter);background:var(--counter-bg)}
+  .verdict.escalate{color:var(--escalate);background:var(--escalate-bg)}
+  .pb-ref{font-family:var(--mono);font-size:11px;color:var(--slate)}
+  .notecell p{margin:0 0 8px}
+  .prec-link{background:none;border:none;padding:0;font:inherit;font-size:12.5px;color:var(--ins);cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+  .counter-text{font-family:var(--serif);font-size:13px;background:var(--counter-bg);border-left:3px solid var(--counter);padding:9px 11px;margin:8px 0}
+  .counter-text.yours{background:var(--accept-bg);border-left-color:var(--accept)}
+  details.orig-peek summary{cursor:pointer;font-size:11.5px;color:var(--slate);margin:2px 0 6px}
+  details.orig-peek summary:hover{color:var(--ink)}
+  .escalate-note{background:var(--escalate-bg);border-left:3px solid var(--escalate);padding:9px 11px;margin:8px 0;font-size:12.5px}
+  .conf{font-family:var(--mono);font-size:10.5px;color:var(--slate);margin:8px 0}
+  .note-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+  .state-badge{font-size:12px;font-weight:700;color:var(--accept)}
+  .edit-area{width:100%;font-family:var(--serif);font-size:13px;line-height:1.6;border:1px solid var(--line);border-radius:3px;padding:8px 10px;margin:6px 0}
+  .edit-scope{display:block;font-size:11.5px;color:var(--slate);margin:2px 0 6px}
+
+  /* ---------- final review + email compose ---------- */
+  .final-wrap{border:1px solid var(--line-soft);border-radius:4px;overflow:hidden;margin-top:10px}
+  .fclause{padding:12px 22px;font-family:var(--serif);font-size:14px;line-height:1.7;border-bottom:1px solid var(--line-soft);background:#FDFDFB}
+  .fclause:last-child{border-bottom:none}
+  .fclause h4{font-family:var(--sans);font-size:12px;font-weight:700;margin:0 0 6px}
+  .fclause h4 .cno{font-family:var(--mono);font-weight:400;color:var(--slate);margin-right:8px}
+  .fclause p{margin:0}
+  mark.final-change{background:var(--accept-bg);padding:0 2px;border-radius:2px;color:inherit}
+  .fchip{font-family:var(--mono);font-size:10px;letter-spacing:.08em;border-radius:3px;padding:1px 7px;margin-left:8px;color:var(--accept);background:var(--accept-bg);text-transform:uppercase}
+  .fchip.removed{color:var(--escalate);background:var(--escalate-bg)}
+  .fchip.pending{color:var(--counter);background:var(--counter-bg)}
+  .fnote{color:var(--slate);font-style:italic}
+  details.finalview summary{cursor:pointer;font-family:var(--mono);font-size:12px;color:var(--slate);margin:14px 0 0}
+  details.finalview summary:hover{color:var(--ink)}
+  .review-table{width:100%;border-collapse:collapse;font-size:13px}
+  .review-table td{border-bottom:1px solid var(--line-soft);padding:9px 10px 9px 0;vertical-align:top}
+  .review-table tr:last-child td{border-bottom:none}
+  .review-table td:first-child{font-family:var(--mono);font-size:11.5px;color:var(--slate);white-space:nowrap;padding-right:14px}
+  .rv-ok{color:var(--accept);font-weight:700}
+  .rv-esc{color:var(--escalate);font-weight:700}
+  .email-box{border:1px solid var(--line-soft);background:#FDFDFB;padding:16px 18px}
+  .email-meta{font-family:var(--mono);font-size:12px;color:var(--slate);margin-bottom:10px}
+  .email-edit{width:100%;min-height:300px;font-family:var(--serif);font-size:14px;line-height:1.65;border:1px solid var(--line);border-radius:3px;padding:12px 14px;background:#fff}
+  .attach{display:inline-flex;align-items:center;gap:6px;font:inherit;font-family:var(--mono);font-size:11.5px;border:1px solid var(--chip-line);border-radius:3px;background:#fff;padding:5px 10px;margin:10px 10px 0 0;cursor:pointer;color:var(--ink)}
+  .attach:hover{border-color:var(--ink)}
+
+  /* ---------- tier 1 certificate ---------- */
+  .certificate{position:relative;background:var(--doc);border:1px solid var(--ink);outline:1px solid var(--ink);outline-offset:3px;padding:30px 34px;margin:4px 4px 22px}
+  .certificate h2{font-family:var(--serif);font-size:19px;margin:0 0 2px}
+  .certificate .cert-sub{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);margin:0 0 18px}
+  .certificate table{border-collapse:collapse;width:100%;font-size:14px}
+  .certificate td{padding:7px 0;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  .certificate td:first-child{color:var(--slate);width:230px;padding-right:16px}
+  .stamp{position:absolute;top:22px;right:26px;transform:rotate(-7deg);border:2.5px solid var(--accept);color:var(--accept);border-radius:4px;font-family:var(--mono);font-weight:700;font-size:12.5px;letter-spacing:.12em;padding:7px 12px;text-transform:uppercase;opacity:.9}
+  .immaterial{margin:14px 0 0;padding:0 0 0 18px;font-size:13.5px;color:var(--slate)}
+  .immaterial li{margin:3px 0}
+  details.fulltext{margin:0 0 18px}
+  details.fulltext summary{cursor:pointer;display:inline-block;font:inherit;font-weight:600;font-size:14px;border:1px solid var(--ink);border-radius:4px;padding:9px 18px;color:var(--ink);background:transparent;list-style:none;margin-bottom:12px}
+  details.fulltext summary::-webkit-details-marker{display:none}
+  details.fulltext summary:hover{background:#E9E7DF}
+  details.fulltext[open] summary{background:var(--ink);color:#F4F3EE}
+  details.fulltext summary::after{content:"▾";margin-left:8px;font-size:12px}
+  details.fulltext[open] summary::after{content:"▴"}
+
+  /* ---------- tier 3 ---------- */
+  .brief-list{margin:0;padding:0;list-style:none}
+  .brief-list li{padding:11px 0;border-bottom:1px solid var(--line-soft);display:flex;gap:14px}
+  .brief-list li:last-child{border-bottom:none}
+  .brief-list .flag{flex:none;font-family:var(--mono);font-size:11px;color:var(--escalate);padding-top:2px}
+  .fullreview{background:var(--escalate-bg);border:1px solid #E4C4C0;border-radius:4px;padding:14px 18px;font-size:14px;margin:0 0 18px}
+  .excerpt{font-family:var(--serif);font-size:14px;line-height:1.7;background:#FDFDFB;border:1px solid var(--line-soft);padding:14px 18px;margin:8px 0 0}
+
+  /* ---------- pipeline map ---------- */
+  .flow{margin:6px 0 18px}
+  .fbox{background:var(--doc);border:1px solid var(--line);border-radius:4px;padding:13px 18px;font-size:13.5px}
+  .fbox .fk{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);display:block;margin-bottom:3px}
+  .fbox strong{font-size:14px}
+  .farrow{text-align:center;color:var(--slate);font-size:15px;padding:5px 0}
+  .ftiers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .ftiers .fbox{border-top:3px solid var(--chip-line)}
+  .ftiers .fbox.f1{border-top-color:var(--accept)}
+  .ftiers .fbox.f2{border-top-color:var(--counter)}
+  .ftiers .fbox.f3{border-top-color:var(--escalate)}
+  .floop{border:1px dashed var(--chip-line);border-radius:4px;padding:12px 18px;font-size:13px;color:var(--slate);margin-top:14px;background:#EFEEE8}
+  .floop strong{color:var(--ink)}
+
+  /* ---------- dashboard (ledger style) ---------- */
+  .dash-sec{margin:28px 0 0}
+  .dash-sec h3{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);margin:0 0 10px}
+  .ledger{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border-top:2px solid var(--ink);border-bottom:3px double var(--ink);background:var(--doc)}
+  .lcell{padding:16px 18px 14px;border-right:1px solid var(--line-soft)}
+  .lcell:last-child{border-right:none}
+  .lcell .lk{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);display:block;margin-bottom:8px}
+  .lcell .ln{font-family:var(--serif);font-size:40px;font-weight:700;line-height:1;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+  .lcell .ln small{font-size:15px;font-weight:400;color:var(--slate)}
+  .lcell .ls{display:block;font-size:11.5px;color:var(--slate);margin-top:7px}
+  .lcell.warn .ln{color:var(--counter)}
+  .lcell.good .ln{color:var(--accept)}
+  .ledger.sub{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:14px}
+  .ledger.sub .ln{font-size:19px;letter-spacing:0}
+  .ledger.sub .lcell{padding:12px 18px 11px}
+  .chart{background:var(--doc);border:1px solid var(--line);border-radius:4px;padding:26px 20px 12px}
+  .bars{display:flex;align-items:flex-end;gap:6px;height:110px;border-bottom:1px solid var(--ink);position:relative}
+  .bars .ymax{position:absolute;top:-14px;right:0;font-family:var(--mono);font-size:9.5px;color:var(--slate)}
+  .barcol{flex:1;display:flex;align-items:flex-end;height:100%;position:relative}
+  .barcol::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--ink);color:#F4F3EE;font-family:var(--mono);font-size:10.5px;padding:4px 9px;border-radius:3px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .12s;z-index:5}
+  .barcol:hover::after{opacity:1}
+  .barcol:hover .spike-note{opacity:0}
+  .bar{width:100%;background:#C9CFD4;border-radius:2px 2px 0 0;min-height:2px}
+  .bar:hover{background:#9FAAB3}
+  .bar.today{background:var(--ink)}
+  .spike-note{position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:9.5px;color:var(--counter);white-space:nowrap}
+  .xrow{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--slate);padding:6px 0 2px}
+  .dash-cols{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .mixbar{display:flex;height:28px;border-radius:3px;overflow:hidden}
+  .mixbar span{display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;white-space:nowrap}
+  .mixbar .m1{background:var(--accept)}
+  .mixbar .m2{background:var(--counter)}
+  .mixbar .m3{background:var(--escalate)}
+  .mix-rows{margin:10px 0 0;font-size:13px}
+  .mix-rows .mr{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line-soft)}
+  .mix-rows .mr:last-child{border-bottom:none}
+  .mix-rows .sq{width:10px;height:10px;border-radius:2px;flex:none}
+  .mix-rows .mtime{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--slate);white-space:nowrap;padding-left:10px}
+  .spark{display:flex;align-items:center;gap:16px;background:var(--doc);border:1px solid var(--line);border-radius:4px;padding:14px 18px;margin-bottom:12px}
+  .spark svg{flex:none}
+  .spark .sp-txt{font-size:13px;line-height:1.45}
+  .spark .sp-txt strong{font-family:var(--serif);font-size:16px}
+  .team{background:var(--doc);border:1px solid var(--line);border-radius:4px;padding:4px 20px}
+  .team .trow{display:flex;align-items:center;gap:16px;padding:11px 0;border-bottom:1px solid var(--line-soft);font-size:13px;flex-wrap:wrap}
+  .team .trow:last-child{border-bottom:none}
+  .team .tname{width:190px;flex:none;font-weight:600}
+  .team .tname small{display:block;font-weight:400;color:var(--slate);font-size:11px}
+  .team .tload{flex:1;max-width:200px;height:8px;background:#E7E5DD;border-radius:4px;overflow:hidden}
+  .team .tload span{display:block;height:100%;background:var(--ink)}
+  .team .tstat{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--slate);text-align:right}
+  .assignee{font-family:var(--mono);font-size:10.5px;color:var(--ins)}
+  .lockbar{background:#EDF2F8;border:1px solid #C9D6E6;border-radius:4px;padding:14px 18px;font-size:14px;margin:0 0 18px}
+  @media (max-width:900px){.dash-cols{grid-template-columns:1fr}}
+
+  /* ---------- archive search ---------- */
+  .arch-controls{display:flex;gap:10px;margin:0 0 10px;flex-wrap:wrap}
+  .arch-controls input,.arch-controls select{font:inherit;font-size:13px;padding:6px 10px;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink)}
+  .arch-controls input{flex:1;min-width:180px}
+  .arch-controls input:focus-visible,.arch-controls select:focus-visible{outline:2px solid var(--ins);outline-offset:1px}
+
+  /* ---------- timeline ---------- */
+  ul.tl{list-style:none;margin:4px 0 0;padding:0}
+  .tl li{display:flex;position:relative}
+  .tl-time{font-family:var(--mono);font-size:11.5px;color:var(--slate);width:46px;flex:none;padding-top:2px;text-align:right}
+  .tl-axis{width:28px;flex:none;position:relative}
+  .tl-axis::before{content:"";position:absolute;left:10px;top:5px;width:8px;height:8px;border-radius:50%;background:var(--chip-line)}
+  .tl-axis::after{content:"";position:absolute;left:13.5px;top:16px;bottom:-2px;width:1.5px;background:var(--line-soft)}
+  .tl li:last-child .tl-axis::after{display:none}
+  .tl li.key .tl-axis::before{background:var(--accept)}
+  .tl-body{padding:0 0 14px;font-size:13.5px}
+  .tl li:last-child .tl-body{padding-bottom:2px}
+
+  /* ---------- audit view ---------- */
+  .samp-row{display:flex;gap:14px;padding:9px 0;border-bottom:1px solid var(--line-soft);font-size:13px;align-items:baseline}
+  .samp-row:last-child{border-bottom:none}
+  .samp-row .id{font-family:var(--mono);font-size:11.5px;color:var(--slate);flex:none;width:130px}
+  .vhist{margin:0;padding:0;list-style:none}
+  .vhist li{padding:9px 0;border-bottom:1px solid var(--line-soft);font-size:13.5px;display:flex;gap:14px}
+  .vhist li:last-child{border-bottom:none}
+  .vhist .ver{font-family:var(--mono);font-weight:700;flex:none;width:44px}
+
+  /* ---------- precedent modal ---------- */
+  .overlay{position:fixed;inset:0;background:rgba(28,39,51,.45);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
+  .overlay.open{display:flex}
+  .modal{background:var(--doc);border-radius:6px;max-width:560px;width:100%;max-height:80vh;overflow:auto;padding:26px 30px;border:1px solid var(--line)}
+  .modal h3{font-family:var(--serif);font-size:18px;margin:0 0 4px}
+  .modal .msub{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--slate);margin:0 0 14px}
+  .modal blockquote{font-family:var(--serif);font-size:13.5px;background:#FDFDFB;border-left:3px solid var(--chip-line);margin:10px 0;padding:10px 14px}
+  .modal blockquote cite{display:block;font-family:var(--mono);font-size:10.5px;font-style:normal;color:var(--slate);margin-top:6px}
+  .modal .mclose{margin-top:14px}
+
+  .footer{border-top:1px solid var(--line);color:var(--slate);font-size:12.5px;padding:16px 24px 26px;background:#ECEAE3}
+
+  @media (max-width:900px){
+    .app{flex-direction:column}
+    .queue{width:100%;border-right:none;border-bottom:1px solid var(--line)}
+    .detail{padding:22px 16px 60px}
+    .crow{grid-template-columns:1fr}
+    .clausecell{border-right:none;border-bottom:1px dashed var(--line-soft)}
+    .notecell.quiet{display:none}
+    .ftiers{grid-template-columns:1fr}
+    .stamp{position:static;display:inline-block;margin-bottom:14px}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .detail-inner{animation:rise .18s ease-out}
+    @keyframes rise{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  }
+
+  /* ---------- polish pass: one surface system, calmer color, consistent rhythm ---------- */
+  .detail{padding:32px 44px 84px}
+  .detail h1{font-size:28px}
+  .subline{margin-bottom:22px}
+  .aicard,.contract-wrap,.chart,.team,.overview{border-color:var(--line-soft);border-radius:6px;box-shadow:0 1px 2px rgba(28,39,51,.05)}
+  .aicard{padding:22px 26px;margin-bottom:20px}
+  .certificate{box-shadow:0 1px 2px rgba(28,39,51,.05)}
+  .btn{border-radius:6px}
+  .btn.secondary{border-color:#B7BFC7}
+  .tier{border:none;border-radius:999px;padding:2.5px 10px;font-size:10px}
+  .tier.t1{background:var(--accept-bg)}
+  .tier.t2{background:var(--counter-bg)}
+  .tier.t3{background:var(--escalate-bg)}
+  .tier.tp{background:#ECEAE2}
+  .verdict{border-radius:999px}
+  .queue{background:#EFEDE5}
+  .qitem{padding:14px 20px}
+  .qitem .docket{font-size:10px;letter-spacing:.1em}
+  .qitem .name{margin:3px 0 6px}
+  .qitem .meta{gap:8px}
+  .tourbar{font-size:13px;color:#4A5866}
+  .clausecell{padding:18px 24px}
+  .notecell{padding:16px 20px}
+  .overview .ov{padding:13px 16px}
+  .email-box,.excerpt,.email-edit,.edit-area,.counter-text,.escalate-note,.lockbar,.fullreview,.floop,.fbox{border-radius:6px}
+  .lockbar,.fullreview{box-shadow:0 1px 2px rgba(28,39,51,.04)}
+  .dash-sec{margin-top:32px}
+  .arch-controls input,.arch-controls select{border-radius:6px}
+  details.fulltext summary{border-radius:6px}
+  .modal{border-radius:8px}
+  .footer{font-size:12px}
+
+  /* ---------- maturity pass: one label system, mono only for IDs/code, warmer color ---------- */
+  :root{
+    --ink:#182430;
+    --accept-bg:#DEF0E4;
+    --counter-bg:#F8EDD5;
+    --escalate-bg:#FBE4E0;
+    --keyfact:#FCF2CE;
+  }
+  /* one sans label style everywhere (mono stays only on IDs, times, prompts) */
+  .eyebrow,.aicard h3,.dash-sec h3,.queue h2,.contract-head .t,.ov-cap,.lcell .lk,.fbox .fk,.modal .msub,.certificate .cert-sub{
+    font-family:var(--sans);font-weight:700;font-size:11px;letter-spacing:.07em;text-transform:uppercase}
+  .tier,.verdict,.fchip{font-family:var(--sans);font-weight:700;font-size:10.5px;letter-spacing:.03em}
+  .status,.wait,.qitem .meta{font-family:var(--sans)}
+  .wait{font-size:11.5px}
+  .conf,.tstat,.email-meta,.pb-ref{font-family:var(--sans)}
+  .conf{font-size:12px}
+  .pb-ref{font-weight:600;font-size:11.5px}
+  .tstat{font-size:12px}
+  .xrow,.bars .ymax{font-family:var(--sans);font-size:10.5px}
+  .spike-note{font-family:var(--sans);font-weight:700;font-size:10px;letter-spacing:.03em}
+  .barcol::after{font-family:var(--sans);font-size:11px}
+  .ov .k{font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.06em}
+  .clausecell h4 .cno{font-family:var(--sans)}
+  .redline .rl-label,.assess .as-label{font-family:var(--sans);font-weight:700;font-size:10px;letter-spacing:.06em}
+  .notecell.quiet{font-family:var(--sans);font-size:12px}
+  details.prompt-peek summary,details.orig-peek summary,details.fulltext summary,.arch-controls input,.arch-controls select{font-family:var(--sans)}
+  details.prompt-peek summary{font-size:12.5px}
+  /* colour: lift the grey */
+  .bar{background:#B7C8DA}
+  .bar:hover{background:#8FA9C4}
+  .qitem[aria-current="true"]{box-shadow:inset 3px 0 0 var(--ins)}
+  .btn{background:#203041;border-color:#203041}
+  .btn:hover{background:#2C4158}
+  .btn.secondary{background:transparent;color:var(--ink)}
+  .btn.secondary:hover{background:#E7EBF0}
+  .prec-link,a{color:#1A56C4}
+  .team .tload span{background:#3E5A7A}
+  .stamp{border-color:#1E7A46}
+
+  /* ---------- theme: cool product light, card-based queue ---------- */
+  :root{
+    --paper:#F4F6F8;
+    --line:#DFE3E9;
+    --line-soft:#E9ECF1;
+    --slate:#5A6878;
+  }
+  .tourbar{background:#E8EDF3;border-color:var(--line);color:#435364}
+  .queue{background:#EEF1F5;padding:16px 12px 30px}
+  .queue h2{padding:0 10px;margin-bottom:10px}
+  .queue h2.sysh{margin-top:24px}
+  .qitem{background:var(--doc);border:1px solid var(--line-soft);border-radius:8px;margin:0 0 8px;padding:12px 14px;box-shadow:0 1px 2px rgba(20,30,45,.05)}
+  .qitem:hover{background:var(--doc);border-color:#C3CCD9;box-shadow:0 2px 8px rgba(20,30,45,.09)}
+  .qitem:last-of-type{border-bottom:1px solid var(--line-soft)}
+  .qitem[aria-current="true"]{border-color:var(--ins);box-shadow:inset 3px 0 0 var(--ins),0 1px 3px rgba(20,30,45,.08)}
+  .qitem.cleared{background:#F3F5F8}
+  .clausecell,.email-box,.excerpt{background:#FBFCFE}
+  .floop{background:#EEF1F5;border-color:#CBD3DD}
+  .footer{background:#E9ECF1;border-color:var(--line)}
+  .tier.tp{background:#E6EAF0}
+  .notecell.quiet{color:#A6B0BC}
+  .redline,.fclause{background:#FBFCFE}
+  .modal blockquote,.counter-text{}
+  .lockbar{background:#E9F0F8;border-color:#C6D6E8}
+
+  /* refinement: richer chart blues, lighter ground, badge instead of rubber stamp */
+  :root{--paper:#F6F8FA}
+  .queue{background:#EDF0F4}
+  .bar{background:#8FA9C9}
+  .bar:hover{background:#6D8DB4}
+  .bar.today{background:#22314A}
+  .team .tload span{background:#4A688C}
+  .certificate{border:1px solid var(--line-soft);outline:none;border-radius:6px;padding:24px 28px;margin:0 0 20px}
+  .stamp{position:absolute;top:22px;right:26px;transform:none;border:none;background:var(--accept-bg);color:var(--accept);font-family:var(--sans);font-weight:700;font-size:11px;letter-spacing:.03em;padding:7px 13px;border-radius:999px;text-transform:none;opacity:1}
+  .stamp::before{content:"✓ "}
+  @media (max-width:900px){.stamp{position:static;display:inline-block;margin-bottom:12px}}
+
+  /* ---------- brand pass: emerald ledger — the brand colour IS the product promise (verified) ---------- */
+  :root{
+    --paper:#F7F8F6;
+    --line:#DFE4E0;
+    --line-soft:#E9EDE9;
+    --slate:#5D6B63;
+    --ink:#17231D;
+    --brand:#146C4F;
+    --brand-dk:#0F5741;
+  }
+  .topbar{background:#10201A}
+  .tourbar{background:#E9F0EB;border-color:var(--line);color:#3F5248}
+  .queue{background:#EEF2EF}
+  .footer{background:#E9EDE9;border-color:var(--line)}
+  a,.prec-link{color:var(--brand)}
+  .btn{background:var(--brand);border-color:var(--brand)}
+  .btn:hover{background:var(--brand-dk)}
+  .btn.secondary{background:transparent;color:var(--ink);border-color:#B4BFB7}
+  .btn.secondary:hover{background:#E7EEE9}
+  .btn:focus-visible,.qitem:focus-visible,.arch-controls input:focus-visible,.arch-controls select:focus-visible{outline:2px solid var(--brand)}
+  .qitem[aria-current="true"]{border-color:var(--brand);box-shadow:inset 3px 0 0 var(--brand),0 1px 3px rgba(16,32,26,.08)}
+  .assignee{color:var(--brand)}
+  .bar{background:#AECBBB}
+  .bar:hover{background:#83AE97}
+  .bar.today{background:var(--brand-dk)}
+  .barcol::after{background:#17231D}
+  .team .tload span{background:#2F7057}
+  .lockbar{background:#EAF2ED;border-color:#C8DCD0}
+  .floop{background:#EEF2EF;border-color:#C9D4CC}
+  .tier.tp{background:#E6EBE7}
+  .clausecell,.email-box,.excerpt,.redline,.fclause{background:#FCFDFC}
+
+  /* ---------- monday pass: white ground, purple primary, solid status blocks, bold sans headings ----------
+     status trio + bar hues validated (dataviz six checks, light surface) */
+  :root{
+    --paper:#F6F7FB;
+    --line:#E3E6EF;
+    --line-soft:#EBEDF4;
+    --slate:#66708A;
+    --ink:#1F2532;
+    --mday:#6161FF;
+    --mday-dk:#4B4EE8;
+    --accept:#00854D;
+    --counter:#B26500;
+    --escalate:#C62B44;
+  }
+  .topbar{background:#fff;color:var(--ink);border-bottom:1px solid var(--line);padding:14px 26px}
+  .wordmark{font-family:var(--sans);font-weight:800;font-size:19px;letter-spacing:-.01em}
+  .wordmark::before{content:"";display:inline-block;width:11px;height:11px;border-radius:50%;background:var(--mday);margin-right:9px}
+  .wordmark em{font-family:var(--sans);font-style:normal;font-weight:500;color:var(--slate);opacity:1}
+  .topbar .who{color:var(--slate);opacity:1}
+  .proto-tag{border-color:#D5D8FF;color:var(--mday-dk);background:#EEF0FF;opacity:1}
+  .tourbar{background:#EEF0FF;border-color:#DDDFF7;color:#3D4470}
+  .queue{background:#F1F2F8}
+  .footer{background:#EFF0F6;border-color:var(--line)}
+  .detail h1,.certificate h2,.modal h3{font-family:var(--sans);font-weight:800;letter-spacing:-.02em}
+  .qitem .name{font-family:var(--sans);font-weight:600;font-size:14px}
+  .qitem.cleared{background:#F5F6FA}
+  .aicard,.contract-wrap,.chart,.team,.overview,.certificate,.qitem{border-radius:10px}
+  a,.prec-link{color:var(--mday-dk)}
+  .btn{background:var(--mday);border-color:var(--mday);border-radius:8px;font-weight:700}
+  .btn:hover{background:var(--mday-dk)}
+  .btn.secondary{background:#fff;color:var(--ink);border-color:#C9CCE0}
+  .btn.secondary:hover{background:#EEF0FF;border-color:#A8ACF5}
+  .btn:focus-visible,.qitem:focus-visible,.arch-controls input:focus-visible,.arch-controls select:focus-visible{outline:2px solid var(--mday)}
+  .qitem[aria-current="true"]{border-color:var(--mday);box-shadow:inset 3px 0 0 var(--mday),0 1px 3px rgba(31,37,50,.08)}
+  .assignee{color:var(--mday-dk)}
+  /* solid status blocks (monday signature), fills validated for white text */
+  .tier,.verdict,.fchip{color:#fff;font-weight:700}
+  .tier.t1,.verdict.accept,.fchip{background:var(--accept);color:#fff;border-color:var(--accept)}
+  .tier.t2,.verdict.counter,.fchip.pending{background:var(--counter);color:#fff;border-color:var(--counter)}
+  .tier.t3,.verdict.escalate,.fchip.removed{background:var(--escalate);color:#fff;border-color:var(--escalate)}
+  .tier.tp{background:#E9EBF5;color:#55608A}
+  .stamp{background:var(--accept);color:#fff}
+  .wait.hot{color:var(--counter)}
+  /* charts: purple single-hue, status trio on composition bar */
+  .bar{background:#7C80EC}
+  .bar:hover{background:#5F63E9}
+  .bar.today{background:#3A3DD6}
+  .spike-note{color:var(--counter)}
+  .team .tload{background:#E9EBF5}
+  .team .tload span{background:var(--mday)}
+  .mixbar .m1,.mix-rows .sq[style*="--accept"]{background:var(--accept)}
+  .mixbar .m2{background:var(--counter)}
+  .mixbar .m3{background:var(--escalate)}
+  .lockbar{background:#EEF0FF;border-color:#D5D8FF}
+  .floop{background:#F1F2F8;border-color:#D6D9E8}
+  .ledger,.ledger.sub{display:grid;gap:12px;border:none;background:transparent}
+  .lcell{background:#fff;border:1px solid var(--line-soft);border-radius:10px;box-shadow:0 1px 2px rgba(31,37,50,.05);padding:16px 18px 14px}
+  .lcell .ln{font-family:var(--sans);font-weight:800;font-size:32px;letter-spacing:-.02em}
+  .ledger.sub .lcell{padding:13px 16px 12px}
+  .ledger.sub .ln{font-size:17px}
+  .spark .sp-txt strong{font-family:var(--sans);font-weight:800;font-size:15px}
+  details.fulltext summary{border-radius:8px}
+  details.fulltext[open] summary{background:var(--mday);color:#fff;border-color:var(--mday)}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <span class="wordmark">First Pass <em>— contract review workbench</em></span>
+  <span class="proto-tag">Prototype · canned AI output</span>
+  <span class="who">Signed in as: A. Counsel — Reviewer · Playbook v3.2 (owner: E. Marsh, GC)</span>
+</header>
+
+<div class="tourbar">
+  <strong>Two-minute tour:</strong> dashboard → the three pending contracts (clean · redlined · escalated) → the system views at the bottom. Nothing leaves this screen without a lawyer's sign-off. Your clicks persist across refreshes — <button id="resetDemo" style="font:inherit;font-size:12px;border:1px solid #9AA5AF;border-radius:6px;background:transparent;padding:1px 9px;cursor:pointer;color:inherit">Reset demo</button> starts over.
+</div>
+
+<div class="app">
+  <nav class="queue" aria-label="Review queue">
+    <h2>Review queue</h2>
+    <div id="queueList"></div>
+  </nav>
+
+  <main class="detail" id="detail"></main>
+</div>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true">
+  <div class="modal" id="modalBody"></div>
+</div>
+
+<footer class="footer">
+  Portfolio prototype — all parties, contracts and outputs are fictional; intake channels, SLAs and sampling rates are illustrative assumptions to be adapted to how the business actually operates. AI outputs shown were generated with the prompts in <code>4-prompts/pipeline-prompts.md</code>; in production the same screens would be driven live by an LLM API under the rollout gates described in <code>1-solution-design.md</code>.
+</footer>
+
+<script>
+'use strict';
+
+/* ============ state ============ */
+const state = {
+  selected: 'dashboard',
+  cleared: { brightwell: true, acme: false, northwind: false, meridian: false },
+  edits: { e2:{st:null,text:null}, e5:{st:null,text:null}, e8:{st:null,text:null} },
+  c11: { st:null, text:null },   // null | 'counterInput' | 'accepted' | 'rejected' | 'edited' | 'deferred'
+  meridianBy: 'osei',            // 'osei' | 'you' — who owns CR-2026-0144 right now
+  emailOpen: false
+};
+
+/* ============ persistence (history survives refresh) ============ */
+function saveState(){ try { localStorage.setItem('fp-demo-v1', JSON.stringify(state)); } catch(e){} }
+function loadState(){
+  try {
+    const s = JSON.parse(localStorage.getItem('fp-demo-v1'));
+    if (s && s.edits && s.c11) Object.assign(state, s);
+  } catch(e){}
+  state.selected = 'dashboard';   // always land on the dashboard, whatever was open last time
+}
+loadState();
+
+/* ============ prompts (peek panels) ============ */
+const PROMPT_B = `Stage B — template comparison (excerpt)
+
+The diff itself is DETERMINISTIC — exact text comparison,
+no model involved. The LLM only classifies the materiality
+of differences the diff engine found:
+
+{ "differences": [ { "clause", "type":
+    "immaterial | material | unclear", ... } ] }
+
+Rules:
+- Material: ANY change to rights, obligations, definitions,
+  durations, amounts, law, or jurisdiction.
+- If you cannot decide, mark it "unclear".
+- A second, independently-prompted pass re-scores each
+  materiality call; ANY disagreement downgrades the
+  contract one tier.`;
+
+const PROMPT_C = `Stage C — redline mapping (excerpt)
+
+You apply the team's negotiation playbook. You do not
+have legal opinions of your own: every verdict must cite
+a playbook position, and where the playbook is silent
+you must escalate.
+
+{ "edits": [ { "clause", "verdict":
+    "accept | counter | escalate",
+    "playbook_ref", "reasoning",
+    "counter_language",   // approved text, verbatim
+    "precedents",         // similar past edits, from the archive
+    "confidence" } ],
+  "response_email_draft": "...",
+  "playbook_gaps": [ ... ] }
+
+Rules:
+- "counter" must use approved counter-language verbatim.
+- Escalate whenever no playbook position exists, a red
+  line is touched, or confidence is low.`;
+
+const PROMPT_D = `Stage D — escalation summary (excerpt)
+
+You are preparing a briefing note for a lawyer who will
+review this contract in full. You are NOT making
+recommendations — you are saving them orientation time.
+
+Rules:
+- Flag issues; do not resolve them.
+- No verdicts, no suggested language.
+- Include anything unusual even if you cannot articulate
+  why — say "pattern unclear" rather than omitting it.`;
+
+/* ============ contract text ============ */
+/* Base template: Mutual NDA v3.2 (fictional). {P} = counterparty. */
+function ndaClauses(P, redlined){
+  const r = redlined || {};
+  return [
+    { n:'1', t:'Parties and purpose', body:
+      `This Mutual Non-Disclosure Agreement ("Agreement") is entered into on <mark class="keyfact">6 July 2026</mark> between <mark class="keyfact">Kestrel Software Ltd</mark> (company no. 09144821) of Manchester, United Kingdom, and <mark class="keyfact">${P}</mark>, for the purpose of evaluating a potential commercial relationship (the "Purpose").`},
+    { n:'2', t:'Confidential Information', body: r.c2 ||
+      `"Confidential Information" means any information disclosed by one party to the other, whether orally, in writing or in any other form, that is identified as confidential or would reasonably be considered confidential given its nature and the circumstances of disclosure.`},
+    { n:'3', t:'Exclusions', body:
+      `Confidential Information does not include information that: (a) is or becomes publicly available other than through breach of this Agreement; (b) was lawfully known to the recipient before disclosure; (c) is received from a third party without restriction; or (d) is independently developed without use of the disclosing party's Confidential Information.`},
+    { n:'4', t:'Obligations', body:
+      `Each party shall protect the other's Confidential Information with at least the degree of care it applies to its own confidential information (and no less than reasonable care), use it solely for the Purpose, and disclose it only to employees and advisers with a need to know who are bound by obligations no less protective than this Agreement.`},
+    { n:'5', t:'Term', body: r.c5 ||
+      `The obligations in this Agreement shall continue for a period of <mark class="keyfact">two (2) years</mark> from the date of disclosure of the relevant Confidential Information.`},
+    { n:'6', t:'Compelled disclosure', body:
+      `A party may disclose Confidential Information to the extent required by law or a competent authority, provided (where lawful) it gives the other party prompt written notice and reasonable assistance to contest or limit the disclosure.`},
+    { n:'7', t:'Return or destruction', body:
+      `On written request, each party shall promptly return or destroy the other's Confidential Information, save for copies retained under bona fide document-retention policies, which remain subject to this Agreement.`},
+    { n:'8', t:'Governing law and jurisdiction', body: r.c8 ||
+      `This Agreement shall be governed by the laws of <mark class="keyfact">England and Wales</mark>, and the parties submit to the exclusive jurisdiction of the courts of England and Wales.`},
+    { n:'9', t:'No licence', body:
+      `Nothing in this Agreement grants either party any licence or other right in the other party's intellectual property, except the limited right to use Confidential Information for the Purpose.`},
+    { n:'10', t:'No warranty; remedies', body:
+      `Confidential Information is provided "as is". Each party acknowledges that damages may be an inadequate remedy for breach and that the disclosing party may seek injunctive relief in addition to any other remedy.`},
+    ...(r.c11 ? [{ n:'11', t:'Non-solicitation (inserted by counterparty)', body: r.c11 }] : [])
+  ];
+}
+
+const NW_REDLINES = {
+  c2: `"Confidential Information" means any information disclosed by one party to the other, whether orally, in writing or in any other form, that <del>is identified as confidential or would reasonably be considered confidential given its nature and the circumstances of disclosure</del> <ins>is marked as "confidential" in writing at the time of disclosure</ins>.`,
+  c5: `The obligations in this Agreement shall continue for a period of <del>two (2) years</del> <ins>five (5) years</ins> from the date of disclosure of the relevant Confidential Information.`,
+  c8: `This Agreement shall be governed by the laws of <del>England and Wales</del> <ins>the Federal Republic of Germany</ins>, and the parties submit to the exclusive jurisdiction of the courts of <del>England and Wales</del> <ins>Hamburg, Germany</ins>.`,
+  c11: `<ins>During the term of this Agreement and for twenty-four (24) months thereafter, neither party shall directly or indirectly solicit for employment any employee of the other party with whom it had contact in connection with this Agreement.</ins>`
+};
+
+/* approved final wording (used for the amended-draft download when a suggestion is accepted) */
+const FINAL_TEXTS = {
+  e2: `"Confidential Information" means any information disclosed by one party to the other, whether orally, in writing or in any other form, that is identified as confidential at the time of disclosure, or that would reasonably be considered confidential given its nature and the circumstances of disclosure. Oral disclosures shall be confirmed as confidential in writing within thirty (30) days.`,
+  e5: `The obligations in this Agreement shall continue for a period of three (3) years from the date of disclosure of the relevant Confidential Information, save that obligations in respect of trade secrets shall continue for so long as such information remains a trade secret.`,
+  e8: `This Agreement shall be governed by the laws of England and Wales, and the parties submit to the exclusive jurisdiction of the courts of England and Wales.`
+};
+
+/* annotations keyed by clause number */
+const NW_NOTES = {
+  '2': { id:'e2', verdict:'counter', pb:'Playbook P-02 · red line touched',
+    why:'A marking-only definition is a P-02 red line — it removes protection for oral disclosures, demos and screen-shares. The P-02 fallback allows a marking requirement only when paired with a reasonable-person catch-all and 30-day written confirmation of oral disclosures.',
+    counter:'…that is identified as confidential at the time of disclosure, or that would reasonably be considered confidential given its nature and the circumstances of disclosure. Oral disclosures shall be confirmed as confidential in writing within thirty (30) days.',
+    conf:'Confidence: high — direct match to P-02 red-line rule', precKey:'p02', precLabel:'Similar past edits (5)' },
+  '5': { id:'e5', verdict:'counter', pb:'Playbook P-05 · exceeds fallback ceiling',
+    why:'Five years exceeds the P-05 fallback ceiling of three. P-05 permits offering three years with an indefinite carve-out for trade secrets — which usually addresses the concern behind a longer term.',
+    counter:'…for a period of three (3) years from the date of disclosure, save that obligations in respect of trade secrets shall continue for so long as such information remains a trade secret.',
+    conf:'Confidence: high — direct match to P-05 fallback rule', precKey:'p05', precLabel:'Similar past edits (7)' },
+  '8': { id:'e8', verdict:'counter', pb:'Playbook P-08 · flagged for lawyer judgement',
+    why:'P-08 standard position is England & Wales. The fallback (accepting the counterparty’s venue) is conditional on commercial-owner confirmation, which is not on file — so the draft counters, and flags that a push-back becomes a lawyer decision.',
+    counter:'The parties agree this Agreement shall remain governed by the laws of England and Wales, consistent with the governing law of the anticipated commercial agreement.',
+    conf:'Confidence: medium — depends on commercial context the system cannot see; flagged in the draft email', precKey:'p08', precLabel:'Similar past edits (3)' },
+  '11': { id:'e11', verdict:'escalate', pb:'No playbook position (P-11 empty)',
+    why:'Non-solicitation is not part of our standard NDA and the playbook has no position on it. A 24-month two-way non-solicit has HR and hiring implications beyond this NDA.',
+    escalate:'No response drafted for this clause — by rule, “no playbook position” always goes to a human. The drafted email says only that we are “reviewing internally”. If you resolve it with new wording, it is offered to the proposal queue as a draft P-11 entry for the playbook owner (E. Marsh) to approve.',
+    conf:'Escalated by rule, not by confidence', precKey:'p11', precLabel:'Similar past edits (0)' }
+};
+
+const PRECEDENTS = {
+  p02: { title:'Definition of Confidential Information — marking requirements', sub:'5 similar edits in the last 18 months', items:[
+    { q:'Counterparty accepted our catch-all wording unchanged after one round of explanation (oral disclosures were the sticking point for them too).', c:'CR-2025-0871 · Fenwick Data Ltd · settled in 1 round' },
+    { q:'Agreed marking requirement + 30-day written confirmation of oral disclosures — the exact P-02 fallback now in the playbook.', c:'CR-2025-1104 · Datavault K.K. · settled in 2 rounds' },
+    { q:'Three further matters settled on the standard catch-all with no counter-push.', c:'CR-2025-0912 / 0987 / 1240' }]},
+  p05: { title:'Term of confidentiality obligations', sub:'7 similar edits in the last 18 months', items:[
+    { q:'Six of seven settled at three (3) years after our standard counter — the P-05 approved text was accepted verbatim in five of them.', c:'e.g. CR-2025-0793 · Arclight Systems GmbH' },
+    { q:'One counterparty held out for longer; resolved by adding the indefinite trade-secret carve-out rather than extending the general term.', c:'CR-2025-1322 · Meanwhile Robotics Ltd · escalated, then settled' }]},
+  p08: { title:'Governing law and jurisdiction', sub:'3 similar edits in the last 18 months', items:[
+    { q:'Two counterparties kept England & Wales after our standard counter tying it to the anticipated commercial agreement.', c:'CR-2025-0655 / CR-2025-0981' },
+    { q:'One US counterparty moved to New York law — accepted only after the commercial owner confirmed the relationship justified it (the P-08 fallback condition).', c:'CR-2025-1187 · Halyard Inc · lawyer decision' }]},
+  p11: { title:'Non-solicitation clauses in NDAs', sub:'No similar past edits on record', items:[
+    { q:'This clause type has not appeared in an NDA negotiation in the archive. That absence is exactly why it escalates: there is no company position to apply, and inventing one is a human’s job.', c:'Playbook maintenance: recurring escalations of this type will trigger a proposed P-11 entry.' }]}
+};
+
+const EMAIL_TOP = `Subject: Mutual NDA — our comments on your markup
+
+Hi Anke,
+
+Thanks for turning the NDA around quickly. We're comfortable with most of the document as marked, with three comments:
+
+1. Definition of Confidential Information (cl. 2) — a marking-only definition would exclude oral disclosures and demos, which we expect in our discussions. We've proposed wording that keeps your marking requirement and adds a reasonable-person catch-all, with oral disclosures confirmed in writing within 30 days.
+
+2. Term (cl. 5) — five years is longer than we agree for general confidential information. We've proposed three years, with trade secrets protected for as long as they remain trade secrets.
+
+3. Governing law (cl. 8) — we'd ask to keep England and Wales, consistent with the governing law we'd expect in the commercial agreement to follow.`;
+
+function buildEmail(){
+  const c11line = {
+    deferred: `On the new non-solicitation clause (cl. 11), we're reviewing internally and will come back to you separately.`,
+    accepted: `We can accept the new non-solicitation clause (cl. 11) as drafted.`,
+    rejected: `On the new non-solicitation clause (cl. 11): mutual non-solicitation sits outside what we would normally cover in an NDA, so we've removed it in the attached draft — happy to discuss separately if it's important to you.`,
+    edited: `On the new non-solicitation clause (cl. 11), we've proposed alternative wording in the attached draft.`
+  }[state.c11.st] || '';
+  return EMAIL_TOP + '\n\n' + c11line + '\n\nAmended draft attached. Happy to jump on a call if easier.';
+}
+
+/* ============ queue ============ */
+const CONTRACTS = [
+  { id:'acme', docket:'CR-2026-0142', received:'today 08:47', waiting:'2h 23m', hot:true, name:'Mutual NDA — Acme Analytics Ltd', tier:1, tierLabel:'Tier 1 · Clean', pendingLabel:'Awaiting sign-off' },
+  { id:'northwind', docket:'CR-2026-0143', received:'today 09:03', waiting:'2h 07m', hot:true, name:'Mutual NDA — Northwind Trading GmbH', tier:2, tierLabel:'Tier 2 · 4 redlines', pendingLabel:'Response drafted' },
+  { id:'meridian', docket:'CR-2026-0144', received:'today 09:21', waiting:'1h 49m', hot:false, name:'Order Form + MSA rider — Meridian Logistics plc', tier:3, tierLabel:'Tier 3 · Escalated', pendingLabel:'Full review required' },
+  { id:'brightwell', docket:'CR-2026-0141', received:'today 08:12', waiting:'', hot:false, name:'Mutual NDA — Brightwell Studios Ltd', tier:1, tierLabel:'Tier 1 · Clean', pendingLabel:'' }
+];
+const SYSTEM_VIEWS = [
+  { id:'pipeline', name:'Pipeline map — how a contract flows through', chip:'Intake → Tiers → Sign-off' },
+  { id:'audit', name:'Audit & sampling — traceability and blind spot-checks', chip:'Archive · Versions · QA' }
+];
+
+function qbtn(c){
+  const cleared = state.cleared[c.id];
+  const pending = (c.id === 'meridian' && state.meridianBy === 'osei')
+    ? '<span class="assignee">B. Osei reviewing now</span>'
+    : c.pendingLabel + (c.id === 'meridian' ? ' · yours' : '');
+  const status = cleared
+    ? `<span class="status done">✓ ${c.id==='brightwell' ? 'Signed off 08:26' : 'Signed off just now'}</span>`
+    : `<span class="status">${pending}</span>`;
+  const wait = (!cleared && c.waiting)
+    ? `<span class="wait${c.hot ? ' hot' : ''}">⏱ waiting ${c.waiting}</span>` : '';
+  return `<button class="qitem${cleared ? ' cleared' : ''}" data-id="${c.id}" aria-current="${state.selected===c.id}">
+    <span class="docket">${c.docket} · received ${c.received}</span>
+    <span class="name">${c.name}</span>
+    <span class="meta"><span class="tier t${c.tier}">${c.tierLabel}</span>${status}${wait}</span>
+  </button>`;
+}
+
+function renderQueue(){
+  const list = document.getElementById('queueList');
+  list.innerHTML =
+    `<button class="qitem sys" data-id="dashboard" aria-current="${state.selected==='dashboard'}">
+      <span class="name">◆ Dashboard — workload, trends, delays</span>
+      <span class="meta"><span class="tier tp">Today · 7 days · 30 days</span></span>
+    </button>` +
+    CONTRACTS.map(qbtn).join('') +
+    `<h2 class="sysh">System</h2>` +
+    SYSTEM_VIEWS.map(s => `<button class="qitem sys" data-id="${s.id}" aria-current="${state.selected===s.id}">
+      <span class="name">◇ ${s.name}</span>
+      <span class="meta"><span class="tier tp">${s.chip}</span></span>
+    </button>`).join('');
+  list.querySelectorAll('.qitem').forEach(btn => {
+    btn.addEventListener('click', () => { state.selected = btn.dataset.id; render(); });
+  });
+}
+
+/* ============ shared bits ============ */
+function promptPeek(stage, text){
+  return `<details class="prompt-peek"><summary>Show the prompt behind this screen (${stage})</summary><pre>${text.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</pre></details>`;
+}
+
+function overviewStrip(cells){
+  return `<div class="overview">
+    <div class="ov-cap">AI pre-review summary — a head start, not a substitute: the full contract is always below</div>
+    <div class="ov-grid">${cells.map(c =>
+      `<div class="ov"><span class="k" ${c.tip ? `title="${c.tip}"` : ''}>${c.k}</span><span class="v">${c.v}</span></div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function contractBlock(P, redlines, notes){
+  const shortP = P.split(' ')[0];
+  const rows = ndaClauses(P, redlines).map(cl => {
+    const note = notes && notes[cl.n];
+    let right;
+    if (note){
+      const st = state.edits[note.id] ? state.edits[note.id].st : null;
+      right = `<div class="notecell">
+        <div class="note-head"><span class="pb-ref">${note.pb}</span><span class="verdict ${note.verdict}">${note.verdict}</span></div>
+        <p>${note.why}</p>
+        <p><button class="prec-link" data-prec="${note.precKey}">${note.precLabel} — view</button></p>
+        ${note.counter ? renderCounterBlock(note, st) : ''}
+        ${note.escalate ? renderC11Note(note) : ''}
+        <p class="conf">${note.conf}</p>
+        ${note.counter ? renderNoteActions(note.id, st) : ''}
+        ${note.escalate ? renderC11Actions() : ''}
+      </div>`;
+    } else {
+      right = `<div class="notecell quiet">✓ matches template v3.2</div>`;
+    }
+    return `<div class="crow">
+      <div class="clausecell"><h4><span class="cno">${cl.n}.</span>${cl.t}</h4><p>${cl.body}</p></div>
+      ${right}
+    </div>`;
+  }).join('');
+
+  const legend = (redlines
+    ? `<span class="li"><span class="sw" style="background:var(--del-bg);border:1px solid var(--del)"></span><del style="background:none">deleted</del> by ${shortP} (their tracked change)</span>
+       <span class="li"><span class="sw" style="background:var(--ins-bg);border:1px solid var(--ins)"></span><ins style="background:none;text-decoration-color:var(--ins)">inserted</ins> by ${shortP} (their tracked change)</span>`
+    : '')
+    + `<span class="li"><span class="sw" style="background:var(--keyfact);border:1px solid #D9C87A"></span>key commercial fact (dates, amounts, parties, law)</span>`;
+
+  return `<div class="contract-wrap">
+    <div class="contract-head">
+      <span class="t">Full contract — Mutual NDA (our template v3.2${redlines ? ', as marked up by ' + shortP : ''})</span>
+      <span class="legend">${legend}</span>
+    </div>
+    ${rows}
+  </div>`;
+}
+
+const C11_TEXT = 'During the term of this Agreement and for twenty-four (24) months thereafter, neither party shall directly or indirectly solicit for employment any employee of the other party with whom it had contact in connection with this Agreement.';
+
+function renderC11Note(note){
+  const st = state.c11.st;
+  if (!st || st === 'counterInput'){
+    return `<div class="escalate-note"><strong>Lawyer decision required.</strong> ${note.escalate}</div>`;
+  }
+  const c = state.c11;
+  if (st === 'edited')   return `<div class="counter-text yours"><strong>Your replacement (this contract only):</strong><br>“${c.text}”</div>`;
+  if (st === 'accepted') return `<div class="counter-text yours"><strong>Included as drafted — your decision:</strong><br>“${C11_TEXT}”</div>`;
+  if (st === 'rejected') return `<div class="escalate-note"><strong>Removed from the draft — your decision.</strong> The response email asks to delete this clause.</div>`;
+  return `<div class="counter-text"><strong>No position in this draft — your decision to defer.</strong> The email says we will reply separately; the clause stays open on your queue.</div>`;
+}
+
+function renderC11Actions(){
+  const c = state.c11;
+  if (!c.st){
+    return `<div class="note-actions" style="display:block">
+      <span class="edit-scope">This is the item that must not slip through — choose one. Deferring is a decision too, and it is logged as yours.</span>
+      <button class="btn sm secondary" data-c11="accepted">Accept clause</button>
+      <button class="btn sm secondary" data-c11="rejected">Reject — ask to delete</button>
+      <button class="btn sm secondary" data-c11="counter">Counter with your wording</button>
+      <button class="btn sm secondary" data-c11="deferred">Defer — reply separately</button>
+    </div>`;
+  }
+  if (c.st === 'counterInput'){
+    return `<div class="note-actions" style="display:block">
+      <span class="edit-scope">Your counter-wording applies to this contract, and is offered to the proposal queue as a draft P-11 entry for the playbook owner to approve.</span>
+      <textarea class="edit-area" id="ta-c11">${c.text || 'Neither party shall solicit for employment any employee of the other party with whom it had material contact under this Agreement, for twelve (12) months after termination. General advertisements and unsolicited applications shall not constitute a breach.'}</textarea>
+      <button class="btn sm" data-c11save="1">Save decision</button>
+      <button class="btn sm secondary" data-c11="cancelCounter">Cancel — decide differently</button>
+    </div>`;
+  }
+  const labels = {
+    accepted: '✓ Your decision: accept clause 11 as drafted — recorded, and offered to the proposal queue as a draft P-11 entry for E. Marsh to approve.',
+    rejected: '✓ Your decision: reject — the response email asks to delete clause 11, and the attached draft removes it.',
+    edited: '✓ Your decision: counter with your wording (shown above) — included in the attached draft and offered as a draft P-11 proposal.',
+    deferred: '✓ Your decision: defer — the email says we will reply separately, and this item stays open on your queue after sending. Logged as your decision, not the system’s.'
+  };
+  return `<div class="note-actions" style="display:block">
+    <span class="state-badge">${labels[c.st]}</span><br>
+    <button class="btn sm secondary" data-c11="reset" style="margin-top:8px">Change decision</button>
+  </div>`;
+}
+
+function renderCounterBlock(note, st){
+  const e = state.edits[note.id] || {};
+  if (st === 'edited' && e.text){
+    return `<div class="counter-text yours" id="ct-${note.id}"><strong>Your replacement (this contract only):</strong><br>“${e.text}”</div>
+    <details class="orig-peek"><summary>Show the AI-proposed approved text (kept in the audit trail) ▾</summary><div class="counter-text">“${note.counter}”</div></details>`;
+  }
+  return `<div class="counter-text" id="ct-${note.id}"><strong>Proposed replacement (approved text):</strong><br>“${note.counter}”</div>`;
+}
+
+function renderNoteActions(id, st){
+  if (st === 'accepted') return `<div class="note-actions"><span class="state-badge">✓ Accepted — approved playbook text will be used in this response</span><button class="btn sm secondary" data-editbtn="${id}">Edit again</button></div>`;
+  if (st === 'edited')   return `<div class="note-actions"><span class="state-badge">✓ Your wording saved (shown above) — applies to this contract only; the playbook and past records are unchanged. Recurring rewrites of the same kind become a playbook proposal.</span><button class="btn sm secondary" data-editbtn="${id}">Edit again</button></div>`;
+  return `<div class="note-actions">
+    <button class="btn sm" data-accept="${id}">Accept suggestion</button>
+    <button class="btn sm secondary" data-editbtn="${id}">Rewrite it yourself</button>
+  </div>`;
+}
+
+/* ============ downloads (attachments) ============ */
+function plainText(html){
+  const d = document.createElement('div');
+  d.innerHTML = html
+    .replace(/<del>/g,'[deleted by counterparty: ').replace(/<\/del>/g,']')
+    .replace(/<ins>/g,'[inserted by counterparty: ').replace(/<\/ins>/g,']');
+  return d.textContent;
+}
+function buildAmendedDraft(){
+  const finals = {};
+  ['e2','e5','e8'].forEach(k => {
+    finals[k] = (state.edits[k].st === 'edited' && state.edits[k].text) ? state.edits[k].text : FINAL_TEXTS[k];
+  });
+  const clauses = ndaClauses('Northwind Trading GmbH', null);
+  const map = { '2':'e2', '5':'e5', '8':'e8' };
+  let out = 'MUTUAL NON-DISCLOSURE AGREEMENT — counter-draft v2 (Kestrel Software Ltd / Northwind Trading GmbH)\n';
+  out += 'Prototype export: plain text. In production this is a .docx with tracked changes.\n\n';
+  clauses.forEach(cl => {
+    const body = map[cl.n] ? finals[map[cl.n]] : plainText(cl.body);
+    out += cl.n + '. ' + cl.t + '\n' + body + '\n\n';
+  });
+  const c = state.c11;
+  if (c.st === 'accepted'){
+    out += '11. Non-solicitation\nDuring the term of this Agreement and for twenty-four (24) months thereafter, neither party shall directly or indirectly solicit for employment any employee of the other party with whom it had contact in connection with this Agreement.\n';
+  } else if (c.st === 'edited'){
+    out += '11. Non-solicitation\n' + (c.text || '') + '\n';
+  } else if (c.st === 'rejected'){
+    out += '11. [Clause proposed by counterparty — removed in this draft; see covering email.]\n';
+  } else {
+    out += '11. Non-solicitation (proposed by counterparty)\n[Under internal review — no position included in this draft. To be addressed separately.]\n';
+  }
+  return out;
+}
+function buildOriginalMarkup(){
+  const clauses = ndaClauses('Northwind Trading GmbH', NW_REDLINES);
+  let out = 'MUTUAL NON-DISCLOSURE AGREEMENT — Northwind markup as received\n';
+  out += 'Prototype export: tracked changes shown as [deleted by counterparty: …] / [inserted by counterparty: …].\n\n';
+  clauses.forEach(cl => { out += cl.n + '. ' + cl.t + '\n' + plainText(cl.body) + '\n\n'; });
+  return out;
+}
+function download(name, content){
+  const blob = new Blob([content], {type:'text/plain;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 500);
+}
+
+/* ============ archive (search + sort are real; data is canned) ============ */
+const ARCHIVE = [
+  { id:'CR-2026-0141', dn:8, d:'today', tier:1, name:'Mutual NDA — Brightwell Studios Ltd', note:'verified clean, signed off in ~30s' },
+  { id:'CR-2026-0140', dn:5, d:'5 Jul', tier:1, name:'Mutual NDA — Fenwick Data Ltd', note:'verified clean, signed off' },
+  { id:'CR-2026-0139', dn:5, d:'5 Jul', tier:2, name:'Order form — Arclight Systems GmbH', note:'2 counters sent, both accepted by counterparty' },
+  { id:'CR-2026-0138', dn:4, d:'4 Jul', tier:2, name:'Mutual NDA — Datavault K.K.', note:'settled in 2 rounds on the P-02 fallback' },
+  { id:'CR-2026-0137', dn:4, d:'4 Jul', tier:3, name:'MSA — Halyard Inc', note:'full review; governing-law change accepted after commercial sign-off' },
+  { id:'CR-2026-0136', dn:3, d:'3 Jul', tier:1, name:'Mutual NDA — Meanwhile Robotics Ltd', note:'cleared, then sampled → blind re-review passed' },
+  { id:'CR-2026-0135', dn:3, d:'3 Jul', tier:2, name:'Mutual NDA — Halcyon Freight plc', note:'escalated non-solicit resolved by lawyer; proposal queued as draft P-11' }
+];
+let archQ = '', archSort = 'newest';
+
+function renderArchiveRows(){
+  const q = archQ.trim().toLowerCase();
+  let rows = ARCHIVE.filter(r => !q || (r.id + ' ' + r.name + ' ' + r.note + ' tier ' + r.tier).toLowerCase().includes(q));
+  if (archSort === 'newest') rows = rows.slice().sort((a,b) => b.dn - a.dn);
+  if (archSort === 'oldest') rows = rows.slice().sort((a,b) => a.dn - b.dn);
+  if (archSort === 'tier')   rows = rows.slice().sort((a,b) => a.tier - b.tier || b.dn - a.dn);
+  if (!rows.length) return `<p class="conf" style="padding:8px 0">No contracts match “${archQ.replace(/</g,'&lt;')}”. Clear the search to see all ${ARCHIVE.length}.</p>`;
+  return rows.map(r =>
+    `<div class="samp-row"><span class="id">${r.id}</span><span>${r.d} · ${r.name} · <span class="tier t${r.tier}">Tier ${r.tier}</span> · ${r.note}</span></div>`).join('');
+}
+
+/* ============ timeline ============ */
+function renderTimeline(events){
+  return `<ul class="tl">${events.map(e =>
+    `<li${e.key ? ' class="key"' : ''}><span class="tl-time">${e.t}</span><span class="tl-axis"></span><span class="tl-body">${e.txt}</span></li>`).join('')}</ul>`;
+}
+function acmeTrail(){
+  return [
+    { t:'08:47', txt:'<strong>Received</strong> from R. Okafor (Sales) — timestamped, waiting clock started' },
+    { t:'08:48', txt:'<strong>Classified</strong> (Stage A): mutual NDA, clean copy of our template v3.2' },
+    { t:'08:48', txt:'<strong>Verified</strong> (Stage B): deterministic diff — 0 material deviations; independent second pass agreed' },
+    { t:'now', txt:'<strong>Signed off</strong> by A. Counsel (Reviewer)', key:true },
+    { t:'now', txt:'<strong>Returned to Sales</strong> — filed to the archive' }
+  ];
+}
+function nwTrail(){
+  const acc = ['e2','e5','e8'].filter(k => state.edits[k].st === 'accepted').length;
+  const rew = ['e2','e5','e8'].filter(k => state.edits[k].st === 'edited').length;
+  const c11word = {
+    accepted:'accepted as drafted', rejected:'rejected — deletion requested',
+    edited:'countered with your wording (draft P-11 proposal queued)', deferred:'deferred — stays open on your queue'
+  }[state.c11.st] || 'pending';
+  return [
+    { t:'09:03', txt:'<strong>Received</strong> — our NDA returned by Northwind with 4 tracked changes' },
+    { t:'09:04', txt:'<strong>Classified</strong> (Stage A): mutual NDA on our template, marked up by counterparty' },
+    { t:'09:05', txt:'<strong>First-pass review</strong> (Stage C): 3 edits mapped to the playbook, 1 escalated — response package drafted' },
+    { t:'now', txt:`<strong>Reviewed by you</strong>: ${acc} suggestion${acc===1?'':'s'} accepted, ${rew} rewritten; clause 11 ${c11word}` },
+    { t:'now', txt:'<strong>Signed off &amp; response queued</strong> by A. Counsel (Reviewer) — counter-draft attached', key:true }
+  ];
+}
+const BW_TRAIL = [
+  { t:'08:12', txt:'<strong>Received</strong> from J. Whitfield (Sales) — timestamped on arrival, waiting clock starts' },
+  { t:'08:13', txt:'<strong>Classified</strong> (Stage A): mutual NDA, clean copy of our template v3.2' },
+  { t:'08:13', txt:'<strong>Verified</strong> (Stage B): deterministic diff — 0 material deviations; independent second pass agreed' },
+  { t:'08:26', txt:'<strong>Signed off</strong> by A. Counsel (Reviewer) — total lawyer time ~30 seconds', key:true },
+  { t:'08:27', txt:'<strong>Returned to Sales</strong> — filed to the archive' }
+];
+
+/* ============ views ============ */
+function viewDashboard(){
+  const open = CONTRACTS.filter(c => !state.cleared[c.id]).length;
+  const done = CONTRACTS.length - open;
+  const overSla = CONTRACTS.filter(c => !state.cleared[c.id] && c.hot).length;
+  const youOpen = ['acme','northwind'].filter(k => !state.cleared[k]).length + (state.meridianBy === 'you' && !state.cleared.meridian ? 1 : 0);
+  const youCleared = 1 + ['acme','northwind'].filter(k => state.cleared[k]).length + (state.meridianBy === 'you' && state.cleared.meridian ? 1 : 0);
+  const oseiOpen = state.meridianBy === 'osei' && !state.cleared.meridian ? 1 : 0;
+  const days = [9,7,0,0,12,14,13,10,8,0,0,7,9,4];
+  const dayLabels = ['Thu 25 Jun','Fri 26 Jun','Sat 27 Jun','Sun 28 Jun','Mon 29 Jun','Tue 30 Jun','Wed 1 Jul','Thu 2 Jul','Fri 3 Jul','Sat 4 Jul','Sun 5 Jul','Mon 6 Jul','Tue 7 Jul','Today, Wed 8 Jul'];
+  const spikeIdx = 5;
+  const bars = days.map((v,i) => {
+    const tip = v === 0 ? `${dayLabels[i]} · weekend` : `${dayLabels[i]} · ${v} received`;
+    return `<div class="barcol" data-tip="${tip}">${i===spikeIdx ? '<span class="spike-note">quarter end</span>' : ''}<div class="bar${i===days.length-1?' today':''}" style="height:${v===0?2:Math.round(v/14*100)}%"></div></div>`;
+  }).join('');
+  const series = [6.7, 6.5, 6.2, 5.6, 4.8, 4.1, 3.6, 3.3, 3.2];
+  const pts = series.map((v,i) => `${Math.round(i*(132/(series.length-1))+4)},${Math.round(6 + (7-v)/(7-3)*30)}`).join(' ');
+  const lastPt = pts.split(' ').pop().split(',');
+  return `
+  <p class="eyebrow">System view · team workload</p>
+  <h1>Dashboard</h1>
+  <p class="subline">The queue at a glance. Today's numbers are live from this demo; the longer ranges are illustrative sample data. Related: <button class="prec-link" data-goto="pipeline">how the pipeline works</button> · <button class="prec-link" data-goto="audit">audit &amp; sampling</button></p>
+
+  <section class="dash-sec" style="margin-top:10px">
+    <h3>Today — live</h3>
+    <div class="ledger">
+      <div class="lcell"><span class="lk">Received</span><span class="ln">4</span><span class="ls">last in at 09:21</span></div>
+      <div class="lcell good"><span class="lk">Cleared</span><span class="ln">${done}</span><span class="ls">live — recounts on every action, survives refresh</span></div>
+      <div class="lcell"><span class="lk">Awaiting review</span><span class="ln">${open}</span><span class="ls">${open ? 'oldest waiting 2h 23m' : 'queue is clear'}</span></div>
+      <div class="lcell${overSla ? ' warn' : ''}"><span class="lk">Waiting over 2h</span><span class="ln">${overSla}</span><span class="ls">attention threshold, owner-set</span></div>
+      <div class="lcell"><span class="lk">Median turnaround</span><span class="ln">3<small>h</small> 10<small>m</small></span><span class="ls">7-day rolling</span></div>
+    </div>
+  </section>
+
+  <section class="dash-sec">
+    <h3>Volume — contracts received per day, last 14 days</h3>
+    <div class="chart">
+      <div class="bars"><span class="ymax">peak 14/day</span>${bars}</div>
+      <div class="xrow"><span>25 Jun</span><span>30 Jun · quarter end</span><span>today</span></div>
+    </div>
+    <div class="ledger sub">
+      <div class="lcell"><span class="lk">Last 7 days</span><span class="ln">41 <small>received</small> · 39 <small>cleared</small></span></div>
+      <div class="lcell"><span class="lk">Last 30 days</span><span class="ln">163 <small>received</small> · 158 <small>cleared</small></span></div>
+      <div class="lcell"><span class="lk">Delayed &gt;1 working day · 7d</span><span class="ln">2 <small>· 4.9%</small></span></div>
+      <div class="lcell"><span class="lk">Delayed · 30d</span><span class="ln">11 <small>· 6.7%</small></span></div>
+    </div>
+  </section>
+
+  <section class="dash-sec dash-cols">
+    <div>
+      <h3>Where the volume goes — 30 days</h3>
+      <div class="mixbar"><span class="m1" style="width:62%">T1 · 62%</span><span class="m2" style="width:31%">T2 · 31%</span><span class="m3" style="width:7%"></span></div>
+      <div class="mix-rows">
+        <div class="mr"><span class="sq" style="background:var(--accept)"></span>Tier 1 · clean template match, verified<span class="mtime">~1 min of lawyer time</span></div>
+        <div class="mr"><span class="sq" style="background:var(--counter)"></span>Tier 2 · familiar edits, package drafted<span class="mtime">~9 min</span></div>
+        <div class="mr"><span class="sq" style="background:var(--escalate)"></span>Tier 3 · 7% — novel or uncertain, full read<span class="mtime">~35 min</span></div>
+      </div>
+      <p class="conf" style="margin-top:8px">Most volume never needs a line-by-line read — which is the whole point.</p>
+    </div>
+    <div>
+      <h3>Quality &amp; trust — 30 days</h3>
+      <div class="spark">
+        <svg width="140" height="42" viewBox="0 0 140 42" aria-hidden="true">
+          <polyline points="${pts}" fill="none" stroke="#6161FF" stroke-width="2"/>
+          <circle cx="${lastPt[0]}" cy="${lastPt[1]}" r="3.5" fill="#00854D"/>
+        </svg>
+        <span class="sp-txt"><strong>6h 40m → 3h 10m</strong><br>median turnaround since assist mode went live</span>
+      </div>
+      <div class="mix-rows">
+        <div class="mr">AI suggestions sent unchanged<span class="mtime">86%</span></div>
+        <div class="mr">Blind re-reviews of cleared work<span class="mtime">16 · 0 material misses</span></div>
+        <div class="mr">Playbook proposals pending<span class="mtime">2 · with E. Marsh (GC)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dash-sec">
+    <h3>Team — right now</h3>
+    <div class="team">
+      <div class="trow"><span class="tname">A. Counsel <small>Reviewer · you</small></span><span class="tload"><span style="width:${Math.min(youOpen*33,100)}%"></span></span><span class="tstat">${youOpen} open · ${youCleared} cleared today${['acme','northwind'].some(k=>!state.cleared[k]) ? ' · next: CR-2026-014' + (state.cleared.acme ? '3' : '2') : ''}</span></div>
+      <div class="trow"><span class="tname">B. Osei <small>Reviewer</small></span><span class="tload"><span style="width:${Math.min(oseiOpen*33,100)}%"></span></span><span class="tstat">${oseiOpen} open · 3 cleared today${oseiOpen ? ' · reviewing CR-2026-0144 now' : ''}</span></div>
+      <div class="trow"><span class="tname">E. Marsh <small>GC · playbook owner</small></span><span class="tload"><span style="width:22%"></span></span><span class="tstat">2 playbook proposals to approve · escalation lane clear</span></div>
+    </div>
+    <p class="conf" style="margin-top:8px">Assignment is automatic — round-robin weighted by live load and tier — and there is one owner per contract at all times. A colleague's contract opens read-only with a take-over option (try Meridian). An out-of-office toggle reassigns a lawyer's queue.</p>
+  </section>`;
+}
+
+function viewPipeline(){
+  return `
+  <p class="eyebrow">System view · how a contract flows through</p>
+  <h1>Pipeline map</h1>
+  <p class="subline">Risk-based triage: every contract takes the cheapest review path that is safe for its risk level. A lawyer signs off everything that leaves. Channels, SLAs and rates below are illustrative — adapted to the business in week 1.</p>
+
+  <div class="flow">
+    <div class="fbox"><span class="fk">Step 1 · Arrival — one front door</span><strong>Every incoming contract enters through a single channel</strong> — the shared legal inbox, the contract system, or a direct feed from the sales tools, whichever matches how contracts actually arrive today.<br><small style="color:var(--slate)">Each contract is timestamped the moment it arrives, and its waiting time stays visible in the queue — so nothing can quietly pile up.</small></div>
+    <div class="farrow">▼</div>
+    <div class="fbox"><span class="fk">Step 2 · First look — what is this?</span><strong>The AI reads the document and answers four questions:</strong> what kind of contract is this? Who is the other party? Is it written on our own standard template, or on their paperwork? And how confident is it in those answers?<br><small style="color:var(--slate)">If it is not confident, or the contract type is unfamiliar, the contract goes straight to full human review (Tier 3). It never guesses.</small></div>
+    <div class="farrow">▼</div>
+    <div class="fbox"><span class="fk">Step 3 · Comparison — what changed?</span><strong>The system compares the contract against our standard template, clause by clause.</strong> The matching itself is an exact text comparison — no AI judgement involved. The AI then answers one question per difference found: does it change anyone's rights or obligations, or is it cosmetic (names, dates, formatting)?<br><small style="color:var(--slate)">A second, independently-run AI pass repeats every one of those judgements. If the two passes disagree about any clause, the contract moves down a tier for closer human attention — disagreement is a warning light, never ignored.</small></div>
+    <div class="farrow">▼</div>
+    <div class="ftiers">
+      <div class="fbox f1"><span class="fk">Tier 1 · Clean copy</span><strong>The contract matches our template with no meaningful changes.</strong> The lawyer gets a short verification report and signs off in seconds instead of reading line by line.<br><small style="color:var(--slate)">Later — once accuracy is proven with real data — these can clear automatically, always with random spot-checks.</small></div>
+      <div class="fbox f2"><span class="fk">Tier 2 · Familiar edits</span><strong>The other side has made edits we have seen before.</strong> For each edit the AI looks up the legal team's own playbook and proposes: accept it, counter it with pre-approved wording, or hand it to the lawyer. It also drafts the reply email.<br><small style="color:var(--slate)">The lawyer reviews a prepared package instead of starting from a blank page.</small></div>
+      <div class="fbox f3"><span class="fk">Tier 3 · New or uncertain</span><strong>Anything unusual, unfamiliar, or low-confidence lands here.</strong> The AI writes a short orientation note — what this contract is and what to look at — but makes no recommendations.<br><small style="color:var(--slate)">A lawyer reads the contract in full. This is the safety valve for everything the system is not sure about.</small></div>
+    </div>
+    <div class="farrow">▼</div>
+    <div class="fbox"><span class="fk">Step 4 · Human sign-off — always</span><strong>A lawyer personally reviews and approves everything before it leaves the company.</strong> The system never sends anything to a counterparty on its own.<br><small style="color:var(--slate)">Every step is recorded — what the AI checked, what the lawyer changed, which playbook version applied — and a random slice of cleared contracts is quietly re-queued for a blind second review (see <em>Audit &amp; sampling</em>).</small></div>
+    <div class="floop"><strong>The playbook loop — how the system learns, under control:</strong> the playbook is the legal team's own rulebook — for each clause, our standard position, acceptable fallbacks, and pre-approved wording. When the same new situation keeps appearing (repeated escalations, lawyers rewriting the AI's suggestions), the system drafts an addition and puts it in a proposal queue. Only the <strong>playbook owner</strong> (E. Marsh, GC) can approve a change, so the company negotiates with one voice. A reviewer's rewrite affects only their own contract; the playbook and past records are never edited after the fact.</div>
+  </div>`;
+}
+
+function viewAudit(){
+  return `
+  <p class="eyebrow">System view · archive, traceability, spot-checks</p>
+  <h1>Audit &amp; sampling</h1>
+  <p class="subline">The two mechanisms that make expanding AI autonomy defensible to the General Counsel: everything is reproducible, and cleared work is continuously spot-checked.</p>
+
+  <div class="aicard">
+    <h3>Traceability — every decision is reproducible</h3>
+    <p style="margin:0 0 8px">Every AI suggestion is stored with the <strong>playbook version, prompt version and model</strong> that produced it, plus what the lawyer changed and who signed off. Any past decision can be replayed and audited months later. Example — CR-2026-0141 (Brightwell), this morning:</p>
+    ${renderTimeline(BW_TRAIL)}
+    <p class="conf" style="margin-top:10px">Recorded with: playbook v3.2 · pipeline v1.4 · model &amp; prompt versions — every step reproducible later.</p>
+  </div>
+
+  <div class="aicard">
+    <h3>Blind spot-checks — nothing to rubber-stamp</h3>
+    <p style="margin:0 0 8px">A random slice of AI-cleared contracts (<strong>1 in 10 to start — the owner sets the rate, and it never reaches zero</strong>) is silently re-queued as a full human review. The reviewer cannot tell it was sampled, so there is no temptation to skim. Findings feed the escaped-issue metric; any miss becomes a playbook or threshold fix, not just a statistic.</p>
+    <p style="margin:0 0 6px;font-family:var(--mono);font-size:11.5px;color:var(--slate)">WEEK OF 6 JULY · 41 CLEARED · 4 SAMPLED · 0 MATERIAL MISSES</p>
+    <div class="samp-row"><span class="id">CR-2026-0102</span><span>Blind re-review passed — verdicts identical</span><span class="rv-ok">✓</span></div>
+    <div class="samp-row"><span class="id">CR-2026-0117</span><span>Blind re-review passed — verdicts identical</span><span class="rv-ok">✓</span></div>
+    <div class="samp-row"><span class="id">CR-2026-0121</span><span>Passed, with a minor wording note on P-05 counter-language → sent to proposal queue</span><span class="rv-ok">✓</span></div>
+    <div class="samp-row"><span class="id">CR-2026-0136</span><span>Blind re-review passed — verdicts identical</span><span class="rv-ok">✓</span></div>
+  </div>
+
+  <div class="aicard">
+    <h3>Archive — recent contract history</h3>
+    <p style="margin:0 0 10px">Every contract that has passed through the system, with its outcome. Search and sorting below work — try “datavault”, “non-solicit” or sort by tier. In production: full-text search across contract bodies, filters by counterparty, clause type, outcome and reviewer, and every row opens its audit-trail timeline.</p>
+    <div class="arch-controls">
+      <input id="archSearch" type="search" placeholder="Search counterparty, contract type, outcome…" value="${archQ.replace(/"/g,'&quot;')}" aria-label="Search archive">
+      <select id="archSort" aria-label="Sort archive">
+        <option value="newest"${archSort==='newest'?' selected':''}>Newest first</option>
+        <option value="oldest"${archSort==='oldest'?' selected':''}>Oldest first</option>
+        <option value="tier"${archSort==='tier'?' selected':''}>By tier</option>
+      </select>
+    </div>
+    <div id="archList">${renderArchiveRows()}</div>
+  </div>
+
+  <div class="aicard">
+    <h3>Playbook version history — append-only</h3>
+    <ul class="vhist">
+      <li><span class="ver">v3.2</span><span>P-02 catch-all wording tightened after two negotiations stalled on ambiguity · approved E. Marsh · 20 Jun 2026</span></li>
+      <li><span class="ver">v3.1</span><span>P-05 trade-secret carve-out added after the same reviewer rewrite recurred 3 times · approved E. Marsh · 12 May 2026</span></li>
+      <li><span class="ver">v3.0</span><span>Baseline mined from 92 historical negotiations, corrected and adopted by the legal team · 28 Apr 2026</span></li>
+    </ul>
+    <p style="margin:10px 0 0;color:var(--slate);font-size:13px">History only moves forward: past contracts keep pointing at the version that reviewed them, and a reviewer's contract-local rewrite never edits the playbook or the archive.</p>
+  </div>`;
+}
+
+function viewAcme(){
+  const cleared = state.cleared.acme;
+  return `
+  <p class="eyebrow">Contract CR-2026-0142 · mutual NDA · based on our template</p>
+  <h1>Acme Analytics Ltd</h1>
+  <p class="subline">Received today 08:47 · ${cleared ? 'cleared just now' : '<span class="wait hot">⏱ waiting 2h 23m</span>'} · sent by R. Okafor (Sales) · <span class="tier t1">Tier 1 · Clean</span></p>
+
+  ${cleared ? `<div class="actions" style="margin:0 0 18px"><span class="done-note">✓ Signed off. This contract is off the queue — total lawyer time: about 30 seconds.</span></div>
+  <div class="aicard"><h3>Audit trail</h3>${renderTimeline(acmeTrail())}<p class="conf" style="margin-top:10px">Recorded with: playbook v3.2 · pipeline v1.4 · model &amp; prompt versions.</p></div>` : ''}
+
+  ${overviewStrip([
+    { k:'Template match', v:'Mutual NDA v3.2 <small>· clean</small>', tip:'Which of our standard templates this contract is based on, and whether it matches' },
+    { k:'Material changes', v:'0', tip:'Changes to rights, obligations, definitions, durations, amounts, law or jurisdiction' },
+    { k:'Minor differences', v:'2 <small>· party details, date</small>', tip:'Fill-ins with no legal effect: names, addresses, dates, formatting' },
+    { k:'Term', v:'2 years' },
+    { k:'Governing law', v:'England &amp; Wales' },
+    { k:'Effective date', v:'6 Jul 2026' }
+  ])}
+
+  <div class="certificate">
+    <span class="stamp">Verified · 0 material deviations</span>
+    <h2>Verification report</h2>
+    <p class="cert-sub">Stage B — deterministic clause-by-clause diff against Mutual NDA template v3.2</p>
+    <table>
+      <tr><td>Clauses checked</td><td>10 of 10 present, in order</td></tr>
+      <tr><td>Material deviations</td><td><strong>None</strong> — all rights, obligations, definitions, durations and governing-law clauses match the template verbatim</td></tr>
+      <tr><td>Immaterial differences</td><td>2 (listed below)</td></tr>
+      <tr><td>Second-pass check</td><td>Independent pass agrees: no material change · no downgrade</td></tr>
+      <tr><td>Recommended path</td><td>One-click sign-off</td></tr>
+    </table>
+    <ul class="immaterial">
+      <li>Party block completed with Acme Analytics Ltd, company no. 11408276, registered address (Clause 1)</li>
+      <li>Effective date completed as 6 July 2026 (Clause 1)</li>
+    </ul>
+  </div>
+
+  <details class="fulltext"><summary>📜 Show the full contract (10 clauses, key facts highlighted)</summary>
+    ${contractBlock('Acme Analytics Ltd', null, null)}
+  </details>
+
+  ${cleared ? '' : `<div class="actions">
+    <button class="btn" id="approveAcme">Sign off — matches template</button>
+    <button class="btn secondary" id="sendT3Acme">Disagree — send to full review</button>
+    <span class="action-note">In Phase 3 of the rollout, contracts like this auto-clear — with permanent blind sampling back to full human review (see Audit &amp; sampling).</span>
+  </div>`}
+  ${promptPeek('Stage B — template comparison', PROMPT_B)}`;
+}
+
+function reviewRow(label, note, id){
+  const st = id ? state.edits[id].st : null;
+  if (!id) return `<tr><td>${label}</td><td><span class="rv-esc">Escalated</span> — excluded from this response; your decision pending. It never auto-resolves.</td></tr>`;
+  if (st === 'edited') return `<tr><td>${label}</td><td><span class="rv-ok">Your wording</span> (this contract only): “${state.edits[id].text}”</td></tr>`;
+  return `<tr><td>${label}</td><td><span class="rv-ok">Approved playbook text</span> (${note}) applied</td></tr>`;
+}
+
+function finalClauseText(id){
+  return (state.edits[id].st === 'edited' && state.edits[id].text) ? state.edits[id].text : FINAL_TEXTS[id];
+}
+
+function contractFinalBlock(){
+  const map = { '2':'e2', '5':'e5', '8':'e8' };
+  const rows = ndaClauses('Northwind Trading GmbH', null).map(cl => {
+    const eid = map[cl.n];
+    if (eid){
+      return `<div class="fclause"><h4><span class="cno">${cl.n}.</span>${cl.t}</h4><p><mark class="final-change">${finalClauseText(eid)}</mark></p></div>`;
+    }
+    return `<div class="fclause"><h4><span class="cno">${cl.n}.</span>${cl.t}</h4><p>${cl.body.replace(/<\/?mark[^>]*>/g,'')}</p></div>`;
+  }).join('');
+  const c = state.c11;
+  let c11 = '';
+  if (c.st === 'accepted'){
+    c11 = `<div class="fclause"><h4><span class="cno">11.</span>Non-solicitation</h4><p><mark class="final-change">${C11_TEXT}</mark></p></div>`;
+  } else if (c.st === 'edited'){
+    c11 = `<div class="fclause"><h4><span class="cno">11.</span>Non-solicitation</h4><p><mark class="final-change">${c.text}</mark></p></div>`;
+  } else if (c.st === 'deferred'){
+    c11 = `<div class="fclause"><h4><span class="cno">11.</span>Non-solicitation</h4><p><mark class="final-change">[Under internal review — no position included in this draft. To be addressed separately.]</mark></p></div>`;
+  }
+  // rejected: the clause is simply absent from the draft
+  return `<div class="final-wrap">${rows}${c11}</div>`;
+}
+
+function reviewC11Row(){
+  const c = state.c11;
+  const m = {
+    deferred: '<span class="rv-esc">Deferred — your decision</span>: the email says we will reply separately; the item stays open on your queue and never auto-resolves.',
+    accepted: '<span class="rv-ok">Accepted as drafted</span> — recorded; offered to the proposal queue as a draft P-11 entry.',
+    rejected: '<span class="rv-ok">Rejected</span> — the email asks to delete clause 11; the attached draft removes it.',
+    edited: `<span class="rv-ok">Your counter-wording</span> (this contract only): “${c.text}” — offered as a draft P-11 proposal.`
+  };
+  return `<tr><td>Clause 11 · Non-solicit</td><td>${m[c.st] || ''}</td></tr>`;
+}
+
+function viewNorthwind(){
+  const cleared = state.cleared.northwind;
+  const resolved = ['e2','e5','e8'].filter(k => state.edits[k].st).length;
+  const c11done = !!state.c11.st && state.c11.st !== 'counterInput';
+  const addressed = resolved + (c11done ? 1 : 0);
+
+  let responseSection;
+  if (cleared){
+    const closing = {
+      deferred: 'Clause 11 stays open as your deferred decision — it remains on your queue and never auto-resolves.',
+      accepted: 'Clause 11: accepted as drafted — recorded and offered as a draft P-11 playbook proposal.',
+      rejected: 'Clause 11: rejected — deletion requested in the response.',
+      edited: 'Clause 11: your counter-wording included — offered as a draft P-11 playbook proposal.'
+    }[state.c11.st] || '';
+    responseSection = `<div class="actions"><span class="done-note">✓ Response queued for dispatch from your mailbox, with the counter-draft attached. ${closing}</span></div>
+    <div class="aicard" style="margin-top:18px"><h3>Audit trail</h3>${renderTimeline(nwTrail())}<p class="conf" style="margin-top:10px">Recorded with: playbook v3.2 · pipeline v1.4 · model &amp; prompt versions · your edits and decisions.</p></div>`;
+  } else if (state.emailOpen){
+    responseSection = `
+    <div class="aicard">
+      <h3>Step 1 of 2 — final review of the outgoing package</h3>
+      <table class="review-table">
+        ${reviewRow('Clause 2 · Definition', 'P-02', 'e2')}
+        ${reviewRow('Clause 5 · Term', 'P-05', 'e5')}
+        ${reviewRow('Clause 8 · Governing law', 'P-08', 'e8')}
+        ${reviewC11Row()}
+      </table>
+      <details class="finalview" open><summary>Final contract as it will be sent — changes highlighted ▾</summary>
+        ${contractFinalBlock()}
+      </details>
+    </div>
+    <div class="aicard">
+      <h3>Step 2 of 2 — response email · edit freely, then send</h3>
+      <div class="email-box">
+        <p class="email-meta">From: a.counsel@kestrelsoftware.co.uk · To: anke.vogel@northwind-trading.de</p>
+        <textarea class="email-edit" id="emailEdit">${buildEmail()}</textarea>
+        <div>
+          <button class="attach" id="dlAmended">📎 Mutual-NDA-Northwind-counter-v2.txt · your final wording · click to download</button>
+          <button class="attach" id="dlOriginal">📎 Northwind-markup-original.txt · as received · click to download</button>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn" id="sendNW">Send response</button>
+        <span class="action-note">Sending is always a human act — the system never emails a counterparty on its own. (Prototype exports .txt; production attaches .docx with tracked changes.)</span>
+      </div>
+    </div>`;
+  } else {
+    responseSection = `
+    <div class="actions">
+      <button class="btn" id="composeNW" ${addressed < 4 ? 'disabled' : ''}>Finish review &amp; compose response (${addressed} of 4 items addressed)</button>
+      <button class="btn secondary" id="sendT3NW">Reject draft — review from scratch</button>
+      <span class="action-note">${addressed < 4
+        ? 'Resolve the three AI suggestions AND take an explicit decision on clause 11 (accept / reject / counter / defer — deferring counts, but it must be your click, not the system’s default). Composing unlocks at 4 of 4.'
+        : 'All four items addressed. You will get a final review of the whole package before anything is sent.'}</span>
+    </div>`;
+  }
+
+  return `
+  <p class="eyebrow">Contract CR-2026-0143 · mutual NDA · our template, marked up by counterparty</p>
+  <h1>Northwind Trading GmbH</h1>
+  <p class="subline">Received today 09:03 · ${cleared ? 'cleared just now' : '<span class="wait hot">⏱ waiting 2h 07m</span>'} · 4 tracked changes: 3 mapped to playbook, 1 with no position · <span class="tier t2">Tier 2 · Redlines</span></p>
+
+  ${cleared ? responseSection : ''}
+
+  ${overviewStrip([
+    { k:'Template match', v:'Mutual NDA v3.2 <small>· marked up</small>', tip:'Which of our standard templates this contract is based on' },
+    { k:'Their edits', v:'4 <small>· 3 counter · 1 escalate</small>', tip:'Tracked changes made by the counterparty, and how the AI proposes to handle each' },
+    { k:'Novel clauses', v:'1 <small>· non-solicit (cl. 11)</small>', tip:'Clause types with no playbook position — always a human decision' },
+    { k:'Term', v:'2 yrs <span class="to">→ 5</span> <small>· their edit, not yet agreed</small>', tip:'Left: our template value. Right (red): the change the counterparty proposes — pending your decision' },
+    { k:'Governing law', v:'E&amp;W <span class="to">→ Germany</span> <small>· their edit, not yet agreed</small>', tip:'Left: our template value. Right (red): the change the counterparty proposes — pending your decision' },
+    { k:'Effective date', v:'6 Jul 2026' }
+  ])}
+
+  ${contractBlock('Northwind Trading GmbH', NW_REDLINES, NW_NOTES)}
+  ${cleared ? '' : responseSection}
+  ${promptPeek('Stage C — redline mapping', PROMPT_C)}`;
+}
+
+function viewMeridian(){
+  return `
+  <p class="eyebrow">Contract CR-2026-0144 · order form + MSA rider · their paper, not our template</p>
+  <h1>Meridian Logistics plc</h1>
+  <p class="subline">Received today 09:21 · <span class="wait">⏱ waiting 1h 49m</span> · escalated at intake · <span class="tier t3">Tier 3 · Escalated</span></p>
+
+  ${state.meridianBy === 'osei'
+    ? `<div class="lockbar"><strong>B. Osei is reviewing this now</strong> (opened 12 minutes ago) — you're seeing it read-only, so no one does the same work twice. <button class="btn sm" id="takeOver" style="margin-left:6px">Take over</button><span class="action-note" style="display:block;margin-top:7px">One owner per contract at all times. Taking over notifies B. Osei, and the full audit trail — including their 12 minutes so far — travels with it.</span></div>`
+    : `<div class="lockbar"><strong>Reassigned to you just now.</strong> B. Osei has been notified; the audit trail, including their review so far, travels with the contract.</div>`}
+
+  ${overviewStrip([
+    { k:'Template match', v:'None <small>· their paper</small>', tip:'Not based on any of our templates — the template diff does not apply' },
+    { k:'Stated value', v:'£48,000 <small>/ 12 months</small>' },
+    { k:'Flags', v:'3', tip:'Points the briefing note raises for the reviewing lawyer — flags, not verdicts' },
+    { k:'Liability cap', v:'<span class="to">deleted</span> <small>· by their rider cl. 3</small>', tip:'Their rider removes the damages ceiling from the underlying master agreement — potential unlimited liability. Flag 01 below.' },
+    { k:'Renewal', v:'auto <small>· 90-day notice to exit</small>', tip:'Renews automatically every 12 months unless cancelled at least 90 days in advance. Flag 02 below.' }
+  ])}
+
+  <div class="fullreview"><strong>Full human review required — a lawyer reads this contract in full.</strong> On this tier the AI only prepares a briefing: it summarises the document and points at what to check, but gives <em>no</em> recommendations. Anything the system cannot confidently classify lands here by default — the one mistake this design must never make is waving a risky contract through the fast lane, so the sorting is deliberately cautious.</div>
+
+  <div class="aicard">
+    <h3>AI briefing note — orientation only, no verdicts</h3>
+    <p style="margin:0 0 6px"><strong>What this is:</strong> a 12-month order form for logistics-tracking services (~£48,000, as stated on the form), with a two-page rider amending the counterparty's own master services agreement. It is their paper, not ours — the template diff does not apply.</p>
+    <ul class="brief-list">
+      <li><span class="flag">FLAG 01</span><span><strong>Rider cl. 3 deletes the liability cap</strong> from the underlying MSA and replaces it with uncapped liability for "any data-related incident". Effect on our aggregate exposure unclear.
+        <span class="excerpt" style="display:block">"…clause 12.2 of the MSA shall not apply. The Supplier's liability arising from any data-related incident shall be <mark class="keyfact">unlimited</mark>…" <em style="color:var(--slate)">(rider cl. 3, as received)</em></span></span></li>
+      <li><span class="flag">FLAG 02</span><span><strong>Rider cl. 5 auto-renewal:</strong> 12-month term renews automatically with a <mark class="keyfact">90-day</mark> notice window — unusually long for an order form of this size.</span></li>
+      <li><span class="flag">FLAG 03</span><span><strong>Order form cl. 7 payment terms</strong> (<mark class="keyfact">45 days</mark>) conflict with rider cl. 2 (<mark class="keyfact">30 days</mark>). Pattern unclear — possibly a drafting error on their side worth raising.</span></li>
+    </ul>
+  </div>
+
+  <div class="actions">
+    <button class="btn secondary" disabled>Open document for full review</button>
+    <span class="action-note">In the prototype this ends here. In production this opens the full document with the three flags anchored to their clauses — the full text is always the review surface, the note is only the head start.</span>
+  </div>
+  ${promptPeek('Stage D — escalation summary', PROMPT_D)}`;
+}
+
+function viewBrightwell(){
+  return `
+  <p class="eyebrow">Contract CR-2026-0141 · mutual NDA · based on our template</p>
+  <h1>Brightwell Studios Ltd</h1>
+  <p class="subline">Received today 08:12 · cleared 08:26 · <span class="tier t1">Tier 1 · Clean</span></p>
+  <div class="aicard">
+    <h3>Audit trail</h3>
+    ${renderTimeline(BW_TRAIL)}
+    <p class="conf" style="margin-top:10px">Recorded with: playbook v3.2 · pipeline v1.4 · model &amp; prompt versions.</p>
+    <p style="margin:10px 0 0;color:var(--slate);font-size:13.5px">Every contract keeps a full trail of what the AI checked, which playbook version applied, and who signed off — see <em>Audit &amp; sampling</em> for how this feeds the blind spot-checks and the quarterly audit.</p>
+  </div>`;
+}
+
+const VIEWS = { dashboard: viewDashboard, pipeline: viewPipeline, audit: viewAudit, acme: viewAcme, northwind: viewNorthwind, meridian: viewMeridian, brightwell: viewBrightwell };
+
+/* ============ modal ============ */
+function openPrecedent(key){
+  const p = PRECEDENTS[key];
+  const body = document.getElementById('modalBody');
+  body.innerHTML = `<h3>${p.title}</h3><p class="msub">${p.sub}</p>
+    ${p.items.map(i => `<blockquote>${i.q}<cite>${i.c}</cite></blockquote>`).join('')}
+    <button class="btn sm secondary mclose" id="modalClose">Close</button>`;
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+}
+function closeModal(){ document.getElementById('overlay').classList.remove('open'); }
+document.getElementById('overlay').addEventListener('click', e => { if (e.target.id === 'overlay') closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+/* ============ render + wiring ============ */
+document.getElementById('resetDemo').addEventListener('click', () => {
+  try { localStorage.removeItem('fp-demo-v1'); } catch(e){}
+  location.reload();
+});
+
+function render(){
+  saveState();
+  renderQueue();
+  const detail = document.getElementById('detail');
+  detail.innerHTML = `<div class="detail-inner">${VIEWS[state.selected]()}</div>`;
+
+  const on = (id, fn) => { const el = document.getElementById(id); if (el) el.addEventListener('click', fn); };
+
+  on('approveAcme', () => { state.cleared.acme = true; render(); });
+  on('takeOver', () => { state.meridianBy = 'you'; render(); });
+  on('composeNW', () => { state.emailOpen = true; render(); });
+  on('sendNW', () => { state.cleared.northwind = true; state.emailOpen = false; render(); });
+  on('dlAmended', () => download('Mutual-NDA-Northwind-counter-v2.txt', buildAmendedDraft()));
+  on('dlOriginal', () => download('Northwind-markup-original.txt', buildOriginalMarkup()));
+  ['sendT3Acme','sendT3NW'].forEach(id => on(id, () => {
+    alert('In production this re-tiers the contract to Tier 3 (full human review) and logs the disagreement — every lawyer override is training material for the playbook and the tiering thresholds.');
+  }));
+
+  detail.querySelectorAll('[data-prec]').forEach(b => b.addEventListener('click', () => openPrecedent(b.dataset.prec)));
+
+  detail.querySelectorAll('[data-goto]').forEach(b => b.addEventListener('click', () => { state.selected = b.dataset.goto; render(); }));
+
+  const archSearch = document.getElementById('archSearch');
+  if (archSearch){
+    archSearch.addEventListener('input', () => { archQ = archSearch.value; document.getElementById('archList').innerHTML = renderArchiveRows(); });
+    document.getElementById('archSort').addEventListener('change', e => { archSort = e.target.value; document.getElementById('archList').innerHTML = renderArchiveRows(); });
+  }
+
+  detail.querySelectorAll('[data-c11]').forEach(b => b.addEventListener('click', () => {
+    const v = b.dataset.c11;
+    if (v === 'reset' || v === 'cancelCounter') state.c11.st = null;
+    else if (v === 'counter') state.c11.st = 'counterInput';
+    else state.c11.st = v;
+    render();
+  }));
+  const c11save = detail.querySelector('[data-c11save]');
+  if (c11save) c11save.addEventListener('click', () => {
+    const ta = document.getElementById('ta-c11');
+    state.c11.text = ta ? ta.value.trim() : '';
+    state.c11.st = 'edited';
+    render();
+  });
+
+  detail.querySelectorAll('[data-accept]').forEach(b => b.addEventListener('click', () => {
+    state.edits[b.dataset.accept].st = 'accepted'; render();
+  }));
+
+  detail.querySelectorAll('[data-editbtn]').forEach(b => b.addEventListener('click', () => {
+    const id = b.dataset.editbtn;
+    const saved = state.edits[id] && state.edits[id].text;
+    const ct = document.getElementById('ct-' + id);
+    const current = saved || (ct ? ct.textContent.replace('Proposed replacement (approved text):','').trim() : '');
+    const wrap = b.closest('.note-actions');
+    wrap.outerHTML = `<div class="note-actions" style="display:block">
+      <span class="edit-scope">Your wording applies to this contract only — the playbook and past records stay unchanged. If the same rewrite recurs, it can be proposed to the playbook owner.</span>
+      <textarea class="edit-area" id="ta-${id}">${current.replace(/[“”]/g,'')}</textarea>
+      <button class="btn sm" data-save="${id}">Save your wording</button>
+      <button class="btn sm secondary" data-canceledit="1">Cancel</button>
+    </div>`;
+    detail.querySelectorAll('[data-canceledit]').forEach(cb => cb.addEventListener('click', () => render()));
+    detail.querySelectorAll('[data-save]').forEach(s => s.addEventListener('click', () => {
+      const ta = document.getElementById('ta-' + s.dataset.save);
+      state.edits[s.dataset.save].st = 'edited';
+      state.edits[s.dataset.save].text = ta ? ta.value.trim() : '';
+      render();
+    }));
+  }));
+}
+
+render();
+</script>
+</body>
+</html>
