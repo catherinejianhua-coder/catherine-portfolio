@@ -270,26 +270,25 @@
     .proof-line {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
+      gap: 12px;
       border: 0;
       background: transparent;
       box-shadow: none;
     }
     .proof {
       position: relative;
-      min-height: 156px;
-      padding: 18px 16px 16px;
+      padding: 14px 15px 13px;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: rgba(255, 255, 255, 0.86);
-      box-shadow: 0 18px 44px rgba(23, 23, 23, 0.06);
+      box-shadow: 0 12px 30px rgba(23, 23, 23, 0.05);
     }
     .proof-icon {
       position: relative;
       display: inline-block;
-      width: 24px;
-      height: 24px;
-      margin-bottom: 16px;
+      width: 22px;
+      height: 22px;
+      margin-bottom: 9px;
       border-radius: 999px;
       border: 0;
       background:
@@ -303,8 +302,8 @@
       top: 50%;
       left: 50%;
       display: block;
-      width: 16px;
-      height: 16px;
+      width: 15px;
+      height: 15px;
       transform: translate(-50%, -50%);
       stroke: var(--accent);
       stroke-width: 1.7;
@@ -314,17 +313,17 @@
     }
     .proof strong {
       display: block;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
       color: var(--highlight);
-      font-size: 1.04rem;
+      font-size: 0.97rem;
       font-weight: 900;
       line-height: 1.18;
     }
     .proof span {
       display: block;
       color: var(--muted);
-      font-size: 0.76rem;
-      line-height: 1.45;
+      font-size: 0.74rem;
+      line-height: 1.42;
     }
 
     .system-card {
@@ -500,19 +499,50 @@
     .text-links {
       display: flex;
       flex-wrap: wrap;
-      gap: 15px;
+      gap: 8px;
       margin-top: 22px;
     }
     .text-links a {
-      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 9px 14px;
+      border: 1px solid #cfd5de;
+      border-radius: 7px;
+      background: #fff;
+      color: #20242e;
       text-decoration: none;
-      font-size: 0.86rem;
-      font-weight: 800;
-      border-bottom: 1px solid transparent;
+      font-size: 0.78rem;
+      font-weight: 700;
+      line-height: 1;
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
     }
     .text-links a:hover {
-      border-bottom-color: currentColor;
-      text-decoration: none;
+      border-color: var(--accent);
+      color: var(--accent);
+      background: #f4f7ff;
+    }
+    .text-links a:first-child {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 1px 2px rgba(23, 23, 23, 0.12);
+    }
+    .text-links a:first-child::after {
+      content: "\2192";
+      display: inline-block;
+      transition: transform 0.25s ease;
+    }
+    .text-links a:first-child:hover {
+      background: var(--accent-2);
+      border-color: var(--accent-2);
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(49, 92, 245, 0.34);
+    }
+    .text-links a:first-child:hover::after { transform: translateX(2px); }
+    .text-links a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
     .spotlight-media {
       border-left: 1px solid var(--line);
@@ -712,6 +742,7 @@
     }
     #applied-ai .ai-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 26px;
     }
     .card,
     .career-card,
@@ -725,11 +756,33 @@
       display: flex;
       flex-direction: column;
     }
+    #applied-ai .ai-band {
+      background: #e9ebf0;
+      border-radius: 12px;
+      padding: 22px 20px;
+    }
     #applied-ai .card {
-      display: grid;
-      grid-template-columns: minmax(0, 0.98fr) minmax(150px, 0.82fr);
-      min-height: 284px;
+      display: flex;
+      flex-direction: column;
+      padding: 9px;
+      border-color: #d3d8e0;
+      border-radius: 11px;
+      box-shadow: 0 2px 3px rgba(23, 23, 23, 0.04), 0 14px 30px rgba(23, 23, 23, 0.07);
+      cursor: pointer;
+      transition: transform .35s cubic-bezier(.2,.7,.3,1), box-shadow .35s, border-color .35s;
+    }
+    #applied-ai .card:hover,
+    #applied-ai .card:focus-within {
+      transform: translateY(-6px);
+      border-color: rgba(49, 92, 245, 0.34);
+      box-shadow: 0 2px 3px rgba(23, 23, 23, 0.04), 0 26px 54px rgba(49, 92, 245, 0.15);
+    }
+    #applied-ai .shot {
+      border: 1px solid #e3e6ec;
+      border-radius: 7px;
       overflow: hidden;
+      background: #f4f5f8;
+      aspect-ratio: 16 / 9;
     }
     .card img {
       width: 100%;
@@ -738,13 +791,28 @@
       border-bottom: 1px solid var(--line);
     }
     #applied-ai .card img {
-      grid-column: 2;
-      grid-row: 1;
+      width: 100%;
       height: 100%;
-      min-height: 284px;
+      display: block;
+      object-fit: cover;
+      object-position: 0 0;
       aspect-ratio: auto;
-      border-bottom: 0;
-      border-left: 1px solid var(--line);
+      min-height: 0;
+      border: 0;
+      transition: transform .55s cubic-bezier(.2,.7,.3,1);
+    }
+    #applied-ai .card img.mid { object-position: 50% 50%; }
+    #applied-ai .card:hover img,
+    #applied-ai .card:focus-within img { transform: scale(1.055); }
+    #applied-ai .card h3 { transition: color .3s; }
+    #applied-ai .card:hover h3,
+    #applied-ai .card:focus-within h3 { color: var(--accent); }
+    #applied-ai .one {
+      margin: 0 0 7px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      line-height: 1.4;
+      color: #20242e;
     }
     .card:hover,
     .career-card:hover,
@@ -759,16 +827,16 @@
       flex: 1;
     }
     #applied-ai .card-body {
-      grid-column: 1;
-      grid-row: 1;
+      padding: 13px 7px 5px;
       min-width: 0;
     }
     #applied-ai .card h3 {
       font-size: 1.24rem;
     }
     #applied-ai .card p {
-      font-size: 0.78rem;
-      line-height: 1.48;
+      font-size: 0.72rem;
+      line-height: 1.5;
+      color: #8a8f99;
     }
     #applied-ai .tag-list {
       gap: 4px;
@@ -1036,24 +1104,18 @@
       .contact-grid {
         grid-template-columns: 1fr;
       }
-      #applied-ai .card {
-        display: flex;
-        min-height: 0;
+      #applied-ai .ai-band {
+        padding: 14px 12px;
+        border-radius: 10px;
       }
-      #applied-ai .card img {
-        grid-column: auto;
-        grid-row: auto;
-        width: 100%;
-        height: auto;
-        min-height: 0;
-        aspect-ratio: 16 / 10;
-        border-left: 0;
-        border-bottom: 1px solid var(--line);
+      .text-links { gap: 10px; }
+      .text-links a {
+        min-height: 44px;
+        padding: 12px 17px;
+        font-size: 0.83rem;
       }
-      #applied-ai .card-body {
-        grid-column: auto;
-        grid-row: auto;
-      }
+      #applied-ai .ai-grid { gap: 16px; }
+      #applied-ai .card img { aspect-ratio: auto; }
       #applied-ai .card h3 {
         font-size: 1.34rem;
       }
@@ -1122,6 +1184,19 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  
+    @media (prefers-reduced-motion: reduce) {
+      #applied-ai .card,
+      #applied-ai .card img,
+      #applied-ai .card h3,
+      .text-links a,
+      .text-links a:first-child::after { transition: none !important; }
+      #applied-ai .card:hover,
+      #applied-ai .card:focus-within { transform: none !important; }
+      #applied-ai .card:hover img,
+      #applied-ai .card:focus-within img { transform: none !important; }
+      .text-links a:first-child:hover::after { transform: none !important; }
     }
   </style>
 </head>
@@ -1206,12 +1281,14 @@
           </p>
         </div>
 
+        <div class="ai-band">
         <div class="ai-grid">
           <article class="card reveal" id="contract-review">
-            <img src="assets/screenshots/contract_review_workbench.png" alt="AI Contract Review Triage workbench showing queue, dashboard, routing tiers and review controls" onclick="openLightbox(this.src)">
+            <div class="shot"><img src="assets/screenshots/contract_review_workbench.png" alt="AI Contract Review Triage workbench showing queue, dashboard, routing tiers and review controls" onclick="openLightbox(this.src)"></div>
             <div class="card-body">
               <div class="case-label">Controlled review workflow</div>
               <h3>AI Contract Review Triage</h3>
+              <p class="one">A prototype NDA workbench where the lawyer still signs off.</p>
               <p>
                 A NDA review workbench with playbook-grounded clause checks, suggested fallback wording, risk routing and explicit lawyer sign-off. The key product choice was to keep legal judgement owned by the reviewer while making repeated checks faster and easier to audit.
               </p>
@@ -1230,10 +1307,11 @@
           </article>
 
           <article class="card reveal" id="digital-human">
-            <img src="assets/screenshots/baidu_dh_pair.jpg" alt="Digital-human live-commerce product screenshots from Baidu" onclick="openLightbox(this.src)">
+            <div class="shot"><img src="assets/screenshots/baidu_dh_pair.jpg" alt="Digital-human live-commerce product screenshots from Baidu" onclick="openLightbox(this.src)" class="mid"></div>
             <div class="card-body">
               <div class="case-label">Production AI commerce case</div>
               <h3>Digital Human Live Commerce</h3>
+              <p class="one">Script-driven AI selling, running in production on Baidu live commerce.</p>
               <p>
                 Script-driven, merchant-configurable AI selling for Baidu live commerce. I framed the product around reliability, brand safety and commercial use rather than open-ended generation.
               </p>
@@ -1249,10 +1327,11 @@
           </article>
 
           <article class="card reveal" id="fitcue">
-            <img src="assets/screenshots/fitcue_en.png" alt="FitCue constraint-first workout matching product page" onclick="openLightbox(this.src)">
+            <div class="shot"><img src="assets/screenshots/fitcue_en.png" alt="FitCue constraint-first workout matching product page" onclick="openLightbox(this.src)"></div>
             <div class="card-body">
               <div class="case-label">Independent AI product prototype</div>
               <h3>FitCue</h3>
+              <p class="one">Cuts workout options down to the few that are feasible.</p>
               <p>
                 A workout matcher that narrows the choice by time, space, equipment and body restrictions. The product question was whether a smaller, feasible set beats a broad catalogue.
               </p>
@@ -1267,6 +1346,7 @@
               </div>
             </div>
           </article>
+        </div>
         </div>
       </div>
     </section>
