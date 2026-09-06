@@ -54,7 +54,7 @@
     [id] { scroll-margin-top: 82px; }
 
     .container {
-      width: min(1396px, calc(100% - 96px));
+      width: min(1800px, calc(100% - 56px));
       margin: 0 auto;
     }
 
@@ -405,7 +405,7 @@
     }
 
     .section {
-      padding: 28px 0;
+      padding: 40px 0;
       border-bottom: 1px solid var(--line);
     }
     .section-head {
@@ -413,9 +413,9 @@
       grid-template-columns: minmax(0, 0.8fr) minmax(280px, 1fr);
       gap: 36px;
       align-items: end;
-      padding-top: 14px;
+      padding-top: 20px;
       border-top: 2px solid var(--accent);
-      margin-bottom: 15px;
+      margin-bottom: 22px;
     }
     .section-head h2 {
       position: relative;
@@ -449,7 +449,7 @@
       box-shadow: 0 20px 50px rgba(23, 23, 23, 0.06);
     }
     .spotlight-body {
-      padding: 22px;
+      padding: 26px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -521,12 +521,12 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      padding: 8px 11px;
+      padding: 6px 9px;
       border: 1px solid #cfd5de;
       border-radius: 7px;
       background: #fff;
       color: #20242e;
-      font-size: 0.76rem;
+      font-size: 0.64rem;
       font-weight: 700;
       line-height: 1;
       transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
@@ -774,7 +774,7 @@
     #applied-ai .ai-band {
       background: #e9ebf0;
       border-radius: 12px;
-      padding: 13px 14px;
+      padding: 22px 20px;
     }
     #applied-ai .card {
       display: flex;
@@ -797,7 +797,8 @@
       border-radius: 7px;
       overflow: hidden;
       background: #f4f5f8;
-      aspect-ratio: 16 / 9;
+      height: 156px;
+      aspect-ratio: auto;
     }
     .card img {
       width: 100%;
@@ -822,9 +823,12 @@
     #applied-ai .card h3 { transition: color .3s; }
     #applied-ai .card:hover h3,
     #applied-ai .card:focus-within h3 { color: var(--accent); }
+    #applied-ai .case-label {
+      font-size: 0.58rem;
+    }
     #applied-ai .one {
-      margin: 0 0 7px;
-      font-size: 0.8rem;
+      margin: 0 0 5px;
+      font-size: 0.67rem;
       font-weight: 600;
       line-height: 1.4;
       color: #20242e;
@@ -842,38 +846,38 @@
       flex: 1;
     }
     #applied-ai .card-body {
-      padding: 11px 7px 3px;
+      padding: 13px 7px 5px;
       min-width: 0;
     }
     #applied-ai .card h3 {
-      font-size: 1.24rem;
+      font-size: 0.94rem;
     }
     #applied-ai .card p {
-      font-size: 0.72rem;
-      line-height: 1.5;
+      font-size: 0.63rem;
+      line-height: 1.45;
       color: #8a8f99;
     }
     #applied-ai .tag-list {
       gap: 4px;
-      margin-top: 8px;
+      margin-top: 12px;
     }
     #applied-ai .tag-list li {
-      padding: 3px 6px;
-      font-size: 0.62rem;
+      padding: 2px 5px;
+      font-size: 0.51rem;
     }
     #applied-ai .text-links {
       gap: 7px;
       margin-top: auto;
-      padding-top: 10px;
+      padding-top: 13px;
     }
 
     .career-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+      gap: 18px;
     }
     .career-card {
-      padding: 12px 15px;
+      padding: 20px;
     }
     .result {
       margin-top: 9px;
@@ -1131,6 +1135,7 @@
       }
       #applied-ai .ai-grid { gap: 16px; }
       #applied-ai .card img { aspect-ratio: auto; }
+      #applied-ai .shot { height: 132px; }
       #applied-ai .card h3 {
         font-size: 1.34rem;
       }
