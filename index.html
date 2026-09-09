@@ -34,6 +34,10 @@
       --amber: #f05a36;
       --name-accent: #315cf5;
       --shadow: 0 24px 64px rgba(23, 23, 23, 0.08);
+      --t-fast: 0.15s;
+      --t-mid: 0.3s;
+      --t-slow: 0.45s;
+      --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
       --display: Georgia, "Times New Roman", serif;
       --body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
@@ -121,7 +125,7 @@
       color: var(--muted);
       font-weight: 800;
       box-shadow: none;
-      transition: color 0.18s ease, transform 0.18s ease;
+      transition: color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
     }
     .nav-links a::after {
       content: "";
@@ -133,7 +137,7 @@
       background: currentColor;
       transform: scaleX(0);
       transform-origin: center;
-      transition: transform 0.18s ease;
+      transition: transform var(--t-fast) var(--ease);
     }
     .nav-links a:hover,
     .nav-links a.active {
@@ -246,7 +250,7 @@
       font-weight: 700;
       border-radius: 2px;
       box-shadow: 0 16px 32px rgba(49, 92, 245, 0.2);
-      transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+      transition: background var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
     }
     .button:hover {
       background: var(--accent-2);
@@ -529,7 +533,7 @@
       font-size: 0.64rem;
       font-weight: 700;
       line-height: 1;
-      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+      transition: background var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
     }
     #applied-ai .text-links a:hover {
       border-color: var(--accent);
@@ -546,7 +550,7 @@
     #applied-ai .text-links a:first-child::after {
       content: "\2192";
       display: inline-block;
-      transition: transform 0.25s ease;
+      transition: transform var(--t-fast) var(--ease);
     }
     #applied-ai .text-links a:first-child:hover {
       background: var(--accent-2);
@@ -589,7 +593,7 @@
       opacity: 1;
       box-shadow: none;
       transform: translateY(-50%);
-      transition: color 0.18s ease, opacity 0.18s ease, transform 0.18s ease;
+      transition: color var(--t-fast) var(--ease), opacity var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
     }
     .case-arrow[data-direction="-1"] {
       left: -98px;
@@ -640,7 +644,7 @@
       border-radius: 999px;
       background: #ffffff;
       cursor: pointer;
-      transition: width 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+      transition: width var(--t-fast) var(--ease), background var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
     }
     .case-dot.active {
       width: 30px;
@@ -784,7 +788,7 @@
       border-radius: 11px;
       box-shadow: 0 2px 3px rgba(23, 23, 23, 0.04), 0 14px 30px rgba(23, 23, 23, 0.07);
       cursor: pointer;
-      transition: transform .35s cubic-bezier(.2,.7,.3,1), box-shadow .35s, border-color .35s;
+      transition: transform var(--t-mid) var(--ease), box-shadow var(--t-mid) var(--ease), border-color var(--t-mid) var(--ease);
     }
     #applied-ai .card:hover,
     #applied-ai .card:focus-within {
@@ -815,12 +819,12 @@
       aspect-ratio: auto;
       min-height: 0;
       border: 0;
-      transition: transform .55s cubic-bezier(.2,.7,.3,1);
+      transition: transform var(--t-mid) var(--ease);
     }
     #applied-ai .card img.mid { object-position: 50% 50%; }
     #applied-ai .card:hover img,
     #applied-ai .card:focus-within img { transform: scale(1.055); }
-    #applied-ai .card h3 { transition: color .3s; }
+    #applied-ai .card h3 { transition: color var(--t-mid) var(--ease); }
     #applied-ai .card:hover h3,
     #applied-ai .card:focus-within h3 { color: var(--accent); }
     #applied-ai .case-label {
@@ -908,7 +912,7 @@
       display: flex;
       flex-direction: column;
       min-height: 100%;
-      transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+      transition: border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
     }
     .prototype-card:hover { transform: translateY(-2px); }
     .prototype-card img {
@@ -972,12 +976,13 @@
       box-shadow: 0 14px 28px rgba(0, 0, 0, 0.24);
     }
 
-    .reveal {
+    /* 默认可见：JS 没跑起来也能完整看到页面 */
+    .js-anim .reveal {
       opacity: 0;
       transform: translateY(16px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      transition: opacity var(--t-slow) var(--ease), transform var(--t-slow) var(--ease);
     }
-    .reveal.visible {
+    .js-anim .reveal.visible {
       opacity: 1;
       transform: none;
     }
@@ -1203,7 +1208,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .reveal { opacity: 1; transform: none; transition: none; }
+      .js-anim .reveal { opacity: 1; transform: none; transition: none; }
     }
   
     @media (prefers-reduced-motion: reduce) {
@@ -1277,10 +1282,7 @@
         </div>
         <div class="hero-side">
           <p class="hero-copy">
-            My background is 8+ years in product management, including Baidu live-commerce systems at &pound;2M+ daily GMV and working AI prototypes built since 2024.
-          </p>
-          <p class="hero-copy">
-            Most of my AI work is about making model output usable inside a real workflow. That means clear queues, playbooks, evaluation checks, escalation paths and a human decision point.
+            Most of my AI work is about making model output usable inside a real workflow: clear queues, evaluation checks and a human decision point.
           </p>
           <div class="visa">Manchester, UK. Global Talent Visa. No sponsorship required.</div>
           <div class="actions">
@@ -1309,9 +1311,6 @@
               <div class="case-label">Controlled review workflow</div>
               <h3>AI Contract Review Triage</h3>
               <p class="one">A prototype NDA workbench where the lawyer still signs off.</p>
-              <p>
-                A NDA review workbench with playbook-grounded clause checks, suggested fallback wording, risk routing and explicit lawyer sign-off. The key product choice was to keep legal judgement owned by the reviewer while making repeated checks faster and easier to audit.
-              </p>
               <ul class="tag-list">
                 <li>Playbook design</li>
                 <li>Evaluation set</li>
@@ -1332,9 +1331,6 @@
               <div class="case-label">Production AI commerce case</div>
               <h3>Digital Human Live Commerce</h3>
               <p class="one">Script-driven AI selling, running in production on Baidu live commerce.</p>
-              <p>
-                Script-driven, merchant-configurable AI selling for Baidu live commerce. I framed the product around reliability, brand safety and commercial use rather than open-ended generation.
-              </p>
               <ul class="tag-list">
                 <li>Applied AI</li>
                 <li>Live commerce</li>
@@ -1352,9 +1348,6 @@
               <div class="case-label">Independent AI product prototype</div>
               <h3>FitCue</h3>
               <p class="one">Cuts workout options down to the few that are feasible.</p>
-              <p>
-                A workout matcher that narrows the choice by time, space, equipment and body restrictions. The product question was whether a smaller, feasible set beats a broad catalogue.
-              </p>
               <ul class="tag-list">
                 <li>Recommendation UX</li>
                 <li>Constraint matching</li>
@@ -1384,7 +1377,7 @@
             <div class="case-label">0-to-1 platform build, Baidu</div>
             <h3>Live-Commerce Operating Platform</h3>
             <p>
-              A single operating surface for products, live content, talent-merchant collaboration, marketing and data. Built for sellers who needed fewer disconnected tools.
+              A single operating surface for products, live content, talent-merchant collaboration, marketing and data.
             </p>
             <div class="result">On a <strong>&pound;2M+ daily GMV</strong> platform, broadcaster onboarding moved from <strong>72 hours to under a minute</strong>, with monthly active merchants up <strong>116%</strong>.</div>
             <div class="text-links"><a href="docs/b2b_saas_control_center_case_study.pdf" target="_blank" rel="noopener">Read full case study</a></div>
@@ -1394,7 +1387,7 @@
             <div class="case-label">Self-serve data product, Baidu</div>
             <h3>Data Compass</h3>
             <p>
-              A real-time analytics product for non-technical merchant operators. The design focused on the next action, not dashboard completeness.
+              A real-time analytics product for non-technical merchant operators.
             </p>
             <div class="result"><strong>110+ dimensions</strong>, <strong>90%+ adoption</strong> and <strong>95%+ retention</strong> among active broadcasters and operators.</div>
             <div class="text-links"><a href="docs/data_compass_case_study.pdf" target="_blank" rel="noopener">Read full case study</a></div>
@@ -1404,7 +1397,7 @@
             <div class="case-label">Growth and experimentation, Baidu</div>
             <h3>Conversion and Growth</h3>
             <p>
-              Segmented the B2C funnel, found the highest-leverage drop-offs and ran a disciplined A/B programme instead of adding loosely connected features.
+              Segmented the B2C funnel, found the highest-leverage drop-offs and ran a disciplined A/B programme.
             </p>
             <div class="result"><strong>+12.5% conversion</strong> and <strong>+6.8% GMV</strong> on a platform at <strong>&pound;2M+ daily GMV</strong>.</div>
             <div class="text-links"><a href="docs/growth_funnel_case_study.pdf" target="_blank" rel="noopener">Read full case study</a></div>
@@ -1414,7 +1407,7 @@
             <div class="case-label">Growth and creator ecosystem, Huajiao</div>
             <h3>Livestream Platform Growth</h3>
             <p>
-              Owned user growth and creator ecosystem work across discovery, onboarding and creator tooling on a large live-streaming platform.
+              Owned user growth and creator ecosystem work across discovery, onboarding and creator tooling.
             </p>
             <div class="result"><strong>CTR +27%</strong>, <strong>retention +10.3%</strong> and creator tooling used across <strong>13K+ daily livestreams</strong>.</div>
             <div class="text-links"><a href="docs/huajiao_livestream_case_study.pdf" target="_blank" rel="noopener">Read full case study</a></div>
@@ -1682,9 +1675,16 @@
     setCareerCase(0);
 
     if ('IntersectionObserver' in window) {
+      // 只有确认动画能跑，才把元素藏起来做入场
+      document.documentElement.classList.add('js-anim');
       const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
+            const sibs = Array.prototype.filter.call(
+              entry.target.parentElement ? entry.target.parentElement.children : [],
+              el => el.classList && el.classList.contains('reveal'));
+            const i = Math.max(0, sibs.indexOf(entry.target));
+            entry.target.style.transitionDelay = Math.min(i * 60, 240) + 'ms';
             entry.target.classList.add('visible');
             observer.unobserve(entry.target);
           }
