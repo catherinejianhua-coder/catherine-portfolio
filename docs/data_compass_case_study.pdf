@@ -1,99 +1,365 @@
-%PDF-1.4
-%“Œ‹ž ReportLab Generated PDF document (opensource)
+%PDF-1.3
+%âãÏÓ
 1 0 obj
 <<
-/F1 2 0 R /F2 3 0 R /F3 4 0 R
+/PageMode /UseNone
+/Pages 2 0 R
+/Type /Catalog
 >>
 endobj
 2 0 obj
 <<
-/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
+/Count 2
+/Kids [ 3 0 R 9 0 R ]
+/Type /Pages
 >>
 endobj
 3 0 obj
 <<
-/BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
+/Contents 4 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Parent 2 0 R
+/Resources <<
+/Font 5 0 R
+/ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
 >>
 endobj
 4 0 obj
 <<
-/BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding /Name /F3 /Subtype /Type1 /Type /Font
+/Length 5832
 >>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 62.69291 766.5354 cm
+q
+.062745 .094118 .12549 rg
+BT 1 0 0 1 0 4 Tm /F2 20 Tf 24 TL (Data Compass Case Study) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 745.5354 cm
+q
+.133333 .423529 .360784 rg
+BT 1 0 0 1 0 3 Tm /F1 12 Tf 15 TL (Turning 110+ Data Dimensions into Decisions Non-Technical Operators Could Act On) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 707.9354 cm
+q
+BT 1 0 0 1 0 18 Tm 13.8 TL /F2 9.6 Tf .12549 .12549 .12549 rg (One-line judgement:) Tj /F1 9.6 Tf ( I built the firm's real-time merchant analytics product ) Tj /F2 9.6 Tf (0-to-1) Tj /F1 9.6 Tf (. The hard part wasn't) Tj T* (surfacing 110+ data dimensions \227 it was turning them into a decision a non-technical operator could act on.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 680.9354 cm
+q
+BT 1 0 0 1 0 2.5 Tm 15 TL /F2 12.5 Tf .062745 .094118 .12549 rg (Role & Scope) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 661.1354 cm
+q
+BT 1 0 0 1 0 4.2 Tm 13.8 TL /F2 9.6 Tf .12549 .12549 .12549 rg (Role:) Tj /F1 9.6 Tf ( Lead Product Manager) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 626.5354 cm
+q
+BT 1 0 0 1 0 18 Tm -0.024788 Tw 13.8 TL /F2 9.6 Tf .12549 .12549 .12549 rg (Product:) Tj /F1 9.6 Tf ( Data Compass \227 a real-time analytics product for merchants and creators on the firm's live-commerce) Tj T* 0 Tw (platform \(a \2432M+ daily GMV business\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 591.9354 cm
+q
+BT 1 0 0 1 0 18 Tm 13.8 TL /F2 9.6 Tf .12549 .12549 .12549 rg (Scope:) Tj /F1 9.6 Tf ( Problem framing, metric and dimension design, dashboard information architecture, decision-support) Tj T* (workflows, adoption strategy, cross-functional delivery with data, engineering and operations.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 564.9354 cm
+q
+.062745 .094118 .12549 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (Context) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 517.5354 cm
+q
+BT 1 0 0 1 0 31.8 Tm 13.8 TL /F1 9.6 Tf .12549 .12549 .12549 rg (Live commerce generates a firehose of data \227 traffic, content, product and transaction signals, changing) Tj T* (minute by minute. The platform already exposed a lot of it. But the people who needed it most \227 merchants) Tj T* (and creators running live rooms \227 were ) Tj /F2 9.6 Tf (not analysts) Tj /F1 9.6 Tf (. They could see numbers; they couldn't see *decisions*.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 490.5354 cm
+q
+.062745 .094118 .12549 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (Problem) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 470.7354 cm
+q
+.12549 .12549 .12549 rg
+BT 1 0 0 1 0 4.2 Tm /F1 9.6 Tf 13.8 TL (The problem was not *"we don't have enough data."* It was:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 449.9354 cm
+q
+.298039 .32549 .34902 rg
+BT 1 0 0 1 14 4.2 Tm /F3 9.6 Tf 13.8 TL ("I can see my numbers, but I don't know which lever to pull to sell more right now.") Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 414.3354 cm
+q
+.12549 .12549 .12549 rg
+BT 1 0 0 1 0 18 Tm /F1 9.6 Tf 13.8 TL (Raw dashboards optimise for completeness. Operators need the opposite: the few signals that change what) Tj T* (they do in the next hour, expressed in their language, not an analyst's.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 387.3354 cm
+q
+.062745 .094118 .12549 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (Insight) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 339.9354 cm
+q
+BT 1 0 0 1 0 31.8 Tm 13.8 TL /F1 9.6 Tf .12549 .12549 .12549 rg (Adoption of an analytics product is not driven by how many dimensions it has \227 it's driven by ) Tj /F2 9.6 Tf (whether a) Tj T* (non-technical operator can look at it and know the next action.) Tj /F1 9.6 Tf ( The metric that matters isn't "dimensions) Tj T* (shipped"; it's "decisions made.") Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 312.9354 cm
+q
+.062745 .094118 .12549 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (Strategic Decisions) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 251.7354 cm
+q
+BT 1 0 0 1 0 45.6 Tm 13.8 TL /F1 9.6 Tf .12549 .12549 .12549 rg (1. ) Tj /F2 9.6 Tf (Design for the operator's decision, not the analyst's completeness.) Tj /F1 9.6 Tf ( I organised Data Compass around) Tj T* (the questions merchants and creators actually ask \(why did traffic/conversion move, which) Tj T* (product/segment/time is working, what to change next\) \227 turning 110+ traffic, content, product and transaction) Tj T* (dimensions into operational decision support rather than a raw data dump.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 203.3354 cm
+q
+BT 1 0 0 1 0 31.8 Tm 13.8 TL /F1 9.6 Tf .12549 .12549 .12549 rg (2. ) Tj /F2 9.6 Tf (Real-time, because live commerce is a real-time decision loop.) Tj /F1 9.6 Tf ( In a live room, a next-hour decision is) Tj T* (worthless if the data is a day old. The product prioritised low-latency signals operators could act on) Tj T* (mid-broadcast.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 154.9354 cm
+q
+BT 1 0 0 1 0 31.8 Tm 13.8 TL /F1 9.6 Tf .12549 .12549 .12549 rg (3. ) Tj /F2 9.6 Tf (Drive adoption deliberately.) Tj /F1 9.6 Tf ( A powerful dashboard nobody opens has zero value. I treated adoption and) Tj T* (retention among *active* operators as first-class product metrics, not vanity \227 reaching ) Tj /F2 9.6 Tf (90%+ adoption and) Tj T* (95%+ retention) Tj /F1 9.6 Tf ( among active broadcasters and operators.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 127.9354 cm
+q
+.062745 .094118 .12549 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (Trade-offs) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 66.73543 cm
+q
+BT 1 0 0 1 0 45.6 Tm 13.8 TL /F1 9.6 Tf .12549 .12549 .12549 rg (The core trade-off was ) Tj /F2 9.6 Tf (depth vs. legibility.) Tj /F1 9.6 Tf ( More dimensions and more granular cuts make an analytics) Tj T* (product more powerful for an expert \227 and more useless for the operator it was built for. I repeatedly chose) Tj T* (legibility: surfacing the decision-relevant signal first, keeping depth available but not in the way. The bet was) Tj T* (that an operator who *acts* on three numbers beats one who *stares* at thirty.) Tj T* ET
+Q
+Q
+ 
+
+endstream
 endobj
 5 0 obj
 <<
-/Contents 10 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 9 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 /Trans <<
-
->> 
-  /Type /Page
+/F1 6 0 R
+/F2 7 0 R
+/F3 8 0 R
 >>
 endobj
 6 0 obj
 <<
-/Contents 11 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 9 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 /Trans <<
-
->> 
-  /Type /Page
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
 >>
 endobj
 7 0 obj
 <<
-/PageMode /UseNone /Pages 9 0 R /Type /Catalog
+/BaseFont /Helvetica-Bold
+/Encoding /WinAnsiEncoding
+/Name /F2
+/Subtype /Type1
+/Type /Font
 >>
 endobj
 8 0 obj
 <<
-/Author (Jianhua Chen) /CreationDate (D:20260703172605+01'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20260703172605+01'00') /Producer (ReportLab PDF Library - \(opensource\)) 
-  /Subject (\(unspecified\)) /Title (data_compass_case_study) /Trapped /False
+/BaseFont /Helvetica-Oblique
+/Encoding /WinAnsiEncoding
+/Name /F3
+/Subtype /Type1
+/Type /Font
 >>
 endobj
 9 0 obj
 <<
-/Count 2 /Kids [ 5 0 R 6 0 R ] /Type /Pages
+/Contents 10 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Parent 2 0 R
+/Resources <<
+/Font 5 0 R
+/ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
 >>
 endobj
 10 0 obj
 <<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 2430
+/Length 2653
 >>
 stream
-Gatm<gN)&i&UjCTFK$`Ebp?d"]SYJm?]pYRlo;7QH1K,i(_X.V0\DeE\BNRfo\`&4UrlY;<g>*@^e@Pu3N#XtU^;K:s*pOPI9=tQ^P<Lm[,+\?$YHdF9Rg9]qYaFHgpr5m`@>&FZs5/6q/eg<F1<2`(=@.\VdQg!L#FTe@5OUYaR!5AafsM'lfHbBU1hD*7"5*N-fG2Ve9NLEV2rJcqX1BEn:oN/d<`n2ru41h@[PF;0n`L)8&6aFcD)*Xe&>jC4$*gZ=pNFqF7+Z_=/Jg5Nl#c+$i,TBWE^3>l,&T5S>K(;<qY'ol=.DlEE];CAG!9o7Q>5r]<8GmhT(Yj(0<mg=U(oZqNDJQ6,XU8K3O@q'=J5`*,Lhjdgrd[_:M#61K@!BX\*aLJ\-+i!^:8gm""M;;lS!g#GI=G[3[%d2Kh&,jjM)H-le(1A-]#A9;U$-KqgKJF<M&>A#IB+g$/U?;b<rB$'i@eg'_,tG&8-%[PD&!G8X.8_oXXN5GDg_b!/=t.>:E+?DejR2Ta"C"g[U.m-?"q'`6r!7')=)kLj4t:7fUW'[2"%kABcWrtf5G.?r<>S'E;XQ+k:pkDIM#+jbOTo2uVf\+[K/Kkc+',,'KD<W%Hcm\IB;[&D=:$`G%@Jk7e'hVu`X=^a4^>_r#?!'Cl^&"DaDgnNRU@P+`1']X@45p2slGGZGB37^+Ig!sWM;%LfC3%U6AO+G*$ZYB&c+fVaLrSu(N^_.#)=o77('gS4k_O%%&a3TGJ+a9CaCtKYgK,PsSh\d1+ZZdr%8Z^V\,Fl]L)pM&U"WpZ&cQ"3(JN0<h*-HoQgSug43>-J<c2BQLHTNF6kgD\1*B5BiLCk0$XW;>\,3B9k?QqMVk!4:T;GZTja^U&'8])h9#]#GUc`bIR@b/`cQ&VW6CnIegY(+rTPCL(mp'm?a!Il!lO")%H[$%&D'l),d4'?M0,g].fARqggjn-!I6'$8$Ge6s11<]b8DUbAN1Pi)c'ldLfe6$60&*"aghK>Xs1b'keF.iB=>*:tOM[V..%OD'&Ys#IW1@7%.jT>9T3>PjLV(Np&qc"5$R,Bm$EiuOF_sD'gD0eN5;\`WM)&$Pfc5St9V30r3UsMiRZ-@T-rT)>H\s8G9.c3d,J)rAR^SAX?9>_OiG'F2-Auj&FXio0!CUeZ/^<9*Pm+IY^aLTq4H?j3Z3:Nb]A:_?>-ZaO=Q]u/Y9.Ea==m0U%ZSK$.d[fj1n#hIg[d%of>2;rNCoHVqVat4f.+E3ZN-0F^lcgHhU@>#%%rEI[crgTL;TF,kkWMb?ifl2)5p<W6ZH=s%ZkB"A#)%rhV%-#O#<,_S!Y0DM]R8=gI4="0`;Z^9kVEdi>_0gtD`r,[#-:8>#^Ur]$04[S+gDg:qp']Gb'colHl&q413621A_;Vtd84f^9E>Tt<**\MoJP9WRH^n(6Q)K!d,.>m;lXEZlY?WIHFrOAl-If:%_W-:\mjR]lD_f!rs8&i[TPoCg'jL]#$#^i1!leL75>&+E`!hQ5#a7X3]dZbEP26D^@nNoq@/:aBMVc0`04n`:T1\$"l7)0.r;?S_0OpNOuKN",6b4)JN>auF6;U%psE`PW[q_%o4oBG9rEqp2NcV<Ar;2S?j$C7HO$(6)k_X$6So=#;L'aKF&($PYRq*&ebeFPP36aXdCNFbng;YN9mj4@dj`g#9j$-97%p!=-a$Je>nor'h=Q%?XfEsnfujF3Q,qlTKtW7?h5?4]Uid#_@2,AuhY?4/!SmG7fko-PriMGI*XCSK0+ADq^[i5(jbD<n;'-#%O#N%9kmt[54-ORJjO*&Dq*4<aRmF4ISV/Le,/B\'46'n<B>Z2PY7RmN1@9qMT,*RQ!`6V=P6`(mN(!otcVD]TZ7#69G=#-?]S$k\B4m;q4OGAG@i"h!Zc_tN\P"a:NRZOSdHAPgRYV(1/89K<;jGcZD3XW/KT@4mrlH?JF=g",rM`":pIo*QhA@i-=BKc9"iC*%-"VIMM5mYna(^2sNfCNsg#58Hhc$N52n)f<)h\R3dBL>E4$^mps'KIs4c$1k9>1Lc_)\sBm2hul<l9<gs-d`-@`WM<OMbBOYomkrFlPGk[^W*3V;'Qfnc2s7LRMW'%`9.73]lYBns<]9LU!<.8f,\H\a/2=fVkhnGDkJiL01W.Bs`90%^7kT4Cc(\?6T6)L"H:f$OK&h,%fm!g).J(50J6r92)N"E,QUteOF,Ke-0N6iMCkc`ejB&F9`P^14`J53UX9Ko#-/C(?PCd%]8$6E''#L1sMQ@XUMc1gje+Wg6ZCD)a.G;(`QV(*2@/b4CWL2*`)HhNc3piR'c;_%/+u)=+I\Re9E%^]p'i#>A$Jh#aG_?*8\:`WZ-H!(Pc1J2U]XrlZC!*dOoF//=AeIa=h=6C6#&0*YsdniRIJ^coM3*4(R+,;J"RF*!&I2rWg?$E?"~>endstream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 62.69291 775.5354 cm
+q
+BT 1 0 0 1 0 2.5 Tm 15 TL /F2 12.5 Tf .062745 .094118 .12549 rg (Outcomes & Impact) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 741.9354 cm
+BT /F1 12 Tf 14.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 -2 15.6 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 72.69291 741.9354 cm
+q
+BT 1 0 0 1 0 18 Tm 13.8 TL /F2 9.6 Tf .12549 .12549 .12549 rg (110+ data dimensions) Tj /F1 9.6 Tf ( across traffic, content, product and transaction data, turned into operational decision) Tj T* (support for non-technical merchants and creators.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 708.3354 cm
+BT /F1 12 Tf 14.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 -2 15.6 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 72.69291 708.3354 cm
+q
+BT 1 0 0 1 0 18 Tm 13.8 TL /F2 9.6 Tf .12549 .12549 .12549 rg (90%+ adoption and 95%+ retention) Tj /F1 9.6 Tf ( among active broadcasters and operators \227 the signal that it was) Tj T* (actually used to make decisions, not just shipped.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 688.5354 cm
+BT /F1 12 Tf 14.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 -2 1.8 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 72.69291 688.5354 cm
+q
+.12549 .12549 .12549 rg
+BT 1 0 0 1 0 4.2 Tm /F1 9.6 Tf 13.8 TL (Became a core piece of merchant/creator intelligence on a live-commerce platform at \2432M+ daily GMV.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 681.5354 cm
+Q
+q
+1 0 0 1 62.69291 654.5354 cm
+q
+.062745 .094118 .12549 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (What I Learned) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 620.9354 cm
+BT /F1 12 Tf 14.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 -2 15.6 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 72.69291 620.9354 cm
+q
+BT 1 0 0 1 0 18 Tm 13.8 TL /F2 9.6 Tf .12549 .12549 .12549 rg (An analytics product's real KPI is decisions made, not dimensions shipped.) Tj /F1 9.6 Tf ( Adoption and retention) Tj T* (among the people who must act are the honest measures.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 587.3354 cm
+BT /F1 12 Tf 14.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 -2 15.6 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 72.69291 587.3354 cm
+q
+BT 1 0 0 1 0 18 Tm 13.8 TL /F2 9.6 Tf .12549 .12549 .12549 rg (Legibility is a feature.) Tj /F1 9.6 Tf ( In a data-rich category, reducing what a user has to read is often more valuable than) Tj T* (adding what they *could* read.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 553.7354 cm
+BT /F1 12 Tf 14.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 -2 15.6 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 72.69291 553.7354 cm
+q
+BT 1 0 0 1 0 18 Tm 13.8 TL /F2 9.6 Tf .12549 .12549 .12549 rg (Meet non-technical users in their language.) Tj /F1 9.6 Tf ( The same data becomes a different product depending on) Tj T* (whether it's framed as an analyst's report or an operator's next move.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 546.7354 cm
+Q
+ 
+
+endstream
 endobj
 11 0 obj
 <<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 1064
+/Author (Jianhua Chen)
+/CreationDate (D\07220260703172605\05301\04700\047)
+/Creator (\050unspecified\051)
+/Keywords ()
+/ModDate (D\07220260703172605\05301\04700\047)
+/Producer (ReportLab PDF Library \055 \050opensource\051)
+/Subject (\050unspecified\051)
+/Title (data\137compass\137case\137study)
+/Trapped (\057False)
 >>
-stream
-GauHJ9lJcG&A@sBbb\N&FVIc?/Gn'$D%STj)o1+>jMF_<M601G,aHmZ^,'f2aFs_@&KhWm"8nPF]Jo;A!p9-3r`:rW+#e0/=b)<:;h.E5"?'?NBf#QB&W\H/EO8ukCB7S(7d2*kBHKst7PVi=UD,TqLm3*jI#]WsNt`/MQZ8=eoY4.S=@"4l1g,G]@J[)6au8JB+1Q,jWPUaLr.*$0B>://fEi0&XWL@.gqi1P-<H3<GYSK9UEq"%H7Q;f+Oa8\lr]jo.]"&ncpb=qQb)=p`P/Xq5H[q@q0U1oOHAc4NRubVrW%?Da3@PEb$"0V3*?r!bs5DFd"E:DcK:Z)+AL.f`Y25aU5q9dcoH_=BG2rL(7jMH=[S3AF/FA^;r>!bFTDj8^fYY!:fTt8>2#WJPr->O.?m1;XRjgGCs5u.i\f@*j`rR"lhR%E+EQ<2+EGHePXZWJg3^UFR;&`OJPj0P\8t^59)='ULY!#X!Xru,3.k$NG[3'.TooFuJ-Y<D(+;d&lZrr0-e=*[7fL>W/3b@o!rV80!+5!!`V]iWQE/OYbPt4&ZoXV/ELL6uBCJ&p-]):B5=0G;eFXt8fcWiNF,/+W<!]oLHL^""%CraKY'#SU(D("O'+O,8*5%MZehU&p2aCL&`lTF=B!#c6pri?F-\3Y"WfA`'PB#:%g"B4a*#mk^)Q3UT;d@0S9%NA9kDSN,icsKG0@nb\(7)&25qB_EYIC)[7]Q7[r=ZJeC3`]BNk<#TZH'lN5>^BqZ#gLVgC()!/$#mCgXZW@'o@kQ-.tYbf6FI(#&1#%krXZuG[7o'?H)6MH!\_4'pe\kf/d^cEX;n`MX!?Vl6Rs=Dj5=@<<Yu!/?R[P#[noQ';Q/o\<;9`5p\[@(\*o7?s=0Md'/W#A_kJ?RSf@q;Y#2@61AgO9\HSoch[pFJ=eHglnuR#j`rTUf8/ChS!Ln^A8)I(G#1h1G-X6Ma+gc02TYmRE/2&\'#,QH!Zgt3n1;Yc7FT.9;Sb_SP_.\SAQLhuP_8&oC8X_>;e,hK+HNAXr@LM!#(Mgllogq,9X5W<]:$Iq%iLY48,~>endstream
 endobj
 xref
 0 12
 0000000000 65535 f 
-0000000061 00000 n 
-0000000112 00000 n 
-0000000219 00000 n 
-0000000331 00000 n 
-0000000446 00000 n 
-0000000650 00000 n 
-0000000854 00000 n 
-0000000922 00000 n 
-0000001211 00000 n 
-0000001276 00000 n 
-0000003798 00000 n 
+0000000015 00000 n 
+0000000083 00000 n 
+0000000148 00000 n 
+0000000347 00000 n 
+0000006231 00000 n 
+0000006282 00000 n 
+0000006389 00000 n 
+0000006501 00000 n 
+0000006616 00000 n 
+0000006816 00000 n 
+0000009522 00000 n 
 trailer
 <<
-/ID 
-[<166aa3d9113d0da5e5ed06f722c7660f><166aa3d9113d0da5e5ed06f722c7660f>]
-% ReportLab generated PDF document -- digest (opensource)
-
-/Info 8 0 R
-/Root 7 0 R
 /Size 12
+/Root 1 0 R
+/Info 11 0 R
+/ID [ <166aa3d9113d0da5e5ed06f722c7660f> <166aa3d9113d0da5e5ed06f722c7660f> ]
 >>
 startxref
-4954
+9862
 %%EOF

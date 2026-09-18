@@ -1,1722 +1,1014 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Jianhua Chen (Catherine) | Applied AI Product Portfolio</title>
-  <meta name="description" content="AI-first portfolio of Jianhua Chen (Catherine), Senior Product Manager for applied AI workflows, 0-to-1 products and data products.">
+  <title>Jianhua Chen (Catherine) | Senior Product Manager</title>
+  <meta name="description" content="Senior Product Manager with 8+ years across commerce, data products and applied AI, including £2M+ daily GMV platform work and hands-on AI product development.">
+  <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
 
   <!-- Microsoft Clarity -->
   <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "xfwovphh2v");
   </script>
-
   <style>
     :root {
-      --bg: #f7f7f5;
-      --surface: #eef2ff;
+      --ink: #14213d;
+      --body: #3d4757;
+      --muted: #667085;
+      --faint: #9aa1aa;
+      --line: #e6e6e4;
       --paper: #ffffff;
-      --ink: #171717;
-      --muted: #6b6b6b;
-      --faint: #92928d;
-      --line: #e7e7e3;
-      --accent: #315cf5;
-      --accent-2: #1746dd;
-      --accent-soft: #eef2ff;
-      --accent-alt: #f05a36;
-      --highlight: #315cf5;
-      --risk: #f05a36;
-      --amber: #f05a36;
-      --name-accent: #315cf5;
-      --shadow: 0 24px 64px rgba(23, 23, 23, 0.08);
-      --t-fast: 0.15s;
-      --t-mid: 0.3s;
-      --t-slow: 0.45s;
-      --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
-      --display: Georgia, "Times New Roman", serif;
-      --body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --soft: #f5f5f3;
+      --white: #ffffff;
+      --green: #2f5bea;
+      --green-deep: #1e42b8;
+      --green-tint: #eaf0fe;
+      --gold: #14213d;
+      --gold-tint: #f1f1ef;
+      --teal: #007f92;
+      --plum: #b84a32;
+      --ochre: #8a6a00;
+      --peach: #ffffff;
+      --serif: "Newsreader", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+      --sans: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --wrap: 1040px;
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
       margin: 0;
-      font-family: var(--body);
+      background: var(--paper);
       color: var(--ink);
-      background:
-        linear-gradient(180deg, #ffffff 0%, var(--bg) 52%, #f1f5ff 100%);
+      font-family: var(--sans);
+      font-size: 16px;
       line-height: 1.55;
       -webkit-font-smoothing: antialiased;
     }
-    img { max-width: 100%; display: block; }
-    a { color: inherit; text-underline-offset: 0.2em; }
-    [id] { scroll-margin-top: 82px; }
+    h1, h2, h3, h4, h5, p, ul { margin: 0; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+    a { color: inherit; }
+    [id] { scroll-margin-top: 80px; }
+    a:focus-visible, .btn:focus-visible { outline: 3px solid rgba(47, 91, 234, .4); outline-offset: 4px; }
 
-    .container {
-      width: min(1800px, calc(100% - 200px));
-      margin: 0 auto;
-    }
+    .wrap { width: min(var(--wrap), calc(100% - 48px)); margin: 0 auto; }
 
+    /* ---------- top bar ---------- */
     .topbar {
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(255, 255, 255, 0.92);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid transparent;
+      background: rgba(238, 243, 255, .85);
+      transition: border-color .25s ease, background-color .25s ease;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
-    .topbar .container {
-      min-height: 60px;
+    .topbar.scrolled { border-bottom-color: var(--line); background: rgba(255,255,255,.9); }
+    .topbar-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 22px;
+      gap: 24px;
+      min-height: 64px;
     }
     .brand {
-      display: grid;
-      gap: 1px;
-      text-decoration: none;
-      min-width: 220px;
-    }
-    .brand strong {
-      font-size: 0.94rem;
-      font-weight: 700;
-      letter-spacing: 0;
-      color: var(--ink);
-    }
-    .brand strong::after {
-      content: "";
-      display: inline-block;
-      width: 6px;
-      height: 6px;
-      margin-left: 8px;
-      border-radius: 999px;
-      background: var(--accent-alt);
-      vertical-align: 2px;
-    }
-    .brand span {
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-    .nav-links {
       display: flex;
-      align-items: center;
-      gap: 24px;
+      align-items: baseline;
+      gap: 8px;
+      text-decoration: none;
       white-space: nowrap;
-      font-size: 0.84rem;
-      color: var(--ink);
     }
-    .nav-links a {
-      min-height: 34px;
-      position: relative;
+    .brand-name { font-family: var(--serif); font-size: 21px; font-weight: 500; letter-spacing: 0; }
+    .brand-alias { color: var(--muted); font-size: 13px; }
+    .nav { display: flex; align-items: center; gap: 26px; font-size: 14px; font-weight: 500; color: var(--body); }
+    .nav a { text-decoration: none; white-space: nowrap; transition: color .15s ease; }
+    .nav a:hover { color: var(--green); }
+    .nav a.nav-cta {
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: #fff;
+    }
+    .nav a.nav-cta:hover { background: var(--green); color: #fff; }
+    .nav-mobile { display: none; gap: 8px; }
+    .nav-mobile a {
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--ink);
+      background: var(--white);
+    }
+    .nav-mobile a.nav-cta { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+    /* ---------- hero ---------- */
+    .hero { position: relative; overflow: hidden; padding: 96px 0 104px; background: linear-gradient(180deg, #eef3ff 0%, #f7f9ff 45%, #ffffff 100%); }
+    .hero-inner { position: relative; z-index: 1; }
+    .hero-role em { position: relative; display: inline-block; }
+    .hero-focus { display: flex; flex-wrap: wrap; align-items: center; row-gap: 6px; }
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1); }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: .1s; } .reveal-d2 { transition-delay: .2s; } .reveal-d3 { transition-delay: .3s; } .reveal-d4 { transition-delay: .4s; }
+    .scroll-cue { display: inline-block; }
+    .proof-value b { transition: color .2s ease; }
+    .section-no::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px; border-radius: 50%; background: currentColor; vertical-align: middle; }
+    #work .section-no { color: var(--teal); } #prototypes .section-no { color: var(--plum); } .section:not([id]) .section-no { color: var(--ochre); }
+    @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(224,102,58,.35); } 50% { box-shadow: 0 0 0 7px rgba(47,91,234,0); } }
+    .ai-case-card:hover { transform: translateY(-4px); box-shadow: 0 20px 44px rgba(22, 25, 29, .08); border-color: #d9d9d7; }
+    .ai-case-card .ai-visual img, .evidence-thumb img { transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+    .ai-case-card:hover .ai-visual img, .evidence-row:hover .evidence-thumb img { transform: scale(1.04); }
+    .capability-group { transition: transform .2s ease, box-shadow .2s ease; }
+    .capability-group:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(22,25,29,.06); }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr);
+      gap: 72px;
+      align-items: start;
+    }
+    .eyebrow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+    .hero-role {
+      margin-top: 22px;
+      font-family: var(--serif);
+      font-size: clamp(48px, 6vw, 76px);
+      font-weight: 500;
+      line-height: .98;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+    .hero-role em { font-style: normal; font-weight: inherit; color: inherit; }
+    .hero-focus {
+      margin-top: 22px;
+      color: var(--ink);
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: .01em;
+    }
+    .hero-focus .focus-item {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      padding: 0;
-      border: 0;
-      background: transparent;
-      color: var(--muted);
-      font-weight: 800;
-      box-shadow: none;
-      transition: color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
-    }
-    .nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 2px;
-      height: 2px;
-      background: currentColor;
-      transform: scaleX(0);
-      transform-origin: center;
-      transition: transform var(--t-fast) var(--ease);
-    }
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--accent);
-      transform: translateY(-1px);
-    }
-    .nav-links a:hover::after,
-    .nav-links a.active::after {
-      transform: scaleX(1);
-    }
-    .nav-links a.active {
-      color: var(--highlight);
-    }
-    .nav-links a[href$=".pdf"]:hover {
-      color: var(--accent);
-    }
-    .nav-links a[href="#contact"] {
-      color: var(--accent);
-      font-weight: 900;
-    }
-    .nav-links a[href="#contact"]:hover {
-      color: var(--highlight);
-    }
-
-    .hero {
-      position: relative;
-      overflow: hidden;
-      padding: 52px 0 42px;
-      border-bottom: 1px solid var(--line);
-      background:
-        radial-gradient(circle at 82% 22%, rgba(232, 228, 255, 0.58) 0, rgba(232, 228, 255, 0.25) 26%, rgba(232, 228, 255, 0) 48%),
-        linear-gradient(90deg, rgba(238, 242, 255, 0.82) 0, rgba(247, 247, 245, 0.7) 50%, rgba(255, 255, 255, 0) 84%),
-        linear-gradient(180deg, #ffffff 0%, rgba(247, 247, 245, 0.95) 100%);
-    }
-    .hero::after {
-      content: "";
-      position: absolute;
-      top: 42px;
-      right: max(24px, calc((100vw - 1120px) / 2));
-      width: min(420px, 34vw);
-      height: 180px;
-      pointer-events: none;
-      opacity: 0.38;
-      background-image: radial-gradient(rgba(49, 92, 245, 0.25) 1px, transparent 1.5px);
-      background-size: 14px 14px;
-      mask-image: linear-gradient(120deg, transparent 0%, #000 22%, #000 74%, transparent 100%);
-    }
-    .hero-grid {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: minmax(580px, 1.02fr) minmax(420px, 0.72fr);
-      gap: 48px;
-      align-items: center;
-    }
-    .hero-side {
-      max-width: 520px;
-      justify-self: end;
-      transform: translateY(58px);
-    }
-    h1, h2, h3, p { margin: 0; }
-    h1 {
-      font-family: var(--display);
-      font-size: clamp(2.65rem, 4.4vw, 3.9rem);
-      font-weight: 500;
-      line-height: 0.98;
-      letter-spacing: 0;
-      margin-bottom: 14px;
-      white-space: nowrap;
-    }
-    .role-line {
-      max-width: 760px;
-      margin-bottom: 18px;
-      font-size: clamp(1.2rem, 1.9vw, 1.58rem);
-      line-height: 1.16;
-      font-family: var(--display);
-      font-weight: 500;
       color: var(--ink);
+      white-space: nowrap;
+      animation: focusHop 6.4s ease-in-out infinite;
+    }
+    .hero-focus .focus-item:nth-child(2) { animation-delay: 1.6s; }
+    .hero-focus .focus-item:nth-child(3) { animation-delay: 3.2s; }
+    .hero-focus .focus-item:nth-child(4) { animation-delay: 4.8s; }
+    .hero-focus .focus-item + .focus-item::before { content: "\00b7"; margin: 0 10px; color: var(--faint); font-weight: 400; }
+    @keyframes focusHop {
+      0%, 18% { color: var(--green); transform: translateY(-3px); }
+      24%, 100% { color: var(--ink); transform: translateY(0); }
     }
     .hero-copy {
-      max-width: 700px;
-      color: #343844;
-      font-size: 0.98rem;
-      line-height: 1.66;
-      margin-bottom: 14px;
+      max-width: 520px;
+      margin-top: 16px;
+      color: var(--body);
+      font-size: 18px;
+      line-height: 1.55;
+      text-wrap: pretty;
     }
-    .visa {
-      color: var(--accent);
-      font-size: 0.95rem;
-      font-weight: 700;
-      margin-bottom: 22px;
-    }
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 0;
-    }
-    .button {
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    .visa-line { margin-top: 18px; color: var(--muted); font-size: 14px; }
+    .btn {
       display: inline-flex;
+      min-height: 46px;
       align-items: center;
-      justify-content: center;
-      min-height: 42px;
-      padding: 0 16px;
-      border: 1px solid var(--accent);
-      background: var(--accent);
-      color: #fff;
-      text-decoration: none;
-      font-size: 0.86rem;
-      font-weight: 700;
-      border-radius: 2px;
-      box-shadow: 0 16px 32px rgba(49, 92, 245, 0.2);
-      transition: background var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
-    }
-    .button:hover {
-      background: var(--accent-2);
-      border-color: var(--accent-2);
-      transform: translateY(-1px);
-      box-shadow: 0 18px 34px rgba(49, 92, 245, 0.24);
-    }
-    .button.secondary {
-      background: transparent;
-      color: var(--ink);
-      box-shadow: none;
-      border-color: #2d3140;
-    }
-    .button.secondary:hover {
-      color: var(--accent);
-      background: rgba(238, 242, 255, 0.72);
-      border-color: var(--accent);
-      box-shadow: none;
-    }
-
-    .proof-line {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-      border: 0;
-      background: transparent;
-      box-shadow: none;
-    }
-    .proof {
-      position: relative;
-      min-height: 156px;
-      padding: 18px 16px 16px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.86);
-      box-shadow: 0 18px 44px rgba(23, 23, 23, 0.06);
-    }
-    .proof-icon {
-      position: relative;
-      display: inline-block;
-      width: 24px;
-      height: 24px;
-      margin-bottom: 16px;
-      border-radius: 999px;
-      border: 0;
-      background:
-        linear-gradient(135deg, rgba(49, 92, 245, 0.1), rgba(232, 228, 255, 0.46));
-      box-shadow:
-        inset 0 0 0 1px rgba(49, 92, 245, 0.24),
-        0 8px 16px rgba(49, 92, 245, 0.06);
-    }
-    .proof-icon svg {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      display: block;
-      width: 16px;
-      height: 16px;
-      transform: translate(-50%, -50%);
-      stroke: var(--accent);
-      stroke-width: 1.7;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      overflow: visible;
-    }
-    .proof strong {
-      display: block;
-      margin-bottom: 4px;
-      color: var(--highlight);
-      font-size: 1.04rem;
-      font-weight: 900;
-      line-height: 1.18;
-    }
-    .proof span {
-      display: block;
-      color: var(--muted);
-      font-size: 0.76rem;
-      line-height: 1.45;
-    }
-
-    .system-card {
-      border: 1px solid var(--line);
-      background: var(--paper);
-      box-shadow: var(--shadow);
-    }
-    .system-head {
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      align-items: baseline;
-    }
-    .system-head strong {
-      font-size: 0.9rem;
-    }
-    .system-head span {
-      font-size: 0.74rem;
-      color: var(--faint);
-    }
-    .workflow {
-      padding: 16px;
-      display: grid;
-      gap: 10px;
-    }
-    .flow-row {
-      display: grid;
-      grid-template-columns: 28px 1fr;
-      gap: 10px;
-      align-items: start;
-      padding: 12px;
-      border: 1px solid var(--line);
-      background: #ffffff;
-    }
-    .flow-row b {
-      width: 28px;
-      height: 28px;
-      display: inline-grid;
-      place-items: center;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 0.78rem;
-    }
-    .flow-row strong {
-      display: block;
-      font-size: 0.86rem;
-      margin-bottom: 2px;
-    }
-    .flow-row span {
-      display: block;
-      color: var(--muted);
-      font-size: 0.78rem;
-      line-height: 1.45;
-    }
-    .system-foot {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border-top: 1px solid var(--line);
-      background: var(--surface);
-    }
-    .system-foot div {
-      padding: 12px;
-      border-right: 1px solid var(--line);
-    }
-    .system-foot div:last-child { border-right: 0; }
-    .system-foot strong {
-      display: block;
-      color: var(--accent);
-      line-height: 1.1;
-    }
-    .system-foot span {
-      display: block;
-      color: var(--muted);
-      font-size: 0.74rem;
-      margin-top: 3px;
-    }
-
-    .section {
-      padding: 40px 0;
-      border-bottom: 1px solid var(--line);
-    }
-    .section-head {
-      display: grid;
-      grid-template-columns: minmax(0, 0.8fr) minmax(280px, 1fr);
-      gap: 36px;
-      align-items: end;
-      padding-top: 20px;
-      border-top: 2px solid var(--accent);
-      margin-bottom: 22px;
-    }
-    .section-head h2 {
-      position: relative;
-      font-family: var(--display);
-      font-size: clamp(1.75rem, 3.2vw, 2.7rem);
-      font-weight: 500;
-      line-height: 1.05;
-    }
-    .section-head h2::after {
-      content: "";
-      display: block;
-      width: 42px;
-      height: 3px;
-      margin-top: 10px;
-      background: var(--accent-alt);
-    }
-    .section-head p {
-      color: var(--muted);
-      font-size: 0.98rem;
-      line-height: 1.58;
-      max-width: 670px;
-    }
-
-    .spotlight {
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
-      gap: 0;
-      background: var(--paper);
-      border: 1px solid var(--line);
-      margin-bottom: 24px;
-      box-shadow: 0 20px 50px rgba(23, 23, 23, 0.06);
-    }
-    .spotlight-body {
-      padding: 26px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 28px;
-    }
-    .case-label {
-      color: var(--accent);
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 800;
-      margin-bottom: 10px;
-    }
-    .spotlight h3,
-    .card h3,
-    .career-card h3 {
-      font-family: var(--display);
-      font-size: 1.55rem;
-      line-height: 1.14;
-      font-weight: 500;
-      margin-bottom: 10px;
-      color: var(--ink);
-    }
-    .spotlight p,
-    .card p,
-    .career-card p {
-      color: #333744;
-      font-size: 0.95rem;
-      line-height: 1.62;
-    }
-    .tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      list-style: none;
-      margin: 18px 0 0;
-      padding: 0;
-    }
-    .tag-list li {
-      border: 1px solid var(--line);
-      background: #ffffff;
-      color: var(--muted);
-      padding: 4px 8px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      border-radius: 999px;
-    }
-    .text-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-top: 22px;
-    }
-    .text-links a {
-      color: var(--accent);
-      text-decoration: none;
-      font-size: 0.86rem;
-      font-weight: 800;
-      border-bottom: 1px solid transparent;
-    }
-    .text-links a:hover {
-      border-bottom-color: currentColor;
-      text-decoration: none;
-    }
-
-    /* 按钮样式只作用于 Applied AI 板块 */
-    #applied-ai .text-links { gap: 8px; }
-    #applied-ai .text-links a {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 6px 9px;
-      border: 1px solid #cfd5de;
-      border-radius: 7px;
-      background: #fff;
-      color: #20242e;
-      font-size: 0.64rem;
-      font-weight: 700;
-      line-height: 1;
-      transition: background var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
-    }
-    #applied-ai .text-links a:hover {
-      border-color: var(--accent);
-      border-bottom-color: var(--accent);
-      color: var(--accent);
-      background: #f4f7ff;
-    }
-    #applied-ai .text-links a:first-child {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-      box-shadow: 0 1px 2px rgba(23, 23, 23, 0.12);
-    }
-    #applied-ai .text-links a:first-child::after {
-      content: "\2192";
-      display: inline-block;
-      transition: transform var(--t-fast) var(--ease);
-    }
-    #applied-ai .text-links a:first-child:hover {
-      background: var(--accent-2);
-      border-color: var(--accent-2);
-      color: #fff;
-      box-shadow: 0 4px 10px rgba(49, 92, 245, 0.34);
-    }
-    #applied-ai .text-links a:first-child:hover::after { transform: translateX(2px); }
-    #applied-ai .text-links a:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-    }
-    .spotlight-media {
-      border-left: 1px solid var(--line);
-      min-height: 100%;
-      background: var(--accent-soft);
-    }
-    .case-switcher .spotlight-body {
-      gap: 22px;
-    }
-    .case-switcher .result {
-      margin-top: 18px;
-    }
-    .case-carousel {
-      position: relative;
-      margin-bottom: 16px;
-    }
-    .case-arrow {
-      position: absolute;
-      top: calc(50% - 18px);
-      z-index: 4;
-      width: 112px;
-      height: 340px;
-      display: grid;
-      place-items: center;
-      border: 0;
-      background: transparent;
-      color: rgba(49, 92, 245, 0.42);
-      cursor: pointer;
-      opacity: 1;
-      box-shadow: none;
-      transform: translateY(-50%);
-      transition: color var(--t-fast) var(--ease), opacity var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
-    }
-    .case-arrow[data-direction="-1"] {
-      left: -98px;
-    }
-    .case-arrow[data-direction="1"] {
-      right: -98px;
-    }
-    .case-arrow:hover {
-      color: rgba(49, 92, 245, 0.78);
-      transform: translateY(-50%) scale(1.1);
-    }
-    .case-arrow-icon {
-      width: 50px;
-      height: 50px;
-      stroke-width: 1.95;
-      filter:
-        drop-shadow(0 2px 0 rgba(255, 255, 255, 0.9))
-        drop-shadow(0 14px 24px rgba(49, 92, 245, 0.14));
-    }
-    .case-carousel .spotlight {
-      margin-bottom: 0;
-      touch-action: pan-y;
-      user-select: none;
-    }
-    .case-footer-nav {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      padding-top: 12px;
-    }
-    .case-step {
-      color: var(--highlight);
-      font-size: 0.68rem;
-      font-weight: 900;
-      letter-spacing: 0.12em;
-    }
-    .case-dots {
-      display: flex;
       justify-content: center;
       gap: 8px;
-    }
-    .case-dot {
-      width: 9px;
-      height: 9px;
-      padding: 0;
-      border: 1px solid rgba(49, 92, 245, 0.42);
+      padding: 0 20px;
+      border: 1px solid var(--ink);
       border-radius: 999px;
-      background: #ffffff;
-      cursor: pointer;
-      transition: width var(--t-fast) var(--ease), background var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
-    }
-    .case-dot.active {
-      width: 30px;
-      background: var(--accent);
-      border-color: var(--accent);
-    }
-    #career-cases .section-head {
-      gap: 56px;
-      margin-bottom: 26px;
-    }
-    #career-cases .section-head p {
-      max-width: 560px;
-      font-size: 0.92rem;
-      line-height: 1.58;
-    }
-    #career-cases .case-carousel {
-      width: min(1100px, 100%);
-      margin-inline: auto;
-      padding: 30px 42px 18px;
-      border: 1px solid rgba(231, 231, 227, 0.95);
-      background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(238, 242, 255, 0.72) 48%, rgba(247, 247, 245, 0.92) 100%);
-      box-shadow: 0 28px 82px rgba(23, 23, 23, 0.06);
-    }
-    #career-cases .case-carousel .spotlight {
-      grid-template-columns: minmax(300px, 0.78fr) minmax(520px, 1.22fr);
-      gap: 34px;
-      align-items: stretch;
-      background: transparent;
-      border: 0;
-      box-shadow: none;
-    }
-    #career-cases .spotlight-body {
-      padding: 26px 28px;
-      justify-content: center;
-      gap: 22px;
-      border-left: 0;
-      background: rgba(255, 255, 255, 0.76);
-      box-shadow: 0 16px 40px rgba(23, 23, 23, 0.045);
-    }
-    #career-cases .case-label {
-      margin-bottom: 12px;
-      font-size: 0.66rem;
-    }
-    #career-cases .spotlight h3 {
-      margin-bottom: 12px;
-      font-size: 1.36rem;
-    }
-    #career-cases .spotlight p {
-      max-width: 430px;
-      font-size: 0.88rem;
-      line-height: 1.54;
-    }
-    #career-cases .case-switcher .result {
-      max-width: 430px;
-      margin-top: 18px;
-      padding-top: 15px;
-      border-top: 1px solid rgba(231, 231, 227, 0.95);
-      font-size: 0.84rem;
-      line-height: 1.46;
-    }
-    #career-cases .media-head {
-      display: none;
-    }
-    #career-cases .spotlight-media {
-      display: flex;
-      align-items: center;
-      border-left: 0;
-      background: transparent;
-    }
-    #career-cases .media-img {
-      width: 100%;
-      max-height: 430px;
-      border: 0;
-      box-shadow: none;
-      background: transparent;
-    }
-    #career-cases .case-footer-nav {
-      padding-top: 14px;
-      opacity: 0.9;
-    }
-    .media-head {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: baseline;
-      padding: 11px 14px;
-      border-bottom: 1px solid var(--line);
-      background: #f7f7f5;
-      color: var(--ink);
-      font-size: 0.78rem;
-      font-weight: 800;
-    }
-    .media-head span {
-      color: var(--faint);
+      background: var(--ink);
+      color: #fff;
+      font-size: 15px;
       font-weight: 500;
-      font-size: 0.72rem;
+      text-decoration: none;
+      transition: background-color .15s ease, border-color .15s ease, color .15s ease, transform .15s ease;
     }
-    .media-img {
-      width: auto;
-      max-width: 100%;
-      max-height: 470px;
-      height: auto;
-      margin: 0 auto;
-      object-fit: contain;
-      cursor: zoom-in;
-    }
+    .btn:hover { background: var(--green); border-color: var(--green); transform: translateY(-1px); }
+    .btn.btn-accent { background: var(--green); border-color: var(--green); }
+    .btn-arrow { display: inline-block; transition: transform .2s ease; }
+    .btn:hover .btn-arrow { transform: translateX(4px); }
+    .btn.btn-accent:hover { background: var(--ink); border-color: var(--ink); }
+    .btn.secondary { background: #fff; color: var(--ink); border-color: #d6d6d4; }
+    .btn.secondary:hover { color: var(--green); border-color: var(--green); background: transparent; }
 
-    .ai-grid {
+    .proof-rail { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 26px 22px; padding: 48px 14px 24px; }
+    .proof-rail::before { content: ""; position: absolute; left: 50%; top: 56%; width: 440px; height: 440px; margin: -220px 0 0 -220px; border-radius: 50%; border: 1.5px dashed rgba(47,91,234,.18); pointer-events: none; }
+    .proof-rail::after { content: ""; position: absolute; left: 50%; top: 56%; width: 300px; height: 300px; margin: -150px 0 0 -150px; border-radius: 50%; background: radial-gradient(circle, rgba(47,91,234,.07), transparent 70%); pointer-events: none; }
+    .proof-title { position: absolute; top: 0; left: 10px; display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+    .proof-title::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+    .proof-row { --r: -2deg; --dx: 0px; --dy: 0px; position: relative; display: flex; flex-direction: column; gap: 8px; min-width: 0; padding: 22px 22px 20px; border: 1px solid var(--line); border-radius: 18px; background: #fff; border-color: color-mix(in srgb, var(--tint, #2f5bea) 30%, var(--line)); box-shadow: 0 2px 4px rgba(20,33,61,.04), 0 26px 48px -26px rgba(20,33,61,.3); opacity: 0; animation: cardIn .7s cubic-bezier(.2,.8,.2,1) forwards; transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease; z-index: 1; }
+    .proof-row:nth-child(2) { --r: -2deg; --dx: -5px; --dy: 2px; --tint: #2f5bea; animation-delay: .2s; }
+    .proof-row:nth-child(3) { --r: 2deg; --dx: 6px; --dy: -4px; --tint: var(--teal); animation-delay: .3s; }
+    .proof-row:nth-child(4) { --r: 1.5deg; --dx: -6px; --dy: 6px; --tint: var(--plum); animation-delay: .4s; }
+    .proof-row:nth-child(5) { --r: -1.5deg; --dx: 6px; --dy: 3px; --tint: var(--ochre); animation-delay: .5s; }
+    .proof-row::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(180deg, color-mix(in srgb, var(--tint) 12%, #fff) 0%, #fff 55%); pointer-events: none; }
+    .proof-row::after { content: ""; position: absolute; top: 14px; right: 14px; width: 10px; height: 10px; border-radius: 50%; background: var(--tint); box-shadow: 0 0 0 4px color-mix(in srgb, var(--tint) 18%, #fff); }
+    .proof-row > * { position: relative; }
+    @keyframes cardIn { from { opacity: 0; transform: translate(0, 24px) rotate(0deg) scale(.94); } to { opacity: 1; transform: translate(var(--dx), var(--dy)) rotate(var(--r)); } }
+    .proof-row:hover { transform: translate(var(--dx), calc(var(--dy) - 4px)) rotate(0deg) scale(1.02); box-shadow: 0 26px 52px -28px rgba(20,33,61,.32); z-index: 2; }
+    .proof-value { display: flex; flex-direction: column; gap: 6px; }
+    .proof-value b { font-family: var(--serif); font-size: 46px; font-weight: 500; line-height: 1; letter-spacing: 0; color: var(--ink); }
+    .proof-unit { color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+    .proof-detail { color: var(--muted); font-size: 13.5px; line-height: 1.45; }
+
+    /* ---------- sections ---------- */
+    .section { padding: 96px 0; }
+    .section-soft { background: var(--soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .section-head {
+      position: relative;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 16px;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-bottom: 48px;
+      max-width: 860px;
+    }
+    .section-head::before { content: attr(data-n); position: absolute; right: -8px; top: -48px; font-family: var(--serif); font-size: 200px; line-height: 1; font-weight: 500; letter-spacing: 0; color: var(--green); opacity: .07; pointer-events: none; }
+    #work .section-head::before { color: var(--teal); } .section:not([id]) .section-head::before { color: var(--ochre); } #prototypes .section-head::before { color: var(--plum); }
+    .section-head h3 { position: relative; }
+    .section-head h3::after { content: ""; display: block; width: 56px; height: 3px; margin-top: 18px; background: var(--green); border-radius: 2px; transform-origin: left; transform: scaleX(0); transition: transform .8s cubic-bezier(.2,.8,.2,1) .2s; }
+    .section-head.in h3::after { transform: scaleX(1); }
+    .section-no {
+      padding-top: 0;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .section-head h3 {
+      font-family: var(--serif);
+      font-size: clamp(32px, 3.6vw, 44px);
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: 0;
+      text-wrap: pretty;
+    }
+    .section-head p {
+      max-width: 680px;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.6;
+      text-wrap: pretty;
+    }
+    .case-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .case-tag::before { content: ""; width: 18px; height: 1px; background: currentColor; }
+    .case-link {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 6px;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 2px;
+      transition: color .15s ease, border-color .15s ease;
+    }
+    .case-link:hover { color: var(--green); border-color: var(--green); }
+    .case-link span { transition: transform .18s ease; }
+    .case-link:hover span { transform: translate(2px, -1px); }
+
+    /* ---------- 01 applied AI ---------- */
+    .ai-case-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-rows: auto auto auto auto 1fr auto auto;
+      gap: 24px;
       align-items: stretch;
     }
-    #applied-ai .ai-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 26px;
-    }
-    .card,
-    .career-card,
-    .prototype-card {
-      border: 1px solid var(--line);
-      background: var(--paper);
-      border-radius: 8px;
-      box-shadow: 0 18px 44px rgba(23, 23, 23, 0.055);
-    }
-    .card {
+    .ai-case-card { grid-row: span 7; display: grid; grid-template-rows: subgrid; }
+    .ai-case-card { --accent: var(--green); border-top: 4px solid var(--accent); }
+    .ai-case-card:nth-child(2) { --accent: var(--teal); }
+    .ai-case-card:nth-child(3) { --accent: var(--plum); }
+    .ai-card-body { display: contents; }
+    .ai-card-body > .case-tag, .ai-card-body > h4, .ai-card-body > .ai-summary { padding-left: 24px; padding-right: 24px; }
+    .ai-card-body .case-tag { margin: 22px 0 0; color: var(--accent); }
+    .ai-card-body .case-tag::before { content: counter(aicard, decimal-leading-zero); counter-increment: aicard; width: auto; height: auto; background: none; font-family: var(--serif); font-size: 15px; letter-spacing: 0; }
+    .ai-case-grid { counter-reset: aicard; }
+    .ai-card-body h4 { margin-top: 12px; }
+    .ai-summary { margin-top: 12px; margin-bottom: 0; }
+    .ai-decision { margin: 18px 24px 0 !important; padding: 14px 0 0 !important; align-self: start; }
+    .ai-decision b { color: var(--accent); }
+    .ai-results { margin: 20px 24px 0 !important; padding-left: 0; padding-right: 0; }
+    .ai-result strong { color: var(--accent); }
+    .ai-card-body > .case-link, .case-link-spacer { margin: 20px 24px 26px !important; }
+    .ai-card-body > .case-link { border-color: var(--accent); }
+    .ai-case-card.ai-card-link:hover { border-color: var(--line); border-top-color: var(--accent); }
+    .ai-case-card {
       display: flex;
       flex-direction: column;
-    }
-    #applied-ai .ai-band {
-      background: #e9ebf0;
-      border-radius: 12px;
-      padding: 22px 20px;
-    }
-    #applied-ai .card {
-      display: flex;
-      flex-direction: column;
-      padding: 9px;
-      border-color: #d3d8e0;
-      border-radius: 11px;
-      box-shadow: 0 2px 3px rgba(23, 23, 23, 0.04), 0 14px 30px rgba(23, 23, 23, 0.07);
-      cursor: pointer;
-      transition: transform var(--t-mid) var(--ease), box-shadow var(--t-mid) var(--ease), border-color var(--t-mid) var(--ease);
-    }
-    #applied-ai .card:hover,
-    #applied-ai .card:focus-within {
-      transform: translateY(-6px);
-      border-color: rgba(49, 92, 245, 0.34);
-      box-shadow: 0 2px 3px rgba(23, 23, 23, 0.04), 0 26px 54px rgba(49, 92, 245, 0.15);
-    }
-    #applied-ai .shot {
-      border: 1px solid #e3e6ec;
-      border-radius: 7px;
       overflow: hidden;
-      background: #f4f5f8;
-      height: 156px;
-      aspect-ratio: auto;
-    }
-    .card img {
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      object-fit: cover;
-      border-bottom: 1px solid var(--line);
-    }
-    #applied-ai .card img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      object-position: 0 0;
-      aspect-ratio: auto;
-      min-height: 0;
-      border: 0;
-      transition: transform var(--t-mid) var(--ease);
-    }
-    #applied-ai .card img.mid { object-position: 50% 50%; }
-    #applied-ai .card:hover img,
-    #applied-ai .card:focus-within img { transform: scale(1.055); }
-    #applied-ai .card h3 { transition: color var(--t-mid) var(--ease); }
-    #applied-ai .card:hover h3,
-    #applied-ai .card:focus-within h3 { color: var(--accent); }
-    #applied-ai .case-label {
-      font-size: 0.58rem;
-    }
-    #applied-ai .one {
-      margin: 0 0 5px;
-      font-size: 0.67rem;
-      font-weight: 600;
-      line-height: 1.4;
-      color: #20242e;
-    }
-    .card:hover,
-    .career-card:hover,
-    .prototype-card:hover {
-      border-color: rgba(49, 92, 245, 0.28);
-      box-shadow: 0 24px 56px rgba(49, 92, 245, 0.1);
-    }
-    .card-body {
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-    #applied-ai .card-body {
-      padding: 13px 7px 5px;
-      min-width: 0;
-    }
-    #applied-ai .card h3 {
-      font-size: 0.94rem;
-    }
-    #applied-ai .card p {
-      font-size: 0.63rem;
-      line-height: 1.45;
-      color: #8a8f99;
-    }
-    #applied-ai .tag-list {
-      gap: 4px;
-      margin-top: 12px;
-    }
-    #applied-ai .tag-list li {
-      padding: 2px 5px;
-      font-size: 0.51rem;
-    }
-    #applied-ai .text-links {
-      gap: 7px;
-      margin-top: auto;
-      padding-top: 13px;
-    }
-
-    .career-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-    .career-card {
-      padding: 20px;
-    }
-    .result {
-      margin-top: 9px;
-      padding-top: 8px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 0.88rem;
-      line-height: 1.5;
-    }
-    .result strong {
-      color: var(--highlight);
-      font-size: 1.1em;
-      font-weight: 900;
-      line-height: 1.25;
-    }
-    .career-card .result strong {
-      font-size: 1.16em;
-    }
-
-    .prototype-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 16px;
-    }
-    .prototype-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--white);
       color: inherit;
       text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      min-height: 100%;
-      transition: border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
     }
-    .prototype-card:hover { transform: translateY(-2px); }
-    .prototype-card img {
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      object-fit: cover;
+    .ai-case-card.ai-card-link:hover {
+      transform: translateY(-3px);
+      border-color: #cfd9d3;
+      box-shadow: 0 18px 40px rgba(22, 25, 29, .08);
+    }
+    .ai-visual {
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+      background: var(--soft);
+      padding: 18px 18px 0;
+      grid-row: 1;
+    }
+    .ai-visual img { border-radius: 6px 6px 0 0; border: 1px solid var(--line); border-bottom: 0; }
+    .ai-visual img { object-position: top center; }
+    .ai-visual--centered img { object-position: center; }
+    .ai-card-body { display: flex; flex-direction: column; flex: 1; min-width: 0; padding: 24px 24px 26px; }
+
+
+    .ai-card-body h4 {
+      font-family: var(--serif);
+      font-size: 26px;
+      font-weight: 500;
+      line-height: 1.12;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+    .ai-summary { margin-top: 12px; color: var(--body); font-size: 15px; line-height: 1.55; text-wrap: pretty; }
+    .ai-decision { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); }
+    .ai-decision b { display: block; margin-bottom: 4px; color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+    .ai-decision p { color: var(--body); font-size: 14px; line-height: 1.5; }
+    .ai-results {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    .ai-result strong { display: block; font-family: var(--serif); color: var(--green); font-size: 24px; white-space: nowrap; font-weight: 500; line-height: 1.05; letter-spacing: 0; }
+    .ai-result span { display: block; margin-top: 6px; color: var(--muted); font-size: 13px; line-height: 1.4; }
+    .ai-card-body > .case-link { margin-top: 22px; }
+    .case-link-spacer { display: block; min-height: 19px; margin-top: 22px; }
+
+    .catalogue-flow { display: grid; place-items: center; height: 100%; padding: 14px 18px 0; background: var(--white); border-radius: 6px 6px 0 0; border: 1px solid var(--line); border-bottom: 0; }
+    .catalogue-flow svg { display: block; width: 100%; height: auto; }
+    .catalogue-flow .bx { fill: var(--soft); stroke: var(--line); }
+    .catalogue-flow .bx-hi { fill: var(--green-tint); stroke: #b8c9f5; }
+    .catalogue-flow .bx-ok { fill: #f1f1ef; stroke: #cfcfcb; }
+    .catalogue-flow .ln { stroke: #c9c5bb; fill: none; }
+    .catalogue-flow .tx { font: 600 10px var(--sans); fill: var(--ink); }
+    .catalogue-flow .tx-s { font: 600 8px var(--sans); fill: var(--faint); letter-spacing: .04em; }
+    .catalogue-flow .tx-n { font: 700 11px var(--mono); fill: var(--green); }
+
+    /* ---------- 02 platform ---------- */
+    .flagship {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      gap: 64px;
+      align-items: start;
+    }
+    .flagship h4 {
+      margin-top: 14px;
+      font-family: var(--serif);
+      font-size: clamp(30px, 3vw, 38px);
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+    .flagship .lead { margin-top: 16px; color: var(--body); font-size: 16px; line-height: 1.6; text-wrap: pretty; }
+    .decision { display: grid; gap: 6px; padding-left: 16px; border-left: 2px solid var(--green); font-size: 14.5px; }
+    .lead + .decision { margin-top: 26px; }
+    .decision + .decision { margin-top: 18px; }
+    .decision b { color: var(--green); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+    .decision span { color: var(--body); line-height: 1.55; text-wrap: pretty; }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+    .metric b { display: block; font-family: var(--serif); font-size: 28px; font-weight: 500; line-height: 1.05; letter-spacing: 0; margin-bottom: 6px; }
+    .metric span { color: var(--muted); font-size: 13px; line-height: 1.4; }
+    .metric-shift b { display: flex; align-items: baseline; gap: 6px; white-space: nowrap; font-size: 24px; }
+    .metric-shift b span { color: var(--ink); font: inherit; }
+    .metric-shift i { color: var(--green); font-style: normal; }
+    .flagship > div > .case-link { margin-top: 28px; }
+
+    .platform-map { min-width: 0; padding: 26px 28px 28px; border: 1px solid var(--line); border-radius: 14px; background: var(--white); }
+    .platform-map-head { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
+    .platform-map-head strong { font-family: var(--serif); font-size: 22px; font-weight: 500; line-height: 1.2; letter-spacing: 0; }
+    .platform-map-head span { color: var(--faint); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+    .platform-capabilities {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .capability-group { min-width: 0; padding: 16px; border-radius: 10px; background: var(--soft); border-top: 3px solid var(--green); }
+    .capability-group.creators { border-top-color: var(--teal); }
+    .capability-group.intelligence { border-top-color: var(--plum); }
+    .capability-group h5 { margin: 0 0 10px; color: var(--ink); font-size: 14px; font-weight: 600; line-height: 1.3; }
+    .capability-group ul { display: grid; gap: 0; padding: 0; list-style: none; }
+    .capability-group li { padding: 7px 0; border-bottom: 1px solid var(--line); color: var(--body); font-size: 13px; line-height: 1.4; }
+    .capability-group li:last-child { border-bottom: 0; padding-bottom: 0; }
+    .platform-layer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: 12px;
+      padding: 20px 22px;
+      border-radius: 10px;
+      background: var(--ink);
+      color: #fff;
+      border: 1px solid var(--ink);
+    }
+    .platform-layer span, .platform-impact-label {
+      display: block;
+      margin-bottom: 6px;
+      color: #9a9ea6;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .platform-layer strong { display: block; font-family: var(--serif); font-size: 22px; font-weight: 500; line-height: 1.15; }
+    .platform-layer p { max-width: 240px; color: #c9ccd2; font-size: 13.5px; line-height: 1.45; text-align: right; }
+    .platform-impact { display: grid; grid-template-columns: 1.2fr .8fr; gap: 24px; margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--line); }
+    .platform-impact-item { min-width: 0; }
+    .platform-impact-label { color: var(--faint); }
+    .platform-impact strong { display: block; color: var(--green); font-family: var(--serif); font-size: 22px; font-weight: 500; line-height: 1.15; }
+    .platform-impact-item:last-child strong { font-size: 32px; letter-spacing: 0; }
+    .platform-impact p { margin-top: 6px; color: var(--muted); font-size: 13.5px; line-height: 1.45; }
+
+    /* ---------- 03 breadth ---------- */
+    .evidence-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px 32px; }
+    .evidence-row { min-width: 0; }
+    .evidence-row:not(.evidence-row--featured) {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto auto auto 1fr auto;
+      grid-template-areas: "thumb" "type" "copy" "." "result";
+      align-items: start;
+    }
+    .evidence-thumb { grid-area: thumb; aspect-ratio: 16 / 10; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; background: var(--soft); }
+    .evidence-thumb--diagram { border-color: #d9e4f3; background: #fff; }
+    .evidence-thumb--diagram img { object-fit: cover; object-position: center; }
+    .evidence-type { grid-area: type; margin: 22px 0 12px; }
+    .evidence-row:not(.evidence-row--featured) > div:nth-child(2) { grid-area: copy; }
+    .evidence-row h4 { font-family: var(--serif); font-size: 26px; font-weight: 500; line-height: 1.12; letter-spacing: 0; margin-bottom: 10px; text-wrap: balance; }
+    .evidence-row p { color: var(--body); font-size: 15px; line-height: 1.55; text-wrap: pretty; }
+    .evidence-result {
+      grid-area: result;
+      margin-top: 22px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      background: var(--soft);
+      color: var(--ink);
+      border-left: 3px solid var(--green);
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.6;
+    }
+    .evidence-row--featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: minmax(0, .88fr) minmax(480px, 1.12fr);
+      grid-template-areas: "feature-copy feature-visual";
+      gap: 56px;
+      align-items: center;
+      padding: 38px 0 44px;
+      border-top: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
     }
-    .prototype-card div {
-      padding: 15px;
-      display: grid;
-      gap: 7px;
+    .evidence-feature-copy { grid-area: feature-copy; min-width: 0; }
+    .evidence-feature-copy .evidence-type { margin: 0 0 12px; }
+    .evidence-feature-copy h4 { margin-bottom: 16px; font-size: clamp(38px, 4vw, 52px); }
+    .evidence-feature-copy .data-product-lead { color: var(--ink); font-size: 18px; line-height: 1.55; }
+    .data-product-move { margin-top: 22px; padding-left: 16px; border-left: 3px solid var(--teal); }
+    .data-product-move b { display: block; margin-bottom: 6px; color: var(--teal); font-size: 12px; letter-spacing: .09em; text-transform: uppercase; }
+    .data-product-move p { font-size: 14px; }
+    .data-outcomes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 24px; margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); }
+    .data-outcome { min-width: 0; }
+    .data-outcome strong { display: block; color: var(--teal); font-family: var(--serif); font-size: 30px; font-weight: 500; line-height: 1; }
+    .data-outcome span { display: block; margin-top: 6px; color: var(--muted); font-size: 12.5px; line-height: 1.4; }
+    .compass-visual {
+      grid-area: feature-visual;
+      min-width: 0;
+      padding: 24px;
+      border: 1px solid #c9dcd8;
+      border-radius: 12px;
+      background: #f2f8f6;
     }
-    .prototype-card strong {
-      font-size: 1rem;
-    }
-    .prototype-card span {
-      color: var(--muted);
-      font-size: 0.82rem;
-      line-height: 1.5;
-    }
-    .prototype-card em {
-      color: var(--accent);
-      font-style: normal;
-      font-size: 0.8rem;
-      font-weight: 800;
-    }
+    .compass-head { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding-bottom: 18px; border-bottom: 1px solid #c9dcd8; }
+    .compass-head span { color: var(--teal); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .compass-head strong { padding: 6px 10px; border: 1px solid #92c5bb; border-radius: 999px; background: var(--white); color: var(--ink); font-size: 12px; }
+    .compass-journey { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 28px 0; }
+    .compass-journey::before { content: ""; position: absolute; top: 14px; left: 10%; right: 10%; height: 2px; background: #a9cfc7; }
+    .compass-signal { position: relative; z-index: 1; min-width: 0; color: var(--body); font-size: 11px; font-weight: 600; line-height: 1.25; text-align: center; }
+    .compass-signal::before { content: ""; display: block; width: 12px; height: 12px; margin: 8px auto 10px; border: 4px solid #f2f8f6; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 1px #92c5bb; }
+    .compass-questions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border: 1px solid #c9dcd8; border-radius: 9px; background: var(--white); }
+    .compass-question { min-width: 0; padding: 16px; border-right: 1px solid #c9dcd8; }
+    .compass-question:last-child { border-right: 0; }
+    .compass-question strong { display: block; color: var(--ink); font-family: var(--serif); font-size: 17px; font-weight: 500; line-height: 1.15; }
+    .compass-question span { display: block; margin-top: 6px; color: var(--muted); font-size: 11.5px; line-height: 1.35; }
+    .compass-trust { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 18px; color: var(--muted); font-size: 11px; font-weight: 600; }
+    .compass-trust span::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 7px; border-radius: 50%; background: var(--green); vertical-align: 1px; }
 
-    .contact {
-      padding: 54px 0;
-      background:
-        linear-gradient(135deg, #171717 0%, #25316f 58%, #315cf5 100%);
-      color: #fff;
+    /* ---------- 04 prototypes ---------- */
+    .prototype-strip { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+    .prototype {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--white);
+      text-decoration: none;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
     }
-    .contact-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 30px;
-      align-items: center;
-    }
-    .contact h2 {
-      font-family: var(--display);
-      font-weight: 500;
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      line-height: 1.15;
-      margin-bottom: 8px;
-    }
-    .contact p {
-      color: rgba(255, 255, 255, 0.78);
-      max-width: 700px;
-    }
-    .contact .button {
-      border-color: rgba(255, 255, 255, 0.82);
-      background: #fff;
-      color: var(--ink);
-    }
-    .contact .button:hover {
-      border-color: #fff;
-      background: var(--amber);
-      color: #121412;
-      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.24);
-    }
+    .prototype .image { aspect-ratio: 16 / 11; background: var(--soft); overflow: hidden; border-bottom: 1px solid var(--line); }
+    .prototype .image img { transition: transform .3s ease; }
+    .prototype-copy { display: flex; flex-direction: column; flex: 1; padding: 16px 16px 18px; }
+    .prototype h4 { font-family: var(--serif); font-size: 20px; font-weight: 500; margin-bottom: 6px; letter-spacing: 0; }
+    .prototype p { color: var(--muted); font-size: 13.5px; line-height: 1.5; text-wrap: pretty; }
+    .prototype-link { display: inline-block; margin-top: auto; padding-top: 14px; color: var(--green); font-size: 13px; font-weight: 600; }
+    .prototype:hover { transform: translateY(-4px); border-color: #d9d9d7; box-shadow: 0 18px 36px rgba(22, 25, 29, .1); }
+    .prototype:hover .image img { transform: scale(1.03); }
 
-    /* 默认可见：JS 没跑起来也能完整看到页面 */
-    .js-anim .reveal {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity var(--t-slow) var(--ease), transform var(--t-slow) var(--ease);
-    }
-    .js-anim .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
+    /* ---------- closing ---------- */
+    .closing { position: relative; overflow: hidden; padding: 72px 0; background: var(--ink); color: #fff; }
+    .closing .wrap { position: relative; z-index: 1; }
+    .closing-inner { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: center; }
+    .closing h3 { font-family: var(--serif); font-size: clamp(32px, 3.6vw, 44px); font-weight: 500; letter-spacing: 0; line-height: 1.08; margin-bottom: 10px; text-wrap: balance; }
+    .closing p { color: #b7c0d6; font-size: 16px; text-wrap: pretty; max-width: 480px; }
+    .closing-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; }
+    .closing .btn { background: #fff; color: var(--ink); border-color: #fff; }
+    .closing .btn.secondary { background: transparent; color: #fff; border-color: rgba(255,255,255,.6); }
+    .closing .btn:hover { color: #fff; background: var(--green); border-color: var(--green); }
+    .closing-foot { margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.16); color: #8f9ab3; font-size: 13px; }
 
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 22px;
-      background: rgba(0, 0, 0, 0.82);
-      cursor: pointer;
+    /* ---------- responsive ---------- */
+    @media (max-width: 1000px) {
+      .hero-inner, .flagship { grid-template-columns: 1fr; gap: 48px; }
+      .section-head { margin-bottom: 40px; }
+      .ai-case-grid { grid-template-columns: 1fr 1fr; grid-template-rows: none; }
+      .ai-case-card { display: flex; flex-direction: column; grid-row: auto; }
+      .ai-card-body { display: flex; flex-direction: column; flex: 1; padding: 0 0 4px; }
+      .ai-decision { align-self: stretch; }
+      .ai-case-card:last-child { grid-column: 1 / -1; }
+      .ai-case-card:last-child .ai-visual { aspect-ratio: 16 / 7; }
+      .evidence-list { gap: 36px 28px; }
+      .evidence-row--featured { grid-template-columns: 1fr; grid-template-areas: "feature-copy" "feature-visual"; gap: 28px; }
+      .prototype-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .proof-rail { max-width: 560px; }
+      .section-head::before { font-size: 120px; right: 0; }
     }
-    .lightbox.open { display: flex; }
-    .lightbox img {
-      width: auto;
-      max-width: 94vw;
-      max-height: 90vh;
-      box-shadow: 0 22px 80px rgba(0, 0, 0, 0.45);
-      cursor: default;
+    @media (max-width: 760px) {
+      .wrap { width: calc(100% - 40px); }
+      .nav { display: none; }
+      .nav-mobile { display: flex; }
+      .topbar.scrolled { border-bottom-color: var(--line); background: rgba(255,255,255,.9); }
+    .topbar-inner { min-height: 60px; }
+      .brand-name { font-size: 19px; }
+      .hero { padding: 44px 0 20px; }
+      .hero-inner { gap: 16px; }
+      .eyebrow { display: none; }
+      .hero-role { margin-top: 0; font-size: clamp(40px, 11vw, 52px); }
+      .hero-focus { margin-top: 18px; row-gap: 4px; font-size: 16px; }
+      .hero-focus .focus-item + .focus-item::before { margin: 0 7px; }
+      .hero-copy { font-size: 17px; }
+      .actions { margin-top: 24px; }
+      .visa-line { margin-top: 14px; }
+      .actions .btn { flex: 1 1 auto; }
+      .section-head::before { display: none; }
+      .proof-rail { padding: 24px 0 0; gap: 8px; }
+      .proof-rail::before, .proof-rail::after { display: none; }
+      .proof-title { left: 0; }
+      .proof-row { min-height: 124px; padding: 12px 10px; --r: 0deg; --dx: 0px; --dy: 0px; }
+      .proof-row:nth-child(2), .proof-row:nth-child(3), .proof-row:nth-child(4), .proof-row:nth-child(5) { --r: 0deg; }
+      .proof-value { gap: 4px; }
+      .proof-value b { font-size: 30px; }
+      .proof-unit { font-size: 11px; }
+      .proof-detail { font-size: 11.5px; line-height: 1.3; }
+      .section { padding: 48px 0; }
+      .ai-case-grid { grid-template-columns: 1fr; gap: 20px; }
+      .ai-case-card:last-child .ai-visual { aspect-ratio: 16 / 9; }
+      .ai-card-body > .case-tag, .ai-card-body > h4, .ai-card-body > .ai-summary { padding-left: 20px; padding-right: 20px; }
+      .ai-decision { align-self: stretch; }
+      .ai-decision, .ai-results, .ai-card-body > .case-link, .case-link-spacer { margin-left: 20px !important; margin-right: 20px !important; }
+      .ai-card-body h4 { font-size: 24px; }
+      .evidence-list { grid-template-columns: 1fr; gap: 40px; }
+      .evidence-row:not(.evidence-row--featured) { grid-template-rows: auto; grid-template-areas: "thumb" "type" "copy" "result"; }
+      .evidence-row--featured { padding: 30px 0 34px; }
+      .evidence-feature-copy h4 { font-size: 38px; }
+      .evidence-feature-copy .data-product-lead { font-size: 17px; }
+      .compass-visual { padding: 18px; }
+      .compass-question { padding: 12px 10px; }
+      .platform-map { padding: 20px; }
+      .platform-map-head { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .platform-capabilities { grid-template-columns: 1fr; }
+      .platform-layer { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .platform-layer p { max-width: none; text-align: left; }
+      .platform-impact { grid-template-columns: 1fr; gap: 18px; }
+      .metrics { grid-template-columns: 1fr; gap: 16px; }
+      .metric { display: grid; grid-template-columns: 120px 1fr; align-items: baseline; gap: 12px; }
+      .metric b { margin-bottom: 0; }
+      .prototype-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .prototype-copy { padding: 14px; }
+      .prototype h4 { font-size: 18px; }
+      .closing { padding: 56px 0; }
+      .closing-inner { grid-template-columns: 1fr; gap: 24px; }
+      .closing-actions { justify-content: flex-start; }
+      .closing-actions .btn { flex: 1 1 auto; }
     }
-    .lightbox button {
-      position: absolute;
-      top: 16px;
-      right: 18px;
-      width: 40px;
-      height: 40px;
-      border: 0;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.14);
-      color: #fff;
-      font-size: 1.2rem;
-      cursor: pointer;
+    @media (max-width: 420px) {
+      .wrap { width: calc(100% - 32px); }
+      .prototype-strip { grid-template-columns: 1fr; }
+      .prototype .image { aspect-ratio: 16 / 9; }
+      .proof-rail { grid-template-columns: 1fr 1fr; }
     }
-
-    #contract-review {
-      border-top: 3px solid var(--risk);
-    }
-    #contract-review .case-label {
-      color: var(--risk);
-    }
-    #contract-review .tag-list li:nth-child(2) {
-      border-color: rgba(240, 90, 54, 0.28);
-      background: #fff0ea;
-      color: #b83a1d;
-    }
-
-    @media (max-width: 940px) {
-      .hero-grid,
-      .section-head,
-      .spotlight {
-        grid-template-columns: 1fr;
-      }
-      h1 {
-        white-space: normal;
-      }
-      .hero-side {
-        max-width: 700px;
-        justify-self: start;
-        transform: none;
-      }
-      .spotlight-media {
-        border-left: 0;
-        border-top: 1px solid var(--line);
-      }
-      .case-arrow {
-        width: 82px;
-        height: 280px;
-      }
-      .case-arrow[data-direction="-1"] {
-        left: -56px;
-      }
-      .case-arrow[data-direction="1"] {
-        right: -56px;
-      }
-      #career-cases .case-carousel {
-        width: min(100% - 24px, 920px);
-        padding: 24px 24px 16px;
-      }
-      #career-cases .case-carousel .spotlight {
-        grid-template-columns: 1fr;
-      }
-      #career-cases .spotlight-body {
-        padding: 24px;
-      }
-      #career-cases .spotlight p,
-      #career-cases .case-switcher .result {
-        max-width: none;
-      }
-      #career-cases .media-img {
-        max-height: 520px;
-      }
-      #applied-ai .ai-grid {
-        grid-template-columns: 1fr;
-      }
-      .proof-line,
-      .prototype-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 1240px) and (min-width: 941px) {
-      .hero-grid {
-        grid-template-columns: 1fr;
-      }
-      .hero-side {
-        max-width: 700px;
-        justify-self: start;
-        transform: none;
-      }
-      h1 {
-        white-space: normal;
-      }
-      .proof-line {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 680px) {
-      .container { width: min(100% - 28px, 1120px); }
-      .topbar .container {
-        align-items: flex-start;
-        flex-direction: column;
-        padding: 11px 0;
-        gap: 8px;
-      }
-      .nav-links {
-        width: 100%;
-        overflow-x: auto;
-        gap: 15px;
-        padding-bottom: 3px;
-      }
-      .hero { padding: 42px 0 34px; }
-      .hero-grid { gap: 28px; }
-      .actions { flex-direction: column; }
-      .button { width: 100%; }
-      .proof-line,
-      .ai-grid,
-      .career-grid,
-      .prototype-grid,
-      .contact-grid {
-        grid-template-columns: 1fr;
-      }
-      #applied-ai .ai-band {
-        padding: 14px 12px;
-        border-radius: 10px;
-      }
-      #applied-ai .text-links { gap: 10px; }
-      #applied-ai .text-links a {
-        min-height: 44px;
-        padding: 12px 17px;
-        font-size: 0.83rem;
-      }
-      #applied-ai .ai-grid { gap: 16px; }
-      #applied-ai .card img { aspect-ratio: auto; }
-      #applied-ai .shot { height: 132px; }
-      #applied-ai .card h3 {
-        font-size: 1.34rem;
-      }
-      #applied-ai .card p {
-        font-size: 0.9rem;
-        line-height: 1.58;
-      }
-      .proof {
-        min-height: 0;
-        padding: 18px;
-      }
-      .system-foot { grid-template-columns: 1fr; }
-      .system-foot div {
-        border-right: 0;
-        border-bottom: 1px solid var(--line);
-      }
-      .system-foot div:last-child { border-bottom: 0; }
-      .section { padding: 46px 0; }
-      .section-head { gap: 16px; margin-bottom: 22px; }
-      .case-carousel {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-      }
-      .case-arrow {
-        position: static;
-        width: 100%;
-        height: 54px;
-        transform: none;
-      }
-      .case-arrow:hover {
-        transform: translateY(-1px);
-      }
-      .case-arrow-icon {
-        width: 34px;
-        height: 34px;
-      }
-      .case-carousel .spotlight,
-      .case-footer-nav {
-        grid-column: 1 / -1;
-      }
-      .case-carousel .spotlight {
-        order: 1;
-      }
-      .case-footer-nav {
-        order: 2;
-      }
-      .case-arrow {
-        order: 3;
-      }
-      #career-cases .case-carousel {
-        width: 100%;
-        padding: 18px 14px 14px;
-      }
-      #career-cases .spotlight-body {
-        padding: 18px;
-      }
-      #career-cases .media-img {
-        max-height: none;
-      }
-      .spotlight-body,
-      .card-body,
-      .career-card { padding: 18px; }
-    }
-
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .js-anim .reveal { opacity: 1; transform: none; transition: none; }
-    }
-  
-    @media (prefers-reduced-motion: reduce) {
-      #applied-ai .card,
-      #applied-ai .card img,
-      #applied-ai .card h3,
-      #applied-ai .text-links a,
-      #applied-ai .text-links a:first-child::after { transition: none !important; }
-      #applied-ai .card:hover,
-      #applied-ai .card:focus-within { transform: none !important; }
-      #applied-ai .card:hover img,
-      #applied-ai .card:focus-within img { transform: none !important; }
-      #applied-ai .text-links a:first-child:hover::after { transform: none !important; }
+      * { transition: none !important; animation: none !important; }
+      .reveal, .proof-row { opacity: 1; transform: none !important; }
     }
   </style>
 </head>
-<body>
-  <header class="topbar">
-    <div class="container">
-      <a class="brand" href="#top" aria-label="Back to top">
-        <strong>Jianhua Chen (Catherine)</strong>
-        <span>Senior Product Manager &middot; Practical AI workflows</span>
-      </a>
-      <nav class="nav-links" aria-label="Portfolio navigation">
-        <a href="#applied-ai">Applied AI</a>
-        <a href="#scale">Product scale</a>
-        <a href="#career-cases">Career cases</a>
-        <a href="#prototypes">Other prototypes</a>
-        <a href="docs/Jianhua_Chen_CV_UK_ATS_V4_2.pdf" target="_blank" rel="noopener">CV</a>
-        <a href="#contact">Contact</a>
+<body id="top">
+  <main>
+    <article class="screen">
+      <nav class="topbar">
+        <div class="wrap topbar-inner">
+          <a class="brand" href="#top" aria-label="Back to top"><span class="brand-name">Jianhua Chen</span><span class="brand-alias">(Catherine)</span></a>
+          <div class="nav" aria-label="Primary navigation">
+            <a href="#applied-ai">Applied AI</a>
+            <a href="#work">Platform leadership</a>
+            <a href="#prototypes">Product prototypes</a>
+            <a href="docs/Jianhua_Chen_CV_UK_ATS_V4_2.pdf" target="_blank" rel="noopener">CV</a>
+            <a class="nav-cta" href="#contact">Contact</a>
+          </div>
+          <div class="nav-mobile" aria-label="Primary navigation">
+            <a href="docs/Jianhua_Chen_CV_UK_ATS_V4_2.pdf" target="_blank" rel="noopener">CV</a>
+            <a class="nav-cta" href="#contact">Contact</a>
+          </div>
+        </div>
       </nav>
-    </div>
-  </header>
 
-  <main id="top">
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy-block">
-          <h1>Jianhua Chen <span style="color:var(--name-accent);font-weight:400">(Catherine)</span></h1>
-          <p class="role-line">Senior Product Manager building practical AI workflows.</p>
-          <div class="proof-line" aria-label="Portfolio proof points">
-            <div class="proof">
-              <span class="proof-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="6.5" width="14" height="13" rx="2.4"></rect><path d="M8.5 4.5v4"></path><path d="M15.5 4.5v4"></path><path d="M8 11.5h8"></path><path d="M8 15.5h5"></path></svg>
-              </span>
-              <strong>8+ years in product</strong>
-              <span>Commerce, data and AI-enabled products across consumer, platform and B2B2C.</span>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="wrap hero-inner">
+          <div>
+            <p class="eyebrow reveal"><span>Jianhua Chen (Catherine)</span><span class="dot" aria-hidden="true"></span><span>Manchester, UK</span></p>
+            <h1 class="hero-role reveal reveal-d1" id="hero-title">Senior Product <em>Manager</em></h1>
+            <p class="hero-focus reveal reveal-d2"><span class="focus-item">Applied AI</span><span class="focus-item">Commerce</span><span class="focus-item">Data</span><span class="focus-item">Platforms</span></p>
+            <p class="hero-copy reveal reveal-d3">8+ years leading 0-to-1 platforms, growth programmes and AI-assisted workflows across commerce and consumer technology.</p>
+            <div class="actions reveal reveal-d4"><a class="btn btn-accent" href="#applied-ai">View AI work <span class="btn-arrow" aria-hidden="true">→</span></a><a class="btn secondary" href="docs/Jianhua_Chen_CV_UK_ATS_V4_2.pdf" target="_blank" rel="noopener">View CV <span class="scroll-cue" aria-hidden="true">↓</span></a></div>
+            <p class="visa-line reveal reveal-d4">Global Talent Visa · No sponsorship required</p>
+          </div>
+          <aside class="proof-rail reveal reveal-d2" aria-label="Evidence at a glance">
+            <div class="proof-title">Evidence at a glance</div>
+            <div class="proof-row">
+              <div class="proof-value"><b>8+</b><span class="proof-unit">Years</span></div>
+              <span class="proof-detail">product management and independent AI building</span>
             </div>
-            <div class="proof">
-              <span class="proof-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M5 17h14"></path><path d="M6.5 14.5l4-4 3.2 3.1 4.8-6.1"></path><path d="M16 7.5h2.5V10"></path></svg>
-              </span>
-              <strong>&pound;2M+ daily GMV</strong>
-              <span>Baidu live commerce. Platform, analytics and growth products, coordinating 20+ people across six teams.</span>
+            <div class="proof-row">
+              <div class="proof-value"><b>30+</b><span class="proof-unit">People</span></div>
+              <span class="proof-detail">led across cross-functional product programmes</span>
             </div>
-            <div class="proof">
-              <span class="proof-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="6" r="2.3"></circle><circle cx="7" cy="17" r="2.3"></circle><circle cx="17" cy="17" r="2.3"></circle><path d="M12 8.5v3.5"></path><path d="M12 12l-4 3"></path><path d="M12 12l4 3"></path></svg>
-              </span>
-              <strong>Human-in-the-loop AI</strong>
-              <span>Retrieval grounding, evaluation sets and sign-off points, so model output can be checked before it is used.</span>
+            <div class="proof-row">
+              <div class="proof-value"><b>£2M+</b><span class="proof-unit">Daily GMV</span></div>
+              <span class="proof-detail">live-commerce platform experience</span>
             </div>
-            <div class="proof">
-              <span class="proof-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M6 8.2L12 5l6 3.2-6 3.2-6-3.2Z"></path><path d="M6 12l6 3.2 6-3.2"></path><path d="M6 15.8l6 3.2 6-3.2"></path></svg>
-              </span>
-              <strong>Working prototypes</strong>
-              <span>Five working AI prototypes, plus a separate contract-review triage prototype. Live pages you can open.</span>
+            <div class="proof-row">
+              <div class="proof-value"><b>600M+</b><span class="proof-unit">MAU</span></div>
+              <span class="proof-detail">consumer app scale during my tenure</span>
             </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" id="applied-ai">
+        <div class="wrap">
+          <header class="section-head" data-n="01">
+            <div class="section-no">01 / Applied AI</div>
+            <div>
+              <h3>Applied AI with clear product judgement</h3>
+              <p>Two production systems and one independent workflow case, focused on workflow design, evaluation and human control.</p>
+            </div>
+          </header>
+          <div class="ai-case-grid">
+            <article class="ai-case-card">
+              <div class="ai-visual ai-visual--centered"><img src="assets/screenshots/ai_livestream_pair.jpg" alt="Digital-human live-commerce screens"></div>
+              <div class="ai-card-body">
+                <div class="case-tag">Production AI workflow</div>
+                <h4>AI Livestream Script Generation</h4>
+                <p class="ai-summary">Built an approval-ready workflow that turns product and offer inputs into a first script draft.</p>
+                <div class="ai-decision"><b>Product move</b><p>Grounded drafts in trusted business facts and approved examples, with human approval before use.</p></div>
+                <div class="ai-results" aria-label="Script generation results">
+                  <div class="ai-result"><strong>~70% less</strong><span>preparation time</span></div>
+                  <div class="ai-result"><strong>80%+</strong><span>usable directly or with light editing</span></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="ai-case-card">
+              <div class="ai-visual">
+                <div class="catalogue-flow">
+                  <svg viewBox="0 0 420 250" role="img" aria-label="Product image, title and attributes feed a category recommendation. Clear matches are applied directly; ambiguous cases go to a second review.">
+                    <text class="tx-s" x="0" y="10">INPUT</text>
+                    <rect class="bx" x="0" y="20" width="96" height="24" rx="4"/>
+                    <text class="tx" x="12" y="36">Product image</text>
+                    <rect class="bx" x="0" y="50" width="96" height="24" rx="4"/>
+                    <text class="tx" x="12" y="66">Title</text>
+                    <rect class="bx" x="0" y="80" width="96" height="24" rx="4"/>
+                    <text class="tx" x="12" y="96">Attributes</text>
+                    <path class="ln" d="M96 32 H124 Q132 32 132 40 V56"/>
+                    <path class="ln" d="M96 62 H132"/>
+                    <path class="ln" d="M96 92 H124 Q132 92 132 84 V68"/>
+                    <text class="tx-s" x="146" y="44">MODEL</text>
+                    <rect class="bx-hi" x="146" y="52" width="112" height="28" rx="4"/>
+                    <text class="tx" x="158" y="70">Category</text>
+                    <path class="ln" d="M258 66 H282"/>
+                    <path class="ln" d="M282 66 V34 H300"/>
+                    <path class="ln" d="M282 66 V120 H300"/>
+                    <text class="tx-s" x="300" y="22">CLEAR MATCH</text>
+                    <rect class="bx-ok" x="300" y="28" width="118" height="26" rx="4"/>
+                    <text class="tx" x="312" y="45">Applied directly</text>
+                    <text class="tx-s" x="300" y="108">AMBIGUOUS</text>
+                    <rect class="bx" x="300" y="114" width="118" height="26" rx="4"/>
+                    <text class="tx" x="312" y="131">Second review</text>
+                    <path class="ln" d="M359 140 V162 H240 V54"/>
+                    <text class="tx-s" x="248" y="176">ROUTED BACK AFTER CHECK</text>
+                    <line class="ln" x1="0" y1="206" x2="420" y2="206"/>
+                    <text class="tx-s" x="0" y="228">MEASURED ACCURACY</text>
+                    <text class="tx-n" x="150" y="229">~98%</text>
+                    <text class="tx-s" x="196" y="228">ONLINE SPOT-CHECKS</text>
+                  </svg>
+                </div>
+              </div>
+              <div class="ai-card-body">
+                <div class="case-tag">Production ML workflow</div>
+                <h4>AI Product Categorisation</h4>
+                <p class="ai-summary">Recommended level-three categories from product images, titles and attributes, with a second-review route for ambiguous cases.</p>
+                <div class="ai-decision"><b>Product move</b><p>Fixed sampling, category definitions and reviewer consistency before changing the model.</p></div>
+                <div class="ai-results" aria-label="Product categorisation results">
+                  <div class="ai-result"><strong>~98%</strong><span>measured accuracy</span></div>
+                  <div class="ai-result"><strong style="white-space:normal">Online checks</strong><span>confirmed before scaling</span></div>
+                </div>
+                <span class="case-link-spacer" aria-hidden="true"></span>
+              </div>
+            </article>
+
+            <a class="ai-case-card ai-card-link" id="contract-review" href="products/contract-review/index.html" target="_blank" rel="noopener" aria-label="Open the AI Contract Review Triage workflow">
+              <div class="ai-visual"><img src="assets/screenshots/contract_review_workbench.png" alt="AI-assisted contract review workbench"></div>
+              <div class="ai-card-body">
+                <div class="case-tag">Independent workflow case</div>
+                <h4>AI Contract Review Triage</h4>
+                <p class="ai-summary">Triaged contracts into clean-template, familiar-redline and escalation routes.</p>
+                <div class="ai-decision"><b>Product move</b><p>A repeated false green kept human sign-off in the release policy.</p></div>
+                <div class="ai-results" aria-label="Contract review evaluation results">
+                  <div class="ai-result"><strong>17/18</strong><span>fresh-context checks</span></div>
+                  <div class="ai-result"><strong style="white-space:normal">1 repeat miss</strong><span>changed the policy</span></div>
+                </div>
+                <span class="case-link">Open workflow case <span aria-hidden="true">↗</span></span>
+              </div>
+            </a>
           </div>
         </div>
-        <div class="hero-side">
-          <p class="hero-copy">
-            I design AI products where the hard part is not the model, but the operating system around it: what enters the queue, what gets checked, what evidence is shown, and where a human makes the final call.
-          </p>
-          <div class="visa">Manchester, UK. Global Talent Visa. No sponsorship required.</div>
-          <div class="actions">
-            <a class="button" href="#applied-ai">View applied AI work</a>
-            <a class="button secondary" href="docs/Jianhua_Chen_CV_UK_ATS_V4_2.pdf" target="_blank" rel="noopener">View CV</a>
-            <a class="button secondary" href="https://www.linkedin.com/in/jianhua-catherine-chen-8a3847302/" target="_blank" rel="noopener">LinkedIn</a>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section" id="applied-ai">
-      <div class="container">
-        <div class="section-head">
-          <h2>Selected applied AI work.</h2>
-          <p>
-            Three examples where the product work sits close to the model: a controlled legal review workflow, AI selling inside Baidu live commerce, and a constraint-first recommendation prototype. The focus is whether the system can be checked, corrected and used in a real decision.
-          </p>
-        </div>
-
-        <div class="ai-band">
-        <div class="ai-grid">
-          <article class="card reveal" id="contract-review">
-            <div class="shot"><img src="assets/screenshots/contract_review_workbench.png" alt="AI Contract Review Triage workbench showing queue, dashboard, routing tiers and review controls" onclick="openLightbox(this.src)"></div>
-            <div class="card-body">
-              <div class="case-label">Controlled review workflow</div>
-              <h3>AI Contract Review Triage</h3>
-              <p class="one">A prototype NDA workbench where the lawyer still signs off.</p>
-              <ul class="tag-list">
-                <li>Playbook design</li>
-                <li>Evaluation set</li>
-                <li>Human sign-off</li>
-                <li>Audit trail</li>
-              </ul>
-              <div class="text-links">
-                <a href="products/contract-review/workbench.html" target="_blank" rel="noopener">Try the workbench</a>
-                <a href="products/contract-review/index.html" target="_blank" rel="noopener">Open case</a>
-                <a href="docs/contract_review_solution_design.pdf" target="_blank" rel="noopener">Solution design</a>
+      <section class="section section-soft" id="work">
+        <div class="wrap">
+          <header class="section-head" data-n="02">
+            <div class="section-no">02 / Platform leadership</div>
+            <div>
+              <h3>Rebuilding the operating model as the business scaled</h3>
+              <p>A 0-to-1 platform case about reassessing user needs, redesigning workflows and deciding which capabilities to reuse, rebuild or own.</p>
+            </div>
+          </header>
+          <div class="flagship">
+            <div>
+              <div class="case-tag">0-to-1 platform build</div>
+              <h4>Live-Commerce Operating Platform</h4>
+              <p class="lead">As merchant and creator needs outgrew separate tools and manual workflows, I led a virtual team of over 20 people across six teams to build the next operating model.</p>
+              <div class="decision"><b>Problem</b><span>The business had evolved, but its product and workflows had not kept pace. Even small live-commerce changes depended on other teams&rsquo; roadmaps.</span></div>
+              <div class="decision"><b>Product move</b><span>Mapped the end-to-end workflows, then built a dedicated live-commerce product layer on top of mature livestream and storefront infrastructure.</span></div>
+              <div class="metrics">
+                <div class="metric metric-shift"><b><span>72h</span><i>→</i><span>&lt;1m</span></b><span>broadcaster onboarding</span></div>
+                <div class="metric"><b>+116%</b><span>monthly active merchants</span></div>
+                <div class="metric"><b>£2M+</b><span>daily GMV platform</span></div>
               </div>
+              <a class="case-link" href="docs/b2b_saas_control_center_case_study.pdf" target="_blank" rel="noopener">Read full case study <span aria-hidden="true">↗</span></a>
             </div>
-          </article>
-
-          <article class="card reveal" id="livestream-script">
-            <div class="shot"><img src="assets/screenshots/baidu_dh_pair.jpg" alt="Baidu live-commerce product screens" class="mid" onclick="openLightbox(this.src)"></div>
-            <div class="card-body">
-              <div class="case-label">Applied AI &middot; Baidu live commerce</div>
-              <h3>LLM Livestream Script Workflow</h3>
-              <p class="one">Retrieval-grounded drafting that cut script preparation from several hours to about 20 minutes.</p>
-              <p>Business interfaces supplied current product, offer and logistics facts; approved category scripts supplied the examples. Rule-based checks caught price and claim errors, and operations, merchants or broadcasters kept the final sign-off.</p>
-              <ul class="tag-list">
-                <li>Retrieval grounding</li>
-                <li>Rule-based checks</li>
-                <li>Human approval</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="card reveal" id="fitcue">
-            <div class="shot"><img src="assets/screenshots/fitcue_en.png" alt="FitCue constraint-first workout matching product page" onclick="openLightbox(this.src)"></div>
-            <div class="card-body">
-              <div class="case-label">Independent AI product prototype</div>
-              <h3>FitCue</h3>
-              <p class="one">Cuts workout options down to the few that are feasible.</p>
-              <ul class="tag-list">
-                <li>Recommendation UX</li>
-                <li>Constraint matching</li>
-                <li>MVP scoping</li>
-              </ul>
-              <div class="text-links">
-                <a href="products/fitcue/index.html" target="_blank" rel="noopener">Open product</a>
-                <a href="docs/fitcue_case_study.pdf" target="_blank" rel="noopener">Read case study</a>
+            <div class="platform-map" aria-label="Live-commerce operating platform architecture">
+              <div class="platform-map-head">
+                <strong>One system for daily operations</strong>
+                <span>Business capabilities</span>
               </div>
-            </div>
-          </article>
-        </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="scale">
-      <div class="container">
-        <div class="section-head">
-          <h2>The product scale behind the AI work.</h2>
-          <p>
-            The AI projects sit on top of a broader product background: live-commerce platforms, growth systems and data products used by merchants, creators and operators.
-          </p>
-        </div>
-        <div class="career-grid">
-          <article class="career-card reveal">
-            <div class="case-label">0-to-1 platform build, Baidu</div>
-            <h3>Live-Commerce Operating Platform</h3>
-            <p>
-              A single operating surface for products, live content, talent-merchant collaboration, marketing and data.
-            </p>
-            <div class="result">On a <strong>&pound;2M+ daily GMV</strong> platform, broadcaster onboarding moved from <strong>72 hours to under a minute</strong>, with monthly active merchants up <strong>116%</strong>.</div>
-            <div class="text-links"><a href="docs/b2b_saas_control_center_case_study.pdf" target="_blank" rel="noopener">Read full case study</a></div>
-          </article>
-
-          <article class="career-card reveal">
-            <div class="case-label">Self-serve data product, Baidu</div>
-            <h3>Data Compass</h3>
-            <p>
-              A real-time analytics product for non-technical merchant operators.
-            </p>
-            <div class="result"><strong>110+ dimensions</strong>, <strong>90%+ adoption</strong> and <strong>95%+ return use</strong> among active broadcasters and operators.</div>
-            <div class="text-links"><a href="docs/data_compass_case_study.pdf" target="_blank" rel="noopener">Read full case study</a></div>
-          </article>
-
-          <article class="career-card reveal">
-            <div class="case-label">Growth and experimentation, Baidu</div>
-            <h3>Conversion and Growth</h3>
-            <p>
-              Segmented the B2C funnel, found the highest-leverage drop-offs and ran a disciplined A/B programme.
-            </p>
-            <div class="result"><strong>+12.5% conversion</strong> and <strong>+6.8% GMV</strong> on a platform at <strong>&pound;2M+ daily GMV</strong>.</div>
-            <div class="text-links"><a href="docs/growth_funnel_case_study.pdf" target="_blank" rel="noopener">Read full case study</a></div>
-          </article>
-
-          <article class="career-card reveal">
-            <div class="case-label">Growth and creator ecosystem, Huajiao</div>
-            <h3>Livestream Platform Growth</h3>
-            <p>
-              Owned user growth and creator ecosystem work across discovery, onboarding and creator tooling.
-            </p>
-            <div class="result"><strong>CTR +27%</strong>, <strong>retention +10.3%</strong> and creator tooling used across <strong>13K+ daily livestreams</strong>.</div>
-            <div class="text-links"><a href="docs/huajiao_livestream_case_study.pdf" target="_blank" rel="noopener">Read full case study</a></div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="career-cases">
-      <div class="container">
-        <div class="section-head">
-          <h2>Career case studies.</h2>
-          <p>
-            These case studies give the commercial context behind the AI work: a &pound;2M+ daily GMV live-commerce platform, self-serve analytics, funnel experimentation and creator growth across Baidu and Huajiao.
-          </p>
-        </div>
-        <div class="case-carousel reveal" aria-label="Career case studies">
-          <button class="case-arrow" type="button" data-direction="-1" aria-label="Previous career case">
-            <svg class="case-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M15 18l-6-6 6-6"></path>
-            </svg>
-          </button>
-          <article class="spotlight case-switcher" aria-label="Selected career case study">
-            <div class="spotlight-body">
-              <div>
-                <div class="case-label" id="career-case-label">0-to-1 platform build</div>
-                <h3 id="career-case-title">Live-Commerce Operating Platform</h3>
-                <p id="career-case-summary">
-                  A merchant and creator operating platform for Baidu live commerce, bringing products, live content, talent matching, campaigns and data into one operating surface.
-                </p>
-                <div class="result" id="career-case-result">On a <strong>&pound;2M+ daily GMV</strong> platform, broadcaster onboarding moved from <strong>72 hours to under a minute</strong>, with monthly active merchants up <strong>116%</strong>.</div>
-                <div class="text-links">
-                  <a id="career-case-link" href="docs/b2b_saas_control_center_case_study.pdf" target="_blank" rel="noopener">Read full case study</a>
+              <div class="platform-capabilities">
+                <section class="capability-group commerce">
+                  <h5>Commerce operations</h5>
+                  <ul>
+                    <li>Livestream product management</li>
+                    <li>Campaigns &amp; promotions</li>
+                  </ul>
+                </section>
+                <section class="capability-group creators">
+                  <h5>Creator operations</h5>
+                  <ul>
+                    <li>Live content &amp; scheduling</li>
+                    <li>Creator &amp; merchant management</li>
+                  </ul>
+                </section>
+                <section class="capability-group intelligence">
+                  <h5>Intelligence &amp; control</h5>
+                  <ul>
+                    <li>Audience profiles</li>
+                    <li>AI-assisted features</li>
+                    <li>Data &amp; insights</li>
+                    <li>Governance &amp; permissions</li>
+                  </ul>
+                </section>
+              </div>
+              <div class="platform-layer">
+                <div>
+                  <span>Shared platform</span>
+                  <strong>Unified operating layer</strong>
+                </div>
+                <p>Shared workflows, permissions and data for one daily workspace</p>
+              </div>
+              <div class="platform-impact">
+                <div class="platform-impact-item">
+                  <span class="platform-impact-label">Business impact</span>
+                  <strong>Core business platform</strong>
+                  <p>Became the daily operating layer for live-commerce teams</p>
+                </div>
+                <div class="platform-impact-item">
+                  <span class="platform-impact-label">Scale supported</span>
+                  <strong>£2M+</strong>
+                  <p>daily GMV supported by the operating platform</p>
                 </div>
               </div>
             </div>
-            <div class="spotlight-media">
-              <div class="media-head">Product evidence <span id="career-case-evidence">platform build and scale</span></div>
-              <img class="media-img" id="career-case-image" src="assets/screenshots/merchant_platform_infographic.png" alt="Live-commerce operating platform infographic" onclick="openLightbox(this.src)">
-            </div>
-          </article>
-          <button class="case-arrow" type="button" data-direction="1" aria-label="Next career case">
-            <svg class="case-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M9 18l6-6-6-6"></path>
-            </svg>
-          </button>
-          <div class="case-footer-nav" aria-live="polite">
-            <span class="case-step" id="career-case-step">01 / 04</span>
-            <div class="case-dots" aria-label="Career case position">
-              <button class="case-dot active" type="button" aria-label="Show Live-commerce platform" aria-current="true" data-case="0"></button>
-              <button class="case-dot" type="button" aria-label="Show Data Compass" data-case="1"></button>
-              <button class="case-dot" type="button" aria-label="Show Conversion and Growth" data-case="2"></button>
-              <button class="case-dot" type="button" aria-label="Show Huajiao Livestream Growth" data-case="3"></button>
-            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section" id="prototypes">
-      <div class="container">
-        <div class="section-head">
-          <h2>Other working prototypes.</h2>
-          <p>
-            Independent builds used to test a specific product interaction: wording support, story generation, life-choice simulation and structured gifting. Each one is a working page with a defined user flow.
-          </p>
+      <section class="section">
+        <div class="wrap">
+          <header class="section-head" data-n="03">
+            <div class="section-no">03 / Breadth</div>
+            <div>
+              <h3>Selected work across data, conversion and discovery</h3>
+              <p>One real-time decision product and two growth programmes, each built around what users needed to decide next.</p>
+            </div>
+          </header>
+          <div class="evidence-list">
+            <article class="evidence-row evidence-row--featured">
+              <div class="evidence-feature-copy">
+                <div class="evidence-type case-tag">Featured data product</div>
+                <h4>Data Compass</h4>
+                <p class="data-product-lead">A real-time decision product for merchants and creators running live commerce. It replaced delayed transaction-only reporting with a live view of traffic, engagement, product clicks, conversion and GMV.</p>
+                <div class="data-product-move"><b>Product move</b><p>Prioritised the live signals operators could act on, then organised 110+ metrics and breakdowns into a clear hierarchy. Shared definitions, reconciliation and monitoring kept the numbers trusted.</p></div>
+                <div class="data-outcomes" aria-label="Data Compass outcomes">
+                  <div class="data-outcome"><strong>&lt;5 sec</strong><span>refresh for core live metrics</span></div>
+                  <div class="data-outcome"><strong>&gt;90%</strong><span>eligible-user adoption</span></div>
+                  <div class="data-outcome"><strong>&gt;95%</strong><span>return use among users who joined another livestream</span></div>
+                  <div class="data-outcome"><strong>£2M+</strong><span>daily GMV platform scale</span></div>
+                </div>
+              </div>
+              <div class="compass-visual" role="img" aria-label="Data Compass turns live traffic, engagement, product click, conversion and GMV signals into operator decisions, backed by shared metric definitions, reconciliation and monitoring.">
+                <div class="compass-head"><span>Live decision loop</span><strong>Core signals &lt;5 sec</strong></div>
+                <div class="compass-journey" aria-hidden="true">
+                  <div class="compass-signal">Traffic</div>
+                  <div class="compass-signal">Engagement</div>
+                  <div class="compass-signal">Product clicks</div>
+                  <div class="compass-signal">Conversion</div>
+                  <div class="compass-signal">GMV</div>
+                </div>
+                <div class="compass-questions" aria-hidden="true">
+                  <div class="compass-question"><strong>What changed?</strong><span>See the live movement</span></div>
+                  <div class="compass-question"><strong>Why?</strong><span>Drill into the driver</span></div>
+                  <div class="compass-question"><strong>What next?</strong><span>Adjust the live room</span></div>
+                </div>
+                <div class="compass-trust" aria-hidden="true"><span>Shared definitions</span><span>Reconciled data</span><span>Monitored quality</span></div>
+              </div>
+            </article>
+            <article class="evidence-row">
+              <div class="evidence-type case-tag">Commercial growth</div>
+              <div><h4>End-to-End Live-Commerce Conversion</h4><p>Segmented the purchase journey, prioritised the highest-leverage drop-off and ran 12 A/B tests over three months.</p></div>
+              <div class="evidence-result">~12.5% CVR vs stable baseline<br>+6.8% GMV</div>
+              <div class="evidence-thumb evidence-thumb--diagram"><img src="assets/screenshots/conversion_growth_programme_v2.png" alt="Conversion growth programme showing the live-room purchase funnel, three-stage experiment approach and programme outcomes"></div>
+            </article>
+            <article class="evidence-row">
+              <div class="evidence-type case-tag">Consumer growth</div>
+              <div><h4>Livestream Discovery Optimisation</h4><p>Shortened the path to a room worth watching, while treating creator retention as the compounding growth lever.</p></div>
+              <div class="evidence-result">+27% discovery CTR<br>+10.3% user retention</div>
+              <div class="evidence-thumb evidence-thumb--diagram"><img src="assets/screenshots/discovery_growth_loop_v2.png" alt="Discovery growth loop connecting viewer entry points, AI-assisted distribution, a room worth watching, creator return and fresher supply"></div>
+            </article>
+          </div>
         </div>
-        <div class="prototype-grid">
-          <a class="prototype-card reveal" href="products/cherish/index.html" target="_blank" rel="noopener">
-            <img src="assets/screenshots/cherish_scene.png" alt="Cherish product screen">
+      </section>
+
+      <section class="section section-soft" id="prototypes">
+        <div class="wrap">
+          <header class="section-head" data-n="04">
+            <div class="section-no">04 / Prototypes</div>
             <div>
-              <strong>Cherish</strong>
-              <span>Writing support for difficult relationship conversations, helping the user find safer wording without making a diagnosis.</span>
-              <em>Open product</em>
+              <h3>Independent product experiments</h3>
+              <p>Five working prototypes, each built around a specific user decision or interaction.</p>
             </div>
-          </a>
-          <a class="prototype-card reveal" href="products/ai-storybook/reader-en.html" target="_blank" rel="noopener">
-            <img src="assets/screenshots/ai_storybook_en.png" alt="AI Storybook Generator product screen">
-            <div>
-              <strong>AI Storybook Generator</strong>
-              <span>A prompt-to-picture-book workflow that checks the story before generating a child-friendly reader.</span>
-              <em>See sample</em>
-            </div>
-          </a>
-          <a class="prototype-card reveal" href="products/parallel-life/index.html" target="_blank" rel="noopener">
-            <img src="assets/screenshots/parallel_life_scene.png" alt="Parallel Life product screen">
-            <div>
-              <strong>Parallel Life</strong>
-              <span>An interactive narrative simulation where choices change memory, relationships and later scenes.</span>
-              <em>Play simulation</em>
-            </div>
-          </a>
-          <a class="prototype-card reveal" href="products/giftwise/index.html" target="_blank" rel="noopener">
-            <img src="assets/screenshots/giftwise_scene.png" alt="GiftWise product screen">
-            <div>
-              <strong>GiftWise</strong>
-              <span>A small decision tool using recipient, occasion and budget to narrow the choice to three gift options.</span>
-              <em>Open product</em>
-            </div>
-          </a>
+          </header>
+          <div class="prototype-strip">
+            <a class="prototype" id="fitcue" href="products/fitcue/index.html" target="_blank" rel="noopener">
+              <div class="image"><img src="assets/screenshots/fitcue_en.png" alt="FitCue product interface"></div>
+              <div class="prototype-copy"><h4>FitCue</h4><p>Constraint-first workout matching that removes infeasible options.</p><span class="prototype-link">Open product page ↗</span></div>
+            </a>
+            <a class="prototype" id="parallel-life" href="products/parallel-life/index.html" target="_blank" rel="noopener">
+              <div class="image"><img src="assets/screenshots/parallel_life_scene.png" alt="Parallel Life product scene"></div>
+              <div class="prototype-copy"><h4>Parallel Life</h4><p>An LLM narrative simulation for exploring consequential life choices.</p><span class="prototype-link">Open product page ↗</span></div>
+            </a>
+            <a class="prototype" id="cherish" href="products/cherish/index.html" target="_blank" rel="noopener">
+              <div class="image"><img src="assets/screenshots/cherish_scene.png" alt="Cherish product scene"></div>
+              <div class="prototype-copy"><h4>Cherish</h4><p>A structured reflection tool for difficult relationship conversations.</p><span class="prototype-link">Open product page ↗</span></div>
+            </a>
+            <a class="prototype" id="ai-storybook" href="products/ai-storybook/reader-en.html" target="_blank" rel="noopener">
+              <div class="image"><img src="assets/screenshots/ai_storybook_en.png" alt="AI Storybook product interface"></div>
+              <div class="prototype-copy"><h4>AI Storybook</h4><p>A guided workflow from child-safe story structure to a finished book.</p><span class="prototype-link">Open product page ↗</span></div>
+            </a>
+            <a class="prototype" href="products/giftwise/index.html" target="_blank" rel="noopener">
+              <div class="image"><img src="assets/screenshots/giftwise_scene.png" alt="GiftWise product scene"></div>
+              <div class="prototype-copy"><h4>GiftWise</h4><p>Gift recommendations narrowed by recipient, occasion and constraints.</p><span class="prototype-link">Open product page ↗</span></div>
+            </a>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <footer class="closing" id="contact">
+        <div class="wrap">
+          <div class="closing-inner">
+            <div><h3>Let&rsquo;s talk product</h3><p>Based in Manchester. Open to Senior Product Manager and AI Product roles across the UK.</p></div>
+            <div class="closing-actions">
+              <a class="btn" href="mailto:catherine.jianhua@gmail.com">Email me</a>
+              <a class="btn secondary" href="https://www.linkedin.com/in/jianhua-catherine-chen-8a3847302/" target="_blank" rel="noopener">LinkedIn</a>
+              <a class="btn secondary" href="docs/Jianhua_Chen_CV_UK_ATS_V4_2.pdf" target="_blank" rel="noopener">Download CV</a>
+            </div>
+          </div>
+          <p class="closing-foot">Jianhua Chen (Catherine) · Manchester, UK · Global Talent Visa · No sponsorship required</p>
+        </div>
+      </footer>
+    </article>
   </main>
-
-  <footer class="contact" id="contact">
-    <div class="container contact-grid">
-      <div>
-        <h2>Looking for Senior PM, Applied AI PM and Product Lead roles in the UK.</h2>
-        <p>Most interested in AI workflow products, B2B SaaS, data products, growth and experimentation, marketplace systems and product strategy where reliability matters.</p>
-      </div>
-      <a class="button" href="mailto:catherine.jianhua@gmail.com">Email Catherine</a>
-    </div>
-  </footer>
-
-  <div class="lightbox" id="lightbox" aria-hidden="true">
-    <button type="button" onclick="closeLightbox()" aria-label="Close preview">x</button>
-    <img src="" alt="">
-  </div>
-
   <script>
-    const navLinks = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
-    const sections = navLinks
-      .map(link => document.querySelector(link.getAttribute('href')))
-      .filter(Boolean);
+    (function () {
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var targets = document.querySelectorAll('.section-head, .ai-case-card, .flagship > div, .evidence-row, .prototype, .closing-inner');
+      targets.forEach(function (el, i) { el.classList.add('reveal'); if (i % 3 === 1) el.classList.add('reveal-d1'); if (i % 3 === 2) el.classList.add('reveal-d2'); });
+      var all = document.querySelectorAll('.reveal');
+      if (reduce || !('IntersectionObserver' in window)) { all.forEach(function (el) { el.classList.add('in'); }); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.08, rootMargin: '0px' });
+      all.forEach(function (el) { io.observe(el); });
 
-    function updateActiveNav() {
-      const marker = window.scrollY + window.innerHeight * 0.32;
-      let current = null;
-      sections.forEach(section => {
-        if (section.offsetTop <= marker) current = section;
-      });
-      navLinks.forEach(link => {
-        link.classList.toggle('active', current && link.getAttribute('href') === '#' + current.id);
-      });
-    }
-    window.addEventListener('scroll', updateActiveNav, { passive: true });
-    updateActiveNav();
-
-    const careerCases = [
-      {
-        navTitle: 'Live-commerce platform',
-        navMeta: 'Platform build',
-        label: '0-to-1 platform build',
-        title: 'Live-Commerce Operating Platform',
-        summary: 'A merchant and creator operating platform for Baidu live commerce, bringing products, live content, talent matching, campaigns and data into one operating surface.',
-        result: 'On a <strong>&pound;2M+ daily GMV</strong> platform, broadcaster onboarding moved from <strong>72 hours to under a minute</strong>, with monthly active merchants up <strong>116%</strong>.',
-        evidence: 'platform build and scale',
-        image: 'assets/screenshots/merchant_platform_infographic.png',
-        alt: 'Live-commerce operating platform infographic',
-        href: 'docs/b2b_saas_control_center_case_study.pdf'
-      },
-      {
-        navTitle: 'Data Compass',
-        navMeta: 'Analytics',
-        label: 'Self-serve data product',
-        title: 'Data Compass',
-        summary: 'A real-time analytics product for non-technical merchant operators, designed around the next decision rather than dashboard completeness.',
-        result: '<strong>110+ dimensions</strong>, <strong>90%+ adoption</strong> and <strong>95%+ return use</strong> among active broadcasters and operators.',
-        evidence: 'self-serve analytics',
-        image: 'assets/screenshots/data_compass_infographic.png',
-        alt: 'Data Compass analytics product infographic',
-        href: 'docs/data_compass_case_study.pdf'
-      },
-      {
-        navTitle: 'Conversion and Growth',
-        navMeta: 'Experimentation',
-        label: 'Growth and experimentation',
-        title: 'Conversion and Growth',
-        summary: 'Segmented the live-commerce purchase funnel, found the highest-leverage drop-offs and ran a focused A/B programme.',
-        result: '<strong>+12.5% conversion</strong> and <strong>+6.8% GMV</strong> on a platform at <strong>&pound;2M+ daily GMV</strong>.',
-        evidence: 'funnel experiment results',
-        image: 'assets/screenshots/baidu_funnel.png?v=2',
-        alt: 'Baidu live-commerce conversion funnel case visual',
-        href: 'docs/growth_funnel_case_study.pdf'
-      },
-      {
-        navTitle: 'Huajiao Livestream Growth',
-        navMeta: 'Creator ecosystem',
-        label: 'Creator ecosystem and discovery',
-        title: 'Huajiao Livestream Growth',
-        summary: 'Growth and creator ecosystem work across discovery, onboarding and creator tooling on a large live-streaming platform.',
-        result: '<strong>CTR +27%</strong>, <strong>retention +10.3%</strong> and creator tooling used across <strong>13K+ daily livestreams</strong>.',
-        evidence: 'creator growth and tooling',
-        image: 'assets/screenshots/huajiao_discovery.png?v=2',
-        alt: 'Huajiao livestream discovery and creator growth case visual',
-        href: 'docs/huajiao_livestream_case_study.pdf'
-      }
-    ];
-
-    const caseDots = Array.from(document.querySelectorAll('.case-dot[data-case]'));
-    const caseArrows = Array.from(document.querySelectorAll('.case-arrow[data-direction]'));
-    const caseSwitcher = document.querySelector('.case-switcher');
-    const caseStep = document.getElementById('career-case-step');
-    const caseLabel = document.getElementById('career-case-label');
-    const caseTitle = document.getElementById('career-case-title');
-    const caseSummary = document.getElementById('career-case-summary');
-    const caseResult = document.getElementById('career-case-result');
-    const caseEvidence = document.getElementById('career-case-evidence');
-    const caseImage = document.getElementById('career-case-image');
-    const caseLink = document.getElementById('career-case-link');
-    let currentCaseIndex = 0;
-
-    function setCareerCase(index) {
-      const nextIndex = (index + careerCases.length) % careerCases.length;
-      const item = careerCases[nextIndex];
-      if (!item) return;
-      currentCaseIndex = nextIndex;
-      caseStep.textContent = `${String(nextIndex + 1).padStart(2, '0')} / ${String(careerCases.length).padStart(2, '0')}`;
-      caseLabel.textContent = item.label;
-      caseTitle.textContent = item.title;
-      caseSummary.textContent = item.summary;
-      caseResult.innerHTML = item.result;
-      caseEvidence.textContent = item.evidence;
-      caseImage.src = item.image;
-      caseImage.alt = item.alt;
-      caseLink.href = item.href;
-      caseDots.forEach(button => {
-        const isActive = Number(button.dataset.case) === nextIndex;
-        button.classList.toggle('active', isActive);
-        if (isActive) {
-          button.setAttribute('aria-current', 'true');
-        } else {
-          button.removeAttribute('aria-current');
-        }
-      });
-    }
-
-    caseDots.forEach(button => {
-      button.addEventListener('click', () => setCareerCase(Number(button.dataset.case)));
-    });
-
-    caseArrows.forEach(button => {
-      button.addEventListener('click', () => setCareerCase(currentCaseIndex + Number(button.dataset.direction)));
-    });
-
-    if (caseSwitcher) {
-      let swipeStartX = null;
-      let didSwipe = false;
-      caseSwitcher.addEventListener('pointerdown', event => {
-        swipeStartX = event.clientX;
-        didSwipe = false;
-        if (caseSwitcher.setPointerCapture) caseSwitcher.setPointerCapture(event.pointerId);
-      });
-      caseSwitcher.addEventListener('pointerup', event => {
-        if (swipeStartX === null) return;
-        const deltaX = event.clientX - swipeStartX;
-        if (Math.abs(deltaX) > 42) {
-          didSwipe = true;
-          setCareerCase(currentCaseIndex + (deltaX < 0 ? 1 : -1));
-        }
-        swipeStartX = null;
-      });
-      caseSwitcher.addEventListener('pointercancel', () => {
-        swipeStartX = null;
-      });
-      caseSwitcher.addEventListener('click', event => {
-        if (!didSwipe) return;
-        event.preventDefault();
-        event.stopPropagation();
-        didSwipe = false;
-      }, true);
-    }
-
-    setCareerCase(0);
-
-    if ('IntersectionObserver' in window) {
-      // 只有确认动画能跑，才把元素藏起来做入场
-      document.documentElement.classList.add('js-anim');
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const sibs = Array.prototype.filter.call(
-              entry.target.parentElement ? entry.target.parentElement.children : [],
-              el => el.classList && el.classList.contains('reveal'));
-            const i = Math.max(0, sibs.indexOf(entry.target));
-            entry.target.style.transitionDelay = Math.min(i * 60, 240) + 'ms';
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { rootMargin: '0px 0px -40px 0px', threshold: 0.08 });
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    } else {
-      document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
-    }
-
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = lightbox.querySelector('img');
-
-    function openLightbox(src) {
-      lightboxImg.src = src;
-      lightbox.classList.add('open');
-      lightbox.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox() {
-      lightbox.classList.remove('open');
-      lightbox.setAttribute('aria-hidden', 'true');
-      lightboxImg.src = '';
-      document.body.style.overflow = '';
-    }
-
-    lightbox.addEventListener('click', event => {
-      if (event.target === lightbox) closeLightbox();
-    });
-
-    document.addEventListener('keydown', event => {
-      if (event.key === 'Escape') closeLightbox();
-    });
+      var tb = document.querySelector('.topbar'); var onScroll = function () { tb.classList.toggle('scrolled', window.scrollY > 24); }; onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+    })();
   </script>
 </body>
 </html>

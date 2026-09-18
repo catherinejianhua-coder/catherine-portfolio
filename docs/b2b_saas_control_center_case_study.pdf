@@ -1,99 +1,377 @@
-%PDF-1.4
-%“Œ‹ž ReportLab Generated PDF document (opensource)
+%PDF-1.3
+%âãÏÓ
 1 0 obj
 <<
-/F1 2 0 R /F2 3 0 R /F3 4 0 R
+/PageMode /UseNone
+/Pages 2 0 R
+/Type /Catalog
 >>
 endobj
 2 0 obj
 <<
-/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
+/Count 2
+/Kids [ 3 0 R 9 0 R ]
+/Type /Pages
 >>
 endobj
 3 0 obj
 <<
-/BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
+/Contents 4 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Parent 2 0 R
+/Resources <<
+/Font 5 0 R
+/ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
 >>
 endobj
 4 0 obj
 <<
-/BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding /Name /F3 /Subtype /Type1 /Type /Font
+/Length 5665
 >>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 62.69291 766.5354 cm
+q
+.062745 .094118 .12549 rg
+BT 1 0 0 1 0 4 Tm /F2 20 Tf 24 TL (Live-Commerce Operating Platform Case Study) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 745.5354 cm
+q
+.133333 .423529 .360784 rg
+BT 1 0 0 1 0 3 Tm /F1 12 Tf 15 TL (The Platform Merchants and Creators Ran Their Live-Commerce Business On) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 680.3354 cm
+q
+BT 1 0 0 1 0 45.6 Tm -0.022673 Tw 13.8 TL /F2 9.6 Tf .12549 .12549 .12549 rg (One-line judgement:) Tj /F1 9.6 Tf ( Merchants and creators weren't short of tools \227 they were short of *one platform*. I built) Tj T* 0 Tw (the firm's live-commerce operating platform ) Tj /F2 9.6 Tf (0-to-1) Tj /F1 9.6 Tf ( \227 where a merchant or creator runs their entire live business) Tj T* (\(products, content, talent-merchant collaboration, marketing, campaigns and data\) from one surface.) Tj T* (Comparable to leading merchant and creator platforms.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 653.3354 cm
+q
+BT 1 0 0 1 0 2.5 Tm 15 TL /F2 12.5 Tf .062745 .094118 .12549 rg (Role & Scope) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 633.5354 cm
+q
+BT 1 0 0 1 0 4.2 Tm 13.8 TL /F2 9.6 Tf .12549 .12549 .12549 rg (Role:) Tj /F1 9.6 Tf ( Lead Product Manager \227 built the control centre 0-to-1) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 598.9354 cm
+q
+BT 1 0 0 1 0 18 Tm 13.8 TL /F2 9.6 Tf .12549 .12549 .12549 rg (Product:) Tj /F1 9.6 Tf ( the firm's live-commerce operating platform for merchants and creators \(a \2432M+ daily GMV business\)) Tj T* (\227 built 0-to-1.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 564.3354 cm
+q
+BT 1 0 0 1 0 18 Tm 13.8 TL /F2 9.6 Tf .12549 .12549 .12549 rg (Scope:) Tj /F1 9.6 Tf ( Product strategy, workflow consolidation, information architecture, seller/operator research, adoption,) Tj T* (cross-functional delivery with engineering, design and operations.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 537.3354 cm
+q
+.062745 .094118 .12549 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (Context) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 476.1354 cm
+q
+.12549 .12549 .12549 rg
+BT 1 0 0 1 0 45.6 Tm /F1 9.6 Tf 13.8 TL (Running a live-commerce business means juggling several jobs at once \227 account, products, live content,) Tj T* (talent-merchant collaboration and marketing. These lived scattered across separate tools, so merchants and) Tj T* (creators paid a heavy tax: low operational efficiency, a steep learning curve, and serious gaps where the) Tj T* (capabilities they needed simply did not exist yet.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 449.1354 cm
+q
+.062745 .094118 .12549 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (Problem) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 429.3354 cm
+q
+.12549 .12549 .12549 rg
+BT 1 0 0 1 0 4.2 Tm /F1 9.6 Tf 13.8 TL (The problem was concrete:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 394.7354 cm
+q
+.298039 .32549 .34902 rg
+BT 1 0 0 1 14 18 Tm /F3 9.6 Tf 13.8 TL ("Functionality is scattered across separate tools \227 so running a live-commerce business means low) Tj T* (operational efficiency, a steep learning curve, and serious feature gaps.") Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 359.1354 cm
+q
+.12549 .12549 .12549 rg
+BT 1 0 0 1 0 18 Tm /F1 9.6 Tf 13.8 TL (That scattering and those gaps were a tax every merchant and creator paid. The opportunity was to build the) Tj T* (platform that removed both.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 332.1354 cm
+q
+.062745 .094118 .12549 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (Insight) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 284.7354 cm
+q
+BT 1 0 0 1 0 31.8 Tm -0.00799 Tw 13.8 TL /F1 9.6 Tf .12549 .12549 .12549 rg (For a B2B operating platform, the win is twofold: ) Tj /F2 9.6 Tf (fill the missing capabilities, and bring everything onto the) Tj T* 0 Tw (single surface the operator works from all day.) Tj /F1 9.6 Tf ( Whether merchants and creators keep coming back is the) Tj T* (honest test of whether you achieved that.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 257.7354 cm
+q
+.062745 .094118 .12549 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (Strategic Decisions) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 196.5354 cm
+q
+BT 1 0 0 1 0 45.6 Tm 13.8 TL /F1 9.6 Tf .12549 .12549 .12549 rg (1. ) Tj /F2 9.6 Tf (Build 0-to-1 on proven infrastructure.) Tj /F1 9.6 Tf ( I reused the platform's solid underlying infrastructure and rebuilt the) Tj T* (capabilities that were failing operators, then unified the scattered workflows \227 products, live content,) Tj T* (talent-merchant matching, marketing and data \227 onto one surface, so a merchant or creator runs the whole) Tj T* (business without leaving it.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 148.1354 cm
+q
+BT 1 0 0 1 0 31.8 Tm 13.8 TL /F1 9.6 Tf .12549 .12549 .12549 rg (2. ) Tj /F2 9.6 Tf (Close the feature gaps, not just tidy the UI.) Tj /F1 9.6 Tf ( The old tools were fragmented *and* incomplete; the platform) Tj T* (had to add the capabilities merchants and creators actually needed, then bring them together \227 cutting the) Tj T* (learning curve and operational effort at the same time.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 85.93543 cm
+q
+BT 1 0 0 1 0 45.6 Tm -0.00912 Tw 13.8 TL /F1 9.6 Tf .12549 .12549 .12549 rg (3. ) Tj /F2 9.6 Tf (Judge success by whether operators return, not by feature count.) Tj /F1 9.6 Tf ( For an operating tool, the honest test) Tj T* 0 Tw (is whether it becomes the surface operators run their day from. It collapsed broadcaster onboarding from ) Tj /F2 9.6 Tf (72) Tj T* (hours to under a minute) Tj /F1 9.6 Tf ( and grew ) Tj /F2 9.6 Tf (monthly active merchants +116%) Tj /F1 9.6 Tf (, while materially reducing operational) Tj T* (effort per cycle.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 58.93543 cm
+q
+.062745 .094118 .12549 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (Trade-offs) Tj T* ET
+Q
+Q
+ 
+
+endstream
 endobj
 5 0 obj
 <<
-/Contents 10 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 9 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 /Trans <<
-
->> 
-  /Type /Page
+/F1 6 0 R
+/F2 7 0 R
+/F3 8 0 R
 >>
 endobj
 6 0 obj
 <<
-/Contents 11 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 9 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 /Trans <<
-
->> 
-  /Type /Page
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
 >>
 endobj
 7 0 obj
 <<
-/PageMode /UseNone /Pages 9 0 R /Type /Catalog
+/BaseFont /Helvetica-Bold
+/Encoding /WinAnsiEncoding
+/Name /F2
+/Subtype /Type1
+/Type /Font
 >>
 endobj
 8 0 obj
 <<
-/Author (Jianhua Chen) /CreationDate (D:20260703231223+01'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20260703231223+01'00') /Producer (ReportLab PDF Library - \(opensource\)) 
-  /Subject (\(unspecified\)) /Title (b2b_saas_control_center_case_study) /Trapped /False
+/BaseFont /Helvetica-Oblique
+/Encoding /WinAnsiEncoding
+/Name /F3
+/Subtype /Type1
+/Type /Font
 >>
 endobj
 9 0 obj
 <<
-/Count 2 /Kids [ 5 0 R 6 0 R ] /Type /Pages
+/Contents 10 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Parent 2 0 R
+/Resources <<
+/Font 5 0 R
+/ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
 >>
 endobj
 10 0 obj
 <<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 2291
+/Length 3627
 >>
 stream
-Gatm<gN)%,&:O:SlsuuQi^f#Qd=phSh7DWA4@s%jIIR\5Jg,#o:]\q#rk>ue78Xh;;rbkR^4[bNYikB+6b+nj0@tZ6Ee'&OI(F@7ojEo4)`RjL^;+ZFZ[^<VqTc)'9LCIT@5aZ;'7UYQF*Q@U:VBmb!G<AVXucm/od2s1C3>8(]$2k;?B.*li/MFUc`TM-+s-RD;W]u@&VmQ*Y*]g?$GL)q,Z<`CaY\cW;o[Q&YdfJ-3FVat^Ue@fP;Y&FVgmV-Sj2a3E;\sF2@kguq%^-rkS">?On(Yk)ap$u_J!=G%$ui-,F+#PX8on/-oa?/7B&_l[>(m(l_(0IZ/[d9%neg#V?CcnG/g+4SKZDj\@saHKN-*UXs^i=+9#(e(jmq1-poD%?cFUfo>5m`JEXB5Z\'W\Mfsm1E5db0#';>[!L\J#1=L4*Gr%-'hqB%C=3i11Z`X[Zm_C\299GXuq8WVdE5=qI^=SHD\Y<B?AAe93H)ORu-QJ(87ZQ86n.s:r,q'2mqBR36mMqnB65*ZN$'-b/52%!m<>=ii%IOF9-0$a9H3fWa%,O)L__V-MC=\ATQEd83['CN8cI;qDi:mT$f1`9'We`Acm-Xs$9'/B]dA9H;`1:L!PffFD[`g^e!g9jFBLS3nZc+uC69Hg["5KboNR_dPDt2;@b3>V(M>s*_4D-t^X#*WFG4#=&Un2@:(jq[+qId<tOLH:#qgPRn&*<2'G4Q@M9m_(Tp^:^hI&m$p)cj0X=-YVD#`4%(Wfe5fa=+']-)_XM:VsXUG2pWKS-ZlafPuN"SUoZ:5s4Da])ff:#JPER&JZ_"/c:(hGGFfB%stGI.oV_,LPR;+i&MC??3dO%N[jBDe-:uY=5+m7Uj>Qe\KUgVbX>^FSg^NUp((P5%:OKl9#ZRYH'WICW@Ao+!8!b/(]oWWg-4=,,#V>)dD#Q%k!X_dEt]lh_cU@3\?[+rF,g-8.pg\VM#%h2T=#$XF'."Ag$Zq-/mXW!r@kGD)pG0=!VaL9PD\dRe)FoYlJR"l'I6*?7%ubgTdUeihgN%=ATXR,=@]IV]j.:*d?4mMfa<d/OY"U[pP*H8H0;aJ4"n1K-)*,%LZYhD]KHH>0k5/J`4-U<N*s_D%Bj@\C.'-::eM@B0;4fodu\VDLlT].Hj13l6TcEK-]*W^0-X@E6cF)[L('>ZWt^ia&[b.H2<m\t)HL[VlUceR[,7"Jfi"L5$a-P@MMd>V&0bIk$ce'uO9YIjTabhKkomS[#i!kD<H?`W32lBhqg)[TlFeHEc%%Fc;$'s'>Jl20dKe31C>X7JL`ZiHC_+Glk@:+c@"lN0_Qih<M&Xr&p?B^a6LsR0?pG+uR_gPJUWQQNY!Hn^Jp<3n&l^NQT[fM&Y",$0iMdm'X&9a@f]I<bm$SHQ8YtRWoW*q*]`d+oCj2ts^9c(C]sbpo=VatVU*!kWNNDoJH^_3QBQM.68c?Dg-LK2-^@2#mD/rq?J4P#HZSug'oC-&(Flp<S5G!Sf@Gl?:*NW=E63\7_77VG:g).35]SQ\J)k"burd:6C'9Ql"c<P%"Fk1T38o@;FY@Z+WoIDu3D"CQ$I<mqi_QR7ORE@A<FVTuUmME43EuYGa8NB!,Cu0H1G/0Cf"A9LnfQ4I=O^drPcSY8'hbZ6(C0OhMf;=.`<(Jr2UuG*\D*rTL<,Saa,9loJ7m^.;GTDDU:7k8/p#&#&.^!j:rIo*m.MF#*AA=2<TWk70B!TiSX:Cu-Z1U_+bIN*/`&)6C)jEe8<OO3B%TfrX.c+_.kCt1h[WRW66`lVXXWhU.?/Po2&bYR=BAQ(tg5Sm&)]13&e0_pWAMik!eV[E#Xk,Y(.pdZ471nMu9XA@f"t4B3dZD"(g,em=V&RW_rmg6XV[10*&B&-Lr_:2_ULe*PaaHb*-/u&?rmu:J0!(+tA_Wn\EN%NI5);IUcEWo&-ja_KFbYPIQNR'MgR-@iR,0?F&%(kc1GG%0g<)$@eM=+?$\--8+]jpH=<aNgR/0^elf"3oN;_:;V@Pjmokpa3N`?]Pn%m_*@c&R3=$H'jL\,T9C$tG60_bm$nq.:/,1>.bgXoo_7+d(3Cf-=P2scp?.D:@54(F0!J0B*:iR2c%_bhOuZ`h/=3)X)%h.A^Ti06\/JIP?X4!GZSY1*E>9P17LM^,S@3^p<<9Z7.P%[3[Zcb.gk.$`$herZh/78XtPHpT$(V>01t[2aNW79uV&a@,amqrkW?T8lshpX`C&#Xg>^9Onlpc;[8['=2Fg&D!ku.hHQmXH/kuo<t1G4IHtB`I&qpjQSp]Zi:"qV-(/~>endstream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 62.69291 735.3354 cm
+q
+BT 1 0 0 1 0 45.6 Tm 13.8 TL /F1 9.6 Tf .12549 .12549 .12549 rg (The core trade-off was ) Tj /F2 9.6 Tf (consolidation vs. modular simplicity.) Tj /F1 9.6 Tf ( Separate, single-purpose tools are simpler to) Tj T* (build and ship independently; one unified console is harder to design and to keep coherent as it grows. I chose) Tj T* (consolidation because the operator's real problem was fragmentation itself \227 and a slightly more complex) Tj T* (product that ends context-switching beats four simple tools that don't.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 708.3354 cm
+q
+BT 1 0 0 1 0 2.5 Tm 15 TL /F2 12.5 Tf .062745 .094118 .12549 rg (Outcomes & Impact) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 688.5354 cm
+BT /F1 12 Tf 14.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 -2 1.8 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 72.69291 688.5354 cm
+q
+BT 1 0 0 1 0 4.2 Tm 13.8 TL /F1 9.6 Tf .12549 .12549 .12549 rg (Consolidated ) Tj /F2 9.6 Tf (account, product, content and marketing) Tj /F1 9.6 Tf ( workflows into a single seller/operator console.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 654.9354 cm
+BT /F1 12 Tf 14.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 -2 15.6 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 72.69291 654.9354 cm
+q
+BT 1 0 0 1 0 18 Tm 13.8 TL /F1 9.6 Tf .12549 .12549 .12549 rg (Collapsed ) Tj /F2 9.6 Tf (broadcaster onboarding from 72 hours to under a minute) Tj /F1 9.6 Tf ( \227 a step-change in how fast the) Tj T* (platform could bring sellers live.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 621.3354 cm
+BT /F1 12 Tf 14.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 -2 15.6 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 72.69291 621.3354 cm
+q
+BT 1 0 0 1 0 18 Tm 13.8 TL /F1 9.6 Tf .12549 .12549 .12549 rg (Grew ) Tj /F2 9.6 Tf (monthly active merchants +116%) Tj /F1 9.6 Tf ( \227 evidence the console became the surface sellers actually) Tj T* (returned to.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 587.7354 cm
+BT /F1 12 Tf 14.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 -2 15.6 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 72.69291 587.7354 cm
+q
+BT 1 0 0 1 0 18 Tm 13.8 TL /F1 9.6 Tf .12549 .12549 .12549 rg (Materially ) Tj /F2 9.6 Tf (reduced operational effort per cycle) Tj /F1 9.6 Tf (, lowering the cost of running a live-commerce business on) Tj T* (the platform.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 580.7354 cm
+Q
+q
+1 0 0 1 62.69291 553.7354 cm
+q
+.062745 .094118 .12549 rg
+BT 1 0 0 1 0 2.5 Tm /F2 12.5 Tf 15 TL (What I Learned) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 520.1354 cm
+BT /F1 12 Tf 14.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 -2 15.6 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 72.69291 520.1354 cm
+q
+BT 1 0 0 1 0 18 Tm 13.8 TL /F2 9.6 Tf .12549 .12549 .12549 rg (For B2B operating tools, "one place" can be the whole product.) Tj /F1 9.6 Tf ( Removing fragmentation is often worth) Tj T* (more than any individual feature.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 486.5354 cm
+BT /F1 12 Tf 14.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 -2 15.6 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 72.69291 486.5354 cm
+q
+BT 1 0 0 1 0 18 Tm 13.8 TL /F2 9.6 Tf .12549 .12549 .12549 rg (Repeat use is the honest KPI for an operating surface.) Tj /F1 9.6 Tf ( Onboarding speed and returning merchants) Tj T* (measure whether you actually became part of the operator's day.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 452.9354 cm
+BT /F1 12 Tf 14.4 TL ET
+0 0 0 rg
+BT 1 0 0 1 -2 15.6 Tm (\177) Tj T* ET
+Q
+q
+1 0 0 1 72.69291 452.9354 cm
+q
+BT 1 0 0 1 0 18 Tm 13.8 TL /F2 9.6 Tf .12549 .12549 .12549 rg (Consolidation only wins if it also fills the gaps.) Tj /F1 9.6 Tf ( Bringing scattered tools together mattered because it cut) Tj T* (friction, learning cost and missing features at once \227 not because it looked tidier.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 445.9354 cm
+Q
+ 
+
+endstream
 endobj
 11 0 obj
 <<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 1429
+/Author (Jianhua Chen)
+/CreationDate (D\07220260703231223\05301\04700\047)
+/Creator (\050unspecified\051)
+/Keywords ()
+/ModDate (D\07220260703231223\05301\04700\047)
+/Producer (ReportLab PDF Library \055 \050opensource\051)
+/Subject (\050unspecified\051)
+/Title (b2b\137saas\137control\137center\137case\137study)
+/Trapped (\057False)
 >>
-stream
-GauHK?#Sa]&:Dg-=<,\ZgVu9I[et]jjj5N0??,A_5[Wr5Q7.Y#7B.UJTDs=pPbfe5K/aZ(#[em7G*e_eS__4@_+u%7Z\ms]:%(9a'IU7?.%Wj`>(<>Teee?m`.p;78Mjd#X-a[O1n%1g)<1-u"NGkm=W5P!>u<_DQ9Kjq\akdgMW,nPXWDkX/WJ=-VbA%)cENh"F]$MG=o*^#ruaMii^]D;<_JQ2-a]UP)c<I'7P[>3<4*F.E;Si1eQ3d=?bC!*3IZh:e5l-[h3_AMPg`f>@ON5U\\XI@^Aa6aRmtJhR**O:U*cRS??:KB-hfih<h('S$GgduO2X[m.[eCG)ToT*>8?/fgC<='hCH-&4Q11pdFRM%Y&I*<M8St.mpC+Q1Y2>r![:ok>XP!iQ4.DhC83_N<roA=Y\f*LD3T"*bC[GRaWd7*Od0B[ioEAKGd.-h^\0OI.;pts.a/JWC&OSBs6@UI-X9[R2OoF\eBuMAm1-iAPABjB79r*5k"koF'$b%`QuJ3:%D#,8eKb^#Ife:sk/h(uid3P@j5j)sT,NKcE(f*;F]Gcl4ahqXEZ(^/'0N/e8I.*+i;ptYOB6NmUG).HENd_pRDl-\%m)%/T%bCVHVHbC7r?)J9K1+"dXfE]Q9?lXE*k>@_]9RVDN(,E2hcnlTl,[N*VtC2*]1dH:2c]=ces#=cD&iJU3eSSoACY=GlVcqHp5,>ZJ(n%G%3AP1M.Yr>-!WPHi%+tN37+:.a\^VpNNB[gG>j_C)fH-]'VmPSpHol9Pr`($K4&rOPG'S>q\h4$>h8chS=Y"`YWG/Yp@<U=YqCDhe)m=%>-\pVVtUoGK1+kOE(Zb6?D2T<,psgK+n1ta7Ja@6(6[<(j4E`AnTHH8uqZJD+qc$hSY63%?khiP@1n9N8i^+c[\)_/u$<8^cedj@^poCR2Fn$I13^Gn.FHiFT>)L9H.;'Q&b?eZ@+'\7=Ih4&g$,f_@C#?JkVr(J&[(ba7*lj+m<Ut2V_L.<=c^&lh#ZBmZS]Qdk@NG!FUruP*:N33.fkX2#>sf\nh/`RFfFrk=[.!r#3-`e9O@sacj=2!5lQDXubu6RsrXidMosmJ=VY6ToAft,k/GsI<-Duc\_&T1U$FfCRXuu'G+VZ8GOFib$G*W4i'bL2lF>r\cc1S]h&CYO2d]"I^A/6Rj\,T:`n861$YC9>XD\EeIsk!=orS`cu4D=A*LjH;$08trcJ;0:No1Kess2WD!P^4=`9pVJ9-H]Sjna?LA&4CmBEojXO!T*+"X*GgRgi'R_6d80WakT3o8au_R0F\4/&l+'n14:dV:7bPV#g</.X,,\FNZ;Lrbs9f7muP2J0X>Z*(\$h3O,W=jo%/UV_i2*rsUO/][#]Xr>kP@;Y5.[P'>P5`m.6@/qeEL.S5m2nlrG"ZPU`LB$76]s6#)J%XCQ@K~>endstream
 endobj
 xref
 0 12
 0000000000 65535 f 
-0000000061 00000 n 
-0000000112 00000 n 
-0000000219 00000 n 
-0000000331 00000 n 
-0000000446 00000 n 
-0000000650 00000 n 
-0000000854 00000 n 
-0000000922 00000 n 
-0000001222 00000 n 
-0000001287 00000 n 
-0000003670 00000 n 
+0000000015 00000 n 
+0000000083 00000 n 
+0000000148 00000 n 
+0000000347 00000 n 
+0000006064 00000 n 
+0000006115 00000 n 
+0000006222 00000 n 
+0000006334 00000 n 
+0000006449 00000 n 
+0000006649 00000 n 
+0000010329 00000 n 
 trailer
 <<
-/ID 
-[<1f96365eee3acc4bbde4592e36f2fd2b><1f96365eee3acc4bbde4592e36f2fd2b>]
-% ReportLab generated PDF document -- digest (opensource)
-
-/Info 8 0 R
-/Root 7 0 R
 /Size 12
+/Root 1 0 R
+/Info 11 0 R
+/ID [ (\037\2266\136\356\072\314K\275\344Y\0566\362\375\053) (\037\2266\136\356\072\314K\275\344Y\0566\362\375\053) ]
 >>
 startxref
-5191
+10686
 %%EOF
